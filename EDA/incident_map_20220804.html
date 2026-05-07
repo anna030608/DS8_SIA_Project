@@ -1,0 +1,3620 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_79b2a162d2c466646e30466c6f77d8b0 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_79b2a162d2c466646e30466c6f77d8b0" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_79b2a162d2c466646e30466c6f77d8b0 = L.map(
+                "map_79b2a162d2c466646e30466c6f77d8b0",
+                {
+                    center: [23.5, 121.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_25bc6fcbb566859819275f0eb5265168 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_25bc6fcbb566859819275f0eb5265168.addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+            var circle_marker_28e27104b59f676af98c48bfe2a40512 = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_15998d165bb4ee5ca46852e4586affa5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8f3c99bf0d8c50a2bfb0aec7b52a7801 = $(`<div id="html_8f3c99bf0d8c50a2bfb0aec7b52a7801" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 1<br>논조: -2.8892455858748</div>`)[0];
+                popup_15998d165bb4ee5ca46852e4586affa5.setContent(html_8f3c99bf0d8c50a2bfb0aec7b52a7801);
+            
+        
+
+        circle_marker_28e27104b59f676af98c48bfe2a40512.bindPopup(popup_15998d165bb4ee5ca46852e4586affa5)
+        ;
+
+        
+    
+    
+            var circle_marker_3a17249fc29202cfac00ebfef87364ed = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_7a2d2fc981f9346b20618b501b810d95 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ba28016e0f34d7ecb35bb5e751c3ff0a = $(`<div id="html_ba28016e0f34d7ecb35bb5e751c3ff0a" style="width: 100.0%; height: 100.0%;">코드: 190<br>언급량: 10<br>논조: -2.83033254037081</div>`)[0];
+                popup_7a2d2fc981f9346b20618b501b810d95.setContent(html_ba28016e0f34d7ecb35bb5e751c3ff0a);
+            
+        
+
+        circle_marker_3a17249fc29202cfac00ebfef87364ed.bindPopup(popup_7a2d2fc981f9346b20618b501b810d95)
+        ;
+
+        
+    
+    
+            var circle_marker_df6f350d233af9ad721e3a7bbac30a72 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_06ab316b346acbee9331a22d77a25030 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b02c919f572565d99b68139c64108058 = $(`<div id="html_b02c919f572565d99b68139c64108058" style="width: 100.0%; height: 100.0%;">코드: 191<br>언급량: 1<br>논조: -3.57833655705996</div>`)[0];
+                popup_06ab316b346acbee9331a22d77a25030.setContent(html_b02c919f572565d99b68139c64108058);
+            
+        
+
+        circle_marker_df6f350d233af9ad721e3a7bbac30a72.bindPopup(popup_06ab316b346acbee9331a22d77a25030)
+        ;
+
+        
+    
+    
+            var circle_marker_e572362b9176dfa1aa5d9541d9e68481 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.26, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_1ef1c11e4fd6610033ae3aea58f3a441 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_695304181a7063df0d66c7f4166cea97 = $(`<div id="html_695304181a7063df0d66c7f4166cea97" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 13<br>논조: -2.66986707500552</div>`)[0];
+                popup_1ef1c11e4fd6610033ae3aea58f3a441.setContent(html_695304181a7063df0d66c7f4166cea97);
+            
+        
+
+        circle_marker_e572362b9176dfa1aa5d9541d9e68481.bindPopup(popup_1ef1c11e4fd6610033ae3aea58f3a441)
+        ;
+
+        
+    
+    
+            var circle_marker_93b9a24e63136ffe463c745ca83450d6 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.12, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_0a1953dda42b695085364e78675e4536 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6e5ba3f8ae940a957e2c8555d96af209 = $(`<div id="html_6e5ba3f8ae940a957e2c8555d96af209" style="width: 100.0%; height: 100.0%;">코드: 191<br>언급량: 6<br>논조: -2.8952380952381</div>`)[0];
+                popup_0a1953dda42b695085364e78675e4536.setContent(html_6e5ba3f8ae940a957e2c8555d96af209);
+            
+        
+
+        circle_marker_93b9a24e63136ffe463c745ca83450d6.bindPopup(popup_0a1953dda42b695085364e78675e4536)
+        ;
+
+        
+    
+    
+            var circle_marker_655be0601c761956d329d4b83c8514e3 = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_915bc5fcfabd3a9be24b31e005fb3540 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_22c1d0c5a61d275a74e7f066e1ea24df = $(`<div id="html_22c1d0c5a61d275a74e7f066e1ea24df" style="width: 100.0%; height: 100.0%;">코드: 195<br>언급량: 2<br>논조: -3.01724137931034</div>`)[0];
+                popup_915bc5fcfabd3a9be24b31e005fb3540.setContent(html_22c1d0c5a61d275a74e7f066e1ea24df);
+            
+        
+
+        circle_marker_655be0601c761956d329d4b83c8514e3.bindPopup(popup_915bc5fcfabd3a9be24b31e005fb3540)
+        ;
+
+        
+    
+    
+            var circle_marker_cae20bd732d8782d71b461ebaa63761a = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.08, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_b12eaa91db618eb2098e0fa94d02364f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0b05f2a6e40f2cf15cd9959f834b23b4 = $(`<div id="html_0b05f2a6e40f2cf15cd9959f834b23b4" style="width: 100.0%; height: 100.0%;">코드: 195<br>언급량: 4<br>논조: -3.01724137931034</div>`)[0];
+                popup_b12eaa91db618eb2098e0fa94d02364f.setContent(html_0b05f2a6e40f2cf15cd9959f834b23b4);
+            
+        
+
+        circle_marker_cae20bd732d8782d71b461ebaa63761a.bindPopup(popup_b12eaa91db618eb2098e0fa94d02364f)
+        ;
+
+        
+    
+    
+            var circle_marker_ee787712be234a7ca35fba036fc5edd7 = L.circleMarker(
+                [22.6272, 120.267],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.18, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_0e472fb8b49748e46139a6c35b590cb8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_37146ac61c04cef0589bc6dcd3701987 = $(`<div id="html_37146ac61c04cef0589bc6dcd3701987" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 9<br>논조: -4.13376961303102</div>`)[0];
+                popup_0e472fb8b49748e46139a6c35b590cb8.setContent(html_37146ac61c04cef0589bc6dcd3701987);
+            
+        
+
+        circle_marker_ee787712be234a7ca35fba036fc5edd7.bindPopup(popup_0e472fb8b49748e46139a6c35b590cb8)
+        ;
+
+        
+    
+    
+            var circle_marker_353f8f10ec605f539efa7dba5dd61291 = L.circleMarker(
+                [32.8932, 120.778],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.16, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_f957e7bc3afb0608df3b24b808dcae27 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c9451bf8168b26d7d63cb863289889d2 = $(`<div id="html_c9451bf8168b26d7d63cb863289889d2" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 8<br>논조: -3.2258064516129</div>`)[0];
+                popup_f957e7bc3afb0608df3b24b808dcae27.setContent(html_c9451bf8168b26d7d63cb863289889d2);
+            
+        
+
+        circle_marker_353f8f10ec605f539efa7dba5dd61291.bindPopup(popup_f957e7bc3afb0608df3b24b808dcae27)
+        ;
+
+        
+    
+    
+            var circle_marker_c6601475ca33fbb971ca66fd29a8301c = L.circleMarker(
+                [38.8951, -77.0364],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_9439c3dc63293bbc22850afaae663201 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_79c0e24ef2f8374cfb09760e00325bb2 = $(`<div id="html_79c0e24ef2f8374cfb09760e00325bb2" style="width: 100.0%; height: 100.0%;">코드: 151<br>언급량: 2<br>논조: -2.68714011516315</div>`)[0];
+                popup_9439c3dc63293bbc22850afaae663201.setContent(html_79c0e24ef2f8374cfb09760e00325bb2);
+            
+        
+
+        circle_marker_c6601475ca33fbb971ca66fd29a8301c.bindPopup(popup_9439c3dc63293bbc22850afaae663201)
+        ;
+
+        
+    
+    
+            var circle_marker_7e944b712c410c8988ac79b444029fe0 = L.circleMarker(
+                [35.685, 139.751],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.48, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_e52efe4bbcbfeef0f14407c0c203db53 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9cc1d81fa68bd4880f67d84804c36867 = $(`<div id="html_9cc1d81fa68bd4880f67d84804c36867" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 24<br>논조: -3.28542094455852</div>`)[0];
+                popup_e52efe4bbcbfeef0f14407c0c203db53.setContent(html_9cc1d81fa68bd4880f67d84804c36867);
+            
+        
+
+        circle_marker_7e944b712c410c8988ac79b444029fe0.bindPopup(popup_e52efe4bbcbfeef0f14407c0c203db53)
+        ;
+
+        
+    
+    
+            var circle_marker_e041b282687fe768e38a4c3a40354db0 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.22, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_d350a0d6a9ff12eb88e53dfd592e6188 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8444a2929222957f39ee7aa533b3c3bb = $(`<div id="html_8444a2929222957f39ee7aa533b3c3bb" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 11<br>논조: -4.12265571234307</div>`)[0];
+                popup_d350a0d6a9ff12eb88e53dfd592e6188.setContent(html_8444a2929222957f39ee7aa533b3c3bb);
+            
+        
+
+        circle_marker_e041b282687fe768e38a4c3a40354db0.bindPopup(popup_d350a0d6a9ff12eb88e53dfd592e6188)
+        ;
+
+        
+    
+    
+            var circle_marker_6b4f1312c4fa85cdc9076d0de718b97c = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_3774ca9df0e37679650157b93fc4016d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_aaca1efc38900d2c9ce48a58e7d7cfce = $(`<div id="html_aaca1efc38900d2c9ce48a58e7d7cfce" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 2<br>논조: -4.65116279069767</div>`)[0];
+                popup_3774ca9df0e37679650157b93fc4016d.setContent(html_aaca1efc38900d2c9ce48a58e7d7cfce);
+            
+        
+
+        circle_marker_6b4f1312c4fa85cdc9076d0de718b97c.bindPopup(popup_3774ca9df0e37679650157b93fc4016d)
+        ;
+
+        
+    
+    
+            var circle_marker_63e255b4461c4a61c49d4bf3aa2f3d8a = L.circleMarker(
+                [22.6272, 120.267],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.76, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_a65c69a57c5da8fb30bfee16694e910b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_395c0ee7d562df7a38bc9eeb205bbe30 = $(`<div id="html_395c0ee7d562df7a38bc9eeb205bbe30" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 38<br>논조: -4.11557535630175</div>`)[0];
+                popup_a65c69a57c5da8fb30bfee16694e910b.setContent(html_395c0ee7d562df7a38bc9eeb205bbe30);
+            
+        
+
+        circle_marker_63e255b4461c4a61c49d4bf3aa2f3d8a.bindPopup(popup_a65c69a57c5da8fb30bfee16694e910b)
+        ;
+
+        
+    
+    
+            var circle_marker_22e7a1655fd5c860beea80ee050af936 = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_279ece67819e161a916d0e94b606a255 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3c52d1dccdb2949227e06be2dcad40a7 = $(`<div id="html_3c52d1dccdb2949227e06be2dcad40a7" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 1<br>논조: -2.8892455858748</div>`)[0];
+                popup_279ece67819e161a916d0e94b606a255.setContent(html_3c52d1dccdb2949227e06be2dcad40a7);
+            
+        
+
+        circle_marker_22e7a1655fd5c860beea80ee050af936.bindPopup(popup_279ece67819e161a916d0e94b606a255)
+        ;
+
+        
+    
+    
+            var circle_marker_91fc68980be18e864ac9ff96bc5fc31f = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.08, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_b9cb14655e4a1b76d85e51e50ab5b48a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_51bfe54280534e43eb6ea496fbc39c01 = $(`<div id="html_51bfe54280534e43eb6ea496fbc39c01" style="width: 100.0%; height: 100.0%;">코드: 195<br>언급량: 4<br>논조: -3.01724137931034</div>`)[0];
+                popup_b9cb14655e4a1b76d85e51e50ab5b48a.setContent(html_51bfe54280534e43eb6ea496fbc39c01);
+            
+        
+
+        circle_marker_91fc68980be18e864ac9ff96bc5fc31f.bindPopup(popup_b9cb14655e4a1b76d85e51e50ab5b48a)
+        ;
+
+        
+    
+    
+            var circle_marker_05b239fb7dbb994928c37df736c7ff42 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.36, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_88f937eda67d9167fc11d37166577e85 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_53fc42f9eb5fecfa14ef61ec7f89cb61 = $(`<div id="html_53fc42f9eb5fecfa14ef61ec7f89cb61" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 18<br>논조: -1.91964852310322</div>`)[0];
+                popup_88f937eda67d9167fc11d37166577e85.setContent(html_53fc42f9eb5fecfa14ef61ec7f89cb61);
+            
+        
+
+        circle_marker_05b239fb7dbb994928c37df736c7ff42.bindPopup(popup_88f937eda67d9167fc11d37166577e85)
+        ;
+
+        
+    
+    
+            var circle_marker_2647c4e2f78fb1c75a1484a353785be8 = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.36, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_3e268b675d6f7a8d2e717e3b5c80f18e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e989a2b7ebfee8c85b26935c8a318fb7 = $(`<div id="html_e989a2b7ebfee8c85b26935c8a318fb7" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 18<br>논조: -2.80230825691618</div>`)[0];
+                popup_3e268b675d6f7a8d2e717e3b5c80f18e.setContent(html_e989a2b7ebfee8c85b26935c8a318fb7);
+            
+        
+
+        circle_marker_2647c4e2f78fb1c75a1484a353785be8.bindPopup(popup_3e268b675d6f7a8d2e717e3b5c80f18e)
+        ;
+
+        
+    
+    
+            var circle_marker_b4ba97068eb4b3a4b9fb7ba195e0a551 = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.72, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_7f5ad9777af66feb8df1914486b35be0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bdf8f6eb223d2ed0e90c7e14733492e5 = $(`<div id="html_bdf8f6eb223d2ed0e90c7e14733492e5" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 536<br>논조: -4.77296396357928</div>`)[0];
+                popup_7f5ad9777af66feb8df1914486b35be0.setContent(html_bdf8f6eb223d2ed0e90c7e14733492e5);
+            
+        
+
+        circle_marker_b4ba97068eb4b3a4b9fb7ba195e0a551.bindPopup(popup_7f5ad9777af66feb8df1914486b35be0)
+        ;
+
+        
+    
+    
+            var circle_marker_5eaf542041bf8fe7dfa88d93e7d88ba7 = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_bb1cceb6f3e1e9b53d5f657445cd0491 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_10014a3827d0ff09fbdd9e6c90ee0ef3 = $(`<div id="html_10014a3827d0ff09fbdd9e6c90ee0ef3" style="width: 100.0%; height: 100.0%;">코드: 154<br>언급량: 10<br>논조: -2.66666666666667</div>`)[0];
+                popup_bb1cceb6f3e1e9b53d5f657445cd0491.setContent(html_10014a3827d0ff09fbdd9e6c90ee0ef3);
+            
+        
+
+        circle_marker_5eaf542041bf8fe7dfa88d93e7d88ba7.bindPopup(popup_bb1cceb6f3e1e9b53d5f657445cd0491)
+        ;
+
+        
+    
+    
+            var circle_marker_f607f946cd0d21edef83d6b2d3fbdc58 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.6, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_1a2ea4da1dbc2644f7693f57f03a38e7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9e375ebea54bf7b16a09461c77365bf8 = $(`<div id="html_9e375ebea54bf7b16a09461c77365bf8" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 130<br>논조: -2.13996803714007</div>`)[0];
+                popup_1a2ea4da1dbc2644f7693f57f03a38e7.setContent(html_9e375ebea54bf7b16a09461c77365bf8);
+            
+        
+
+        circle_marker_f607f946cd0d21edef83d6b2d3fbdc58.bindPopup(popup_1a2ea4da1dbc2644f7693f57f03a38e7)
+        ;
+
+        
+    
+    
+            var circle_marker_a9c3cfb35645239c478938e881a36ffb = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.16, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_5498c7ef6fabde89512552f68cb92b5f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f601791b31e40821121753561a03a5f1 = $(`<div id="html_f601791b31e40821121753561a03a5f1" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 8<br>논조: -4.72222222222223</div>`)[0];
+                popup_5498c7ef6fabde89512552f68cb92b5f.setContent(html_f601791b31e40821121753561a03a5f1);
+            
+        
+
+        circle_marker_a9c3cfb35645239c478938e881a36ffb.bindPopup(popup_5498c7ef6fabde89512552f68cb92b5f)
+        ;
+
+        
+    
+    
+            var circle_marker_562296039678fe657e37af2963b36b54 = L.circleMarker(
+                [38.8951, -77.0364],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_e9aafe4fbb6f19ca66af6572c6915054 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f1dc2158adc39c21a920b7087a213468 = $(`<div id="html_f1dc2158adc39c21a920b7087a213468" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 101<br>논조: -2.07346885441713</div>`)[0];
+                popup_e9aafe4fbb6f19ca66af6572c6915054.setContent(html_f1dc2158adc39c21a920b7087a213468);
+            
+        
+
+        circle_marker_562296039678fe657e37af2963b36b54.bindPopup(popup_e9aafe4fbb6f19ca66af6572c6915054)
+        ;
+
+        
+    
+    
+            var circle_marker_5fa6636838d428c79e96389e73bcf66e = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_fccd5274b1dfe37292353a483f919363 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_aeff7d43699dfb923e51b9205fca8db5 = $(`<div id="html_aeff7d43699dfb923e51b9205fca8db5" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 1<br>논조: -4.23280423280423</div>`)[0];
+                popup_fccd5274b1dfe37292353a483f919363.setContent(html_aeff7d43699dfb923e51b9205fca8db5);
+            
+        
+
+        circle_marker_5fa6636838d428c79e96389e73bcf66e.bindPopup(popup_fccd5274b1dfe37292353a483f919363)
+        ;
+
+        
+    
+    
+            var circle_marker_659468355b6d9902c22ba9083e0b40ff = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.12, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_19e100f3a81e99b08867a18faac5e419 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8ead67cdc4af0d8021654ac72a435abf = $(`<div id="html_8ead67cdc4af0d8021654ac72a435abf" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 56<br>논조: -0.929870517519152</div>`)[0];
+                popup_19e100f3a81e99b08867a18faac5e419.setContent(html_8ead67cdc4af0d8021654ac72a435abf);
+            
+        
+
+        circle_marker_659468355b6d9902c22ba9083e0b40ff.bindPopup(popup_19e100f3a81e99b08867a18faac5e419)
+        ;
+
+        
+    
+    
+            var circle_marker_0615732babcb4aad66858cbb1e3d9c6d = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.3, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_5205925cbb798d33d598fdb272531755 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_91cb17c8a8d72c5279d5961559861cdb = $(`<div id="html_91cb17c8a8d72c5279d5961559861cdb" style="width: 100.0%; height: 100.0%;">코드: 151<br>언급량: 15<br>논조: -0.77199262120554</div>`)[0];
+                popup_5205925cbb798d33d598fdb272531755.setContent(html_91cb17c8a8d72c5279d5961559861cdb);
+            
+        
+
+        circle_marker_0615732babcb4aad66858cbb1e3d9c6d.bindPopup(popup_5205925cbb798d33d598fdb272531755)
+        ;
+
+        
+    
+    
+            var circle_marker_7428de46dba9da15ec548931ea3244c7 = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_afc22f9ab78860cfe781debafe08f012 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_636b3606ffc71f473b417dd8ef3b9d83 = $(`<div id="html_636b3606ffc71f473b417dd8ef3b9d83" style="width: 100.0%; height: 100.0%;">코드: 192<br>언급량: 10<br>논조: -1.44927536231884</div>`)[0];
+                popup_afc22f9ab78860cfe781debafe08f012.setContent(html_636b3606ffc71f473b417dd8ef3b9d83);
+            
+        
+
+        circle_marker_7428de46dba9da15ec548931ea3244c7.bindPopup(popup_afc22f9ab78860cfe781debafe08f012)
+        ;
+
+        
+    
+    
+            var circle_marker_23dcbc00466ae6545eaca05c38bf470b = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.26, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_56ee6873c86e8831400d1bfe14ff653b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_085de3ab7d0f18d4db29855544457e16 = $(`<div id="html_085de3ab7d0f18d4db29855544457e16" style="width: 100.0%; height: 100.0%;">코드: 190<br>언급량: 13<br>논조: -2.81482608916237</div>`)[0];
+                popup_56ee6873c86e8831400d1bfe14ff653b.setContent(html_085de3ab7d0f18d4db29855544457e16);
+            
+        
+
+        circle_marker_23dcbc00466ae6545eaca05c38bf470b.bindPopup(popup_56ee6873c86e8831400d1bfe14ff653b)
+        ;
+
+        
+    
+    
+            var circle_marker_0ef512c4a9404b99fa6bc0f64e076925 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.1, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_dc52398fbd60aec26a33e4dc7e5f517f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dbf52646e6d0eb450df90f1bdd230516 = $(`<div id="html_dbf52646e6d0eb450df90f1bdd230516" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 5<br>논조: -4.79676780823775</div>`)[0];
+                popup_dc52398fbd60aec26a33e4dc7e5f517f.setContent(html_dbf52646e6d0eb450df90f1bdd230516);
+            
+        
+
+        circle_marker_0ef512c4a9404b99fa6bc0f64e076925.bindPopup(popup_dc52398fbd60aec26a33e4dc7e5f517f)
+        ;
+
+        
+    
+    
+            var circle_marker_f87a0f8ebdd726e5afee619a6edcf3c3 = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_0f93aab482fd809180e150e5c4d42be3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_36c7b33d50b762cbcb62c354ed482c57 = $(`<div id="html_36c7b33d50b762cbcb62c354ed482c57" style="width: 100.0%; height: 100.0%;">코드: 190<br>언급량: 10<br>논조: -3.67346938775511</div>`)[0];
+                popup_0f93aab482fd809180e150e5c4d42be3.setContent(html_36c7b33d50b762cbcb62c354ed482c57);
+            
+        
+
+        circle_marker_f87a0f8ebdd726e5afee619a6edcf3c3.bindPopup(popup_0f93aab482fd809180e150e5c4d42be3)
+        ;
+
+        
+    
+    
+            var circle_marker_9c1f4f279e2b3ef78443893316a28100 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_3802e0564cd98b6131e747ec42445949 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1d9670aefd58437066fb7d412d711ce1 = $(`<div id="html_1d9670aefd58437066fb7d412d711ce1" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 2<br>논조: -2.12409167132477</div>`)[0];
+                popup_3802e0564cd98b6131e747ec42445949.setContent(html_1d9670aefd58437066fb7d412d711ce1);
+            
+        
+
+        circle_marker_9c1f4f279e2b3ef78443893316a28100.bindPopup(popup_3802e0564cd98b6131e747ec42445949)
+        ;
+
+        
+    
+    
+            var circle_marker_85105e8d846024fe6cf6120f488409ec = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.36, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_2d7622cf06676fa7c03b036532ff5d3d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bfcfad26e575147b0f5e636825d7427a = $(`<div id="html_bfcfad26e575147b0f5e636825d7427a" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 18<br>논조: -2.84352426882341</div>`)[0];
+                popup_2d7622cf06676fa7c03b036532ff5d3d.setContent(html_bfcfad26e575147b0f5e636825d7427a);
+            
+        
+
+        circle_marker_85105e8d846024fe6cf6120f488409ec.bindPopup(popup_2d7622cf06676fa7c03b036532ff5d3d)
+        ;
+
+        
+    
+    
+            var circle_marker_7cecb50a4cecca56f2144b3e4fc01768 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.36, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_347fed70d1f9030a540be314d8d3de75 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e9a28b41251d74855013656712fd41d5 = $(`<div id="html_e9a28b41251d74855013656712fd41d5" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 68<br>논조: -3.51435692186529</div>`)[0];
+                popup_347fed70d1f9030a540be314d8d3de75.setContent(html_e9a28b41251d74855013656712fd41d5);
+            
+        
+
+        circle_marker_7cecb50a4cecca56f2144b3e4fc01768.bindPopup(popup_347fed70d1f9030a540be314d8d3de75)
+        ;
+
+        
+    
+    
+            var circle_marker_8db1e7a4b3ce8ec89804dbfa71bfe855 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.32, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_be4bc00e814bf6df850e30db58bc7444 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cfb30e1e89519744e7dfb3723b29d922 = $(`<div id="html_cfb30e1e89519744e7dfb3723b29d922" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 16<br>논조: -3.20981801756887</div>`)[0];
+                popup_be4bc00e814bf6df850e30db58bc7444.setContent(html_cfb30e1e89519744e7dfb3723b29d922);
+            
+        
+
+        circle_marker_8db1e7a4b3ce8ec89804dbfa71bfe855.bindPopup(popup_be4bc00e814bf6df850e30db58bc7444)
+        ;
+
+        
+    
+    
+            var circle_marker_a47cdab4c3ffbfdcb20fb1da9b9b09a9 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.620000000000001, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_05f5b9c12c26ec8e73975a81b5eca6e8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5a967581aa7c9e1de2d9f8fab64be825 = $(`<div id="html_5a967581aa7c9e1de2d9f8fab64be825" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 281<br>논조: -3.07482721195544</div>`)[0];
+                popup_05f5b9c12c26ec8e73975a81b5eca6e8.setContent(html_5a967581aa7c9e1de2d9f8fab64be825);
+            
+        
+
+        circle_marker_a47cdab4c3ffbfdcb20fb1da9b9b09a9.bindPopup(popup_05f5b9c12c26ec8e73975a81b5eca6e8)
+        ;
+
+        
+    
+    
+            var circle_marker_310d68324a5ce94495a92ec9d2008543 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.26, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_ea2045f48f1cd2b8986950c4c53e2585 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c8780853afaa96ff5a350a5db217e738 = $(`<div id="html_c8780853afaa96ff5a350a5db217e738" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 13<br>논조: -3.67514092079111</div>`)[0];
+                popup_ea2045f48f1cd2b8986950c4c53e2585.setContent(html_c8780853afaa96ff5a350a5db217e738);
+            
+        
+
+        circle_marker_310d68324a5ce94495a92ec9d2008543.bindPopup(popup_ea2045f48f1cd2b8986950c4c53e2585)
+        ;
+
+        
+    
+    
+            var circle_marker_58da29af84c2aa5bb2721cb4e97c8fb2 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.559999999999999, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_c22b8180305bef994455b5a1786cbab5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2755fd3ca383bf6f834313c25663ca84 = $(`<div id="html_2755fd3ca383bf6f834313c25663ca84" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 378<br>논조: -2.07019448741782</div>`)[0];
+                popup_c22b8180305bef994455b5a1786cbab5.setContent(html_2755fd3ca383bf6f834313c25663ca84);
+            
+        
+
+        circle_marker_58da29af84c2aa5bb2721cb4e97c8fb2.bindPopup(popup_c22b8180305bef994455b5a1786cbab5)
+        ;
+
+        
+    
+    
+            var circle_marker_9b89b674300d8477bafd8de612a52596 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.0, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_4e8e607a66a6d77b738e17072b096467 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2865281338fda3fe518e6ba8ed8497f6 = $(`<div id="html_2865281338fda3fe518e6ba8ed8497f6" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 50<br>논조: -2.40304342789013</div>`)[0];
+                popup_4e8e607a66a6d77b738e17072b096467.setContent(html_2865281338fda3fe518e6ba8ed8497f6);
+            
+        
+
+        circle_marker_9b89b674300d8477bafd8de612a52596.bindPopup(popup_4e8e607a66a6d77b738e17072b096467)
+        ;
+
+        
+    
+    
+            var circle_marker_b170ad98828a91e6655d17bd039f96fc = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.24, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_1a6971f6e612cd89ef85aa3a43702de0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_199a756f7ddb5f6907b3303e8d9d7401 = $(`<div id="html_199a756f7ddb5f6907b3303e8d9d7401" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 12<br>논조: -2.37822441368377</div>`)[0];
+                popup_1a6971f6e612cd89ef85aa3a43702de0.setContent(html_199a756f7ddb5f6907b3303e8d9d7401);
+            
+        
+
+        circle_marker_b170ad98828a91e6655d17bd039f96fc.bindPopup(popup_1a6971f6e612cd89ef85aa3a43702de0)
+        ;
+
+        
+    
+    
+            var circle_marker_f0db3b8c40779684a10aa4fd8eee4e51 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_004b5890e4d0b342c8a5be57fb246b3f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_68d7d842fb29934ac4b434934d85f844 = $(`<div id="html_68d7d842fb29934ac4b434934d85f844" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 10<br>논조: -1.61290322580645</div>`)[0];
+                popup_004b5890e4d0b342c8a5be57fb246b3f.setContent(html_68d7d842fb29934ac4b434934d85f844);
+            
+        
+
+        circle_marker_f0db3b8c40779684a10aa4fd8eee4e51.bindPopup(popup_004b5890e4d0b342c8a5be57fb246b3f)
+        ;
+
+        
+    
+    
+            var circle_marker_af9c5834778f47b2d259f1a35226dcf5 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.36, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_2077627e3cea248038cef5c83d7be4fa = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0e8ab882c7e3914186dd0babb7efabe3 = $(`<div id="html_0e8ab882c7e3914186dd0babb7efabe3" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 18<br>논조: -4.1385948026949</div>`)[0];
+                popup_2077627e3cea248038cef5c83d7be4fa.setContent(html_0e8ab882c7e3914186dd0babb7efabe3);
+            
+        
+
+        circle_marker_af9c5834778f47b2d259f1a35226dcf5.bindPopup(popup_2077627e3cea248038cef5c83d7be4fa)
+        ;
+
+        
+    
+    
+            var circle_marker_362852ecc457eee8d45a2d787f545963 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_d73a51acb2c5218d964fbaa1897a1804 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a22cc9ee1d289e4899b9a1b50d99f2dd = $(`<div id="html_a22cc9ee1d289e4899b9a1b50d99f2dd" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 2<br>논조: 0.0</div>`)[0];
+                popup_d73a51acb2c5218d964fbaa1897a1804.setContent(html_a22cc9ee1d289e4899b9a1b50d99f2dd);
+            
+        
+
+        circle_marker_362852ecc457eee8d45a2d787f545963.bindPopup(popup_d73a51acb2c5218d964fbaa1897a1804)
+        ;
+
+        
+    
+    
+            var circle_marker_b1111be8e178ac3d7a47fbec3c48ba92 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.16, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_6667cfa0d4ad5dc255315a87d39b172a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_acb4df754ae1b01dc8912683bb17926b = $(`<div id="html_acb4df754ae1b01dc8912683bb17926b" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 8<br>논조: 0.0</div>`)[0];
+                popup_6667cfa0d4ad5dc255315a87d39b172a.setContent(html_acb4df754ae1b01dc8912683bb17926b);
+            
+        
+
+        circle_marker_b1111be8e178ac3d7a47fbec3c48ba92.bindPopup(popup_6667cfa0d4ad5dc255315a87d39b172a)
+        ;
+
+        
+    
+    
+            var circle_marker_c86f2ec767f88046264b9b5e962d05c6 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.3, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_c07706e015c44c478b75f4893e1c18ae = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d0bb92f811b81a754d75ad2dca932340 = $(`<div id="html_d0bb92f811b81a754d75ad2dca932340" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 265<br>논조: -3.8809299990162</div>`)[0];
+                popup_c07706e015c44c478b75f4893e1c18ae.setContent(html_d0bb92f811b81a754d75ad2dca932340);
+            
+        
+
+        circle_marker_c86f2ec767f88046264b9b5e962d05c6.bindPopup(popup_c07706e015c44c478b75f4893e1c18ae)
+        ;
+
+        
+    
+    
+            var circle_marker_731b85de36c06bc31c5a05bc15c04d54 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_4c21c67606c272966831d5b444dfd8d3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b307b53404c1f2a27f1378d804c94e85 = $(`<div id="html_b307b53404c1f2a27f1378d804c94e85" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 10<br>논조: -3.51725377426312</div>`)[0];
+                popup_4c21c67606c272966831d5b444dfd8d3.setContent(html_b307b53404c1f2a27f1378d804c94e85);
+            
+        
+
+        circle_marker_731b85de36c06bc31c5a05bc15c04d54.bindPopup(popup_4c21c67606c272966831d5b444dfd8d3)
+        ;
+
+        
+    
+    
+            var circle_marker_0fb75045b516d39f27fff94b16253a5c = L.circleMarker(
+                [25.0327, 121.275],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_1f5698686926ebef86970cb2fe5364c1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_59261fd45861f0d8bfad7a0e9ec38c34 = $(`<div id="html_59261fd45861f0d8bfad7a0e9ec38c34" style="width: 100.0%; height: 100.0%;">코드: 190<br>언급량: 1<br>논조: -2.39596469104665</div>`)[0];
+                popup_1f5698686926ebef86970cb2fe5364c1.setContent(html_59261fd45861f0d8bfad7a0e9ec38c34);
+            
+        
+
+        circle_marker_0fb75045b516d39f27fff94b16253a5c.bindPopup(popup_1f5698686926ebef86970cb2fe5364c1)
+        ;
+
+        
+    
+    
+            var circle_marker_973f14dc65b168df477b05bd95751e61 = L.circleMarker(
+                [18.975, 72.8258],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.08, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_acb5767ce0fe770e9372c1fa7dda6549 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_eb54c14778c75688212f1118bf17e21b = $(`<div id="html_eb54c14778c75688212f1118bf17e21b" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 4<br>논조: 0.0</div>`)[0];
+                popup_acb5767ce0fe770e9372c1fa7dda6549.setContent(html_eb54c14778c75688212f1118bf17e21b);
+            
+        
+
+        circle_marker_973f14dc65b168df477b05bd95751e61.bindPopup(popup_acb5767ce0fe770e9372c1fa7dda6549)
+        ;
+
+        
+    
+    
+            var circle_marker_75fa1d1e7ad3adcdf1fa1cbbaaae3089 = L.circleMarker(
+                [26.1833, 71.25],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.12, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_c3e2128645d239783c3b18335ccd95be = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a792ddedeaddee99d5b949a6de108ee6 = $(`<div id="html_a792ddedeaddee99d5b949a6de108ee6" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 6<br>논조: 0.0</div>`)[0];
+                popup_c3e2128645d239783c3b18335ccd95be.setContent(html_a792ddedeaddee99d5b949a6de108ee6);
+            
+        
+
+        circle_marker_75fa1d1e7ad3adcdf1fa1cbbaaae3089.bindPopup(popup_c3e2128645d239783c3b18335ccd95be)
+        ;
+
+        
+    
+    
+            var circle_marker_d20512157261bbf5fa6d4282c1fb970a = L.circleMarker(
+                [24.05, 123.783],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_b571457dfcd5e29bc1369f1155e45c81 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c4f48a39040d12c0e3a0b5cb967b7d8d = $(`<div id="html_c4f48a39040d12c0e3a0b5cb967b7d8d" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 2<br>논조: -2.72727272727272</div>`)[0];
+                popup_b571457dfcd5e29bc1369f1155e45c81.setContent(html_c4f48a39040d12c0e3a0b5cb967b7d8d);
+            
+        
+
+        circle_marker_d20512157261bbf5fa6d4282c1fb970a.bindPopup(popup_b571457dfcd5e29bc1369f1155e45c81)
+        ;
+
+        
+    
+    
+            var circle_marker_93d2a275472bd0334e6b434346f97169 = L.circleMarker(
+                [42.8333, 124.633],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.08, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_4535741ba116771a9a039e5268cc5e29 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_49d814f2dd9eef90f6929ad597b0a0ae = $(`<div id="html_49d814f2dd9eef90f6929ad597b0a0ae" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 4<br>논조: -3.46534653465346</div>`)[0];
+                popup_4535741ba116771a9a039e5268cc5e29.setContent(html_49d814f2dd9eef90f6929ad597b0a0ae);
+            
+        
+
+        circle_marker_93d2a275472bd0334e6b434346f97169.bindPopup(popup_4535741ba116771a9a039e5268cc5e29)
+        ;
+
+        
+    
+    
+            var circle_marker_1305c6ad59b0e36ed7d8824fedff792e = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_95cfbc89be0b565800170dd72af13f15 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dabd6451ba4136a52cc16862a353d64c = $(`<div id="html_dabd6451ba4136a52cc16862a353d64c" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 2<br>논조: -1.10497237569061</div>`)[0];
+                popup_95cfbc89be0b565800170dd72af13f15.setContent(html_dabd6451ba4136a52cc16862a353d64c);
+            
+        
+
+        circle_marker_1305c6ad59b0e36ed7d8824fedff792e.bindPopup(popup_95cfbc89be0b565800170dd72af13f15)
+        ;
+
+        
+    
+    
+            var circle_marker_89bd56fa17ff9fb57130502d861a45a8 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.12, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_4ad77a7243ea3020ff27a5da229d52d2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d86fc115b819cd399e06341476cbb207 = $(`<div id="html_d86fc115b819cd399e06341476cbb207" style="width: 100.0%; height: 100.0%;">코드: 190<br>언급량: 6<br>논조: -3.58649789029535</div>`)[0];
+                popup_4ad77a7243ea3020ff27a5da229d52d2.setContent(html_d86fc115b819cd399e06341476cbb207);
+            
+        
+
+        circle_marker_89bd56fa17ff9fb57130502d861a45a8.bindPopup(popup_4ad77a7243ea3020ff27a5da229d52d2)
+        ;
+
+        
+    
+    
+            var circle_marker_5f91a20a61a3a1e6990d7afff0349765 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.1, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_1ce90de33253a836d22095ecb62a13c7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_59cc03431581aa5e0675824d90e9e916 = $(`<div id="html_59cc03431581aa5e0675824d90e9e916" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 5<br>논조: 0.30303030303031</div>`)[0];
+                popup_1ce90de33253a836d22095ecb62a13c7.setContent(html_59cc03431581aa5e0675824d90e9e916);
+            
+        
+
+        circle_marker_5f91a20a61a3a1e6990d7afff0349765.bindPopup(popup_1ce90de33253a836d22095ecb62a13c7)
+        ;
+
+        
+    
+    
+            var circle_marker_2f109342108165427d1df5f03d9ab9fd = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.66, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_b5c14553335c90d395d7b83fba5d1ded = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a3bcf884a7d27a5b00b29047c146beac = $(`<div id="html_a3bcf884a7d27a5b00b29047c146beac" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 33<br>논조: -3.67480882820123</div>`)[0];
+                popup_b5c14553335c90d395d7b83fba5d1ded.setContent(html_a3bcf884a7d27a5b00b29047c146beac);
+            
+        
+
+        circle_marker_2f109342108165427d1df5f03d9ab9fd.bindPopup(popup_b5c14553335c90d395d7b83fba5d1ded)
+        ;
+
+        
+    
+    
+            var circle_marker_8e3abe6687d9380dd30a686903735363 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.24, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_6124391853e62f3311dc318766e08b32 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_28c5db4f732dc9ee339c16501485f78e = $(`<div id="html_28c5db4f732dc9ee339c16501485f78e" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 12<br>논조: -3.11238469397105</div>`)[0];
+                popup_6124391853e62f3311dc318766e08b32.setContent(html_28c5db4f732dc9ee339c16501485f78e);
+            
+        
+
+        circle_marker_8e3abe6687d9380dd30a686903735363.bindPopup(popup_6124391853e62f3311dc318766e08b32)
+        ;
+
+        
+    
+    
+            var circle_marker_e7b7c6575d523b1c4118208d4046c165 = L.circleMarker(
+                [25.0327, 121.275],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_4be51c661343f7b3f63ee59cdc6380dc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0f68d255bfc2c78bcd3d8727d49c5992 = $(`<div id="html_0f68d255bfc2c78bcd3d8727d49c5992" style="width: 100.0%; height: 100.0%;">코드: 190<br>언급량: 1<br>논조: -2.39596469104665</div>`)[0];
+                popup_4be51c661343f7b3f63ee59cdc6380dc.setContent(html_0f68d255bfc2c78bcd3d8727d49c5992);
+            
+        
+
+        circle_marker_e7b7c6575d523b1c4118208d4046c165.bindPopup(popup_4be51c661343f7b3f63ee59cdc6380dc)
+        ;
+
+        
+    
+    
+            var circle_marker_11b4aa42e59c21114a20d9ef3597c48e = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.16, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_305355ad3fca81eb0e0d60f3f7137c25 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_18ea6166b7e1962363174807a19f3b9c = $(`<div id="html_18ea6166b7e1962363174807a19f3b9c" style="width: 100.0%; height: 100.0%;">코드: 151<br>언급량: 8<br>논조: -3.55140186915887</div>`)[0];
+                popup_305355ad3fca81eb0e0d60f3f7137c25.setContent(html_18ea6166b7e1962363174807a19f3b9c);
+            
+        
+
+        circle_marker_11b4aa42e59c21114a20d9ef3597c48e.bindPopup(popup_305355ad3fca81eb0e0d60f3f7137c25)
+        ;
+
+        
+    
+    
+            var circle_marker_c987659aad57dbd3319dfc667a030ced = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.1, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_1825cfca58d19b3c02c1e69453de80f8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1fe01947814537563e83af988e1c5449 = $(`<div id="html_1fe01947814537563e83af988e1c5449" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 5<br>논조: -3.1390134529148</div>`)[0];
+                popup_1825cfca58d19b3c02c1e69453de80f8.setContent(html_1fe01947814537563e83af988e1c5449);
+            
+        
+
+        circle_marker_c987659aad57dbd3319dfc667a030ced.bindPopup(popup_1825cfca58d19b3c02c1e69453de80f8)
+        ;
+
+        
+    
+    
+            var circle_marker_3abf4be4ab63cfd687e39a42f54a2a36 = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.8, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_c6a64f55163a6487ca84e304a207d0de = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_85c040017dcb5910f5f9378bedb98ce9 = $(`<div id="html_85c040017dcb5910f5f9378bedb98ce9" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 90<br>논조: -3.81557672655331</div>`)[0];
+                popup_c6a64f55163a6487ca84e304a207d0de.setContent(html_85c040017dcb5910f5f9378bedb98ce9);
+            
+        
+
+        circle_marker_3abf4be4ab63cfd687e39a42f54a2a36.bindPopup(popup_c6a64f55163a6487ca84e304a207d0de)
+        ;
+
+        
+    
+    
+            var circle_marker_5fc67259f51c55539db5f0d63fb755dc = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.1, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_edf4deaef831a04fd882757b737f4b8c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e6d0203d00011e64293ff28efe40b0b4 = $(`<div id="html_e6d0203d00011e64293ff28efe40b0b4" style="width: 100.0%; height: 100.0%;">코드: 192<br>언급량: 5<br>논조: -1.63934426229508</div>`)[0];
+                popup_edf4deaef831a04fd882757b737f4b8c.setContent(html_e6d0203d00011e64293ff28efe40b0b4);
+            
+        
+
+        circle_marker_5fc67259f51c55539db5f0d63fb755dc.bindPopup(popup_edf4deaef831a04fd882757b737f4b8c)
+        ;
+
+        
+    
+    
+            var circle_marker_7d57be257674cd865551ec356d84b3a6 = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_b1f7c3d780ffec8ca21302730fbb6373 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d015a08a0f52310f269eee03806ab92b = $(`<div id="html_d015a08a0f52310f269eee03806ab92b" style="width: 100.0%; height: 100.0%;">코드: 193<br>언급량: 10<br>논조: -2.92504570383912</div>`)[0];
+                popup_b1f7c3d780ffec8ca21302730fbb6373.setContent(html_d015a08a0f52310f269eee03806ab92b);
+            
+        
+
+        circle_marker_7d57be257674cd865551ec356d84b3a6.bindPopup(popup_b1f7c3d780ffec8ca21302730fbb6373)
+        ;
+
+        
+    
+    
+            var circle_marker_a7d9c863f18420a44114b6d00a0baa39 = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_4ac03af96083edded3127d6ebc91f053 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cd45e35e7ec8dae7af4c5d17d5fc665b = $(`<div id="html_cd45e35e7ec8dae7af4c5d17d5fc665b" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 10<br>논조: -4.65116279069767</div>`)[0];
+                popup_4ac03af96083edded3127d6ebc91f053.setContent(html_cd45e35e7ec8dae7af4c5d17d5fc665b);
+            
+        
+
+        circle_marker_a7d9c863f18420a44114b6d00a0baa39.bindPopup(popup_4ac03af96083edded3127d6ebc91f053)
+        ;
+
+        
+    
+    
+            var circle_marker_6c7ad5443789d485b55deb0a2632c10b = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.16, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_51f13f98b30995a4cb7952621cb11005 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ceabc310a884e5e002ee61f1d6467654 = $(`<div id="html_ceabc310a884e5e002ee61f1d6467654" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 8<br>논조: -2.64900662251655</div>`)[0];
+                popup_51f13f98b30995a4cb7952621cb11005.setContent(html_ceabc310a884e5e002ee61f1d6467654);
+            
+        
+
+        circle_marker_6c7ad5443789d485b55deb0a2632c10b.bindPopup(popup_51f13f98b30995a4cb7952621cb11005)
+        ;
+
+        
+    
+    
+            var circle_marker_542d23f3a4ed7a427c6df243ef0f1b5b = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.1, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_3697cb2745882ff1b42dae92ff3b7666 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e03c9b99920032ddfdff61e55fa81160 = $(`<div id="html_e03c9b99920032ddfdff61e55fa81160" style="width: 100.0%; height: 100.0%;">코드: 151<br>언급량: 5<br>논조: -4.49826989619377</div>`)[0];
+                popup_3697cb2745882ff1b42dae92ff3b7666.setContent(html_e03c9b99920032ddfdff61e55fa81160);
+            
+        
+
+        circle_marker_542d23f3a4ed7a427c6df243ef0f1b5b.bindPopup(popup_3697cb2745882ff1b42dae92ff3b7666)
+        ;
+
+        
+    
+    
+            var circle_marker_219d5914f1df87c511d1c5f32ffee99c = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.36, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_868aab35b3decf50b4dccf321ee6ee0b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d959b05ed3a52dad376528512639b740 = $(`<div id="html_d959b05ed3a52dad376528512639b740" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 18<br>논조: -2.62925131248574</div>`)[0];
+                popup_868aab35b3decf50b4dccf321ee6ee0b.setContent(html_d959b05ed3a52dad376528512639b740);
+            
+        
+
+        circle_marker_219d5914f1df87c511d1c5f32ffee99c.bindPopup(popup_868aab35b3decf50b4dccf321ee6ee0b)
+        ;
+
+        
+    
+    
+            var circle_marker_b0de55513ee54510997fbd164b6c3685 = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.24, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_f7519a1e163edeb7ce26e5cf74fdca7a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_911c57b8c80e9892838c367993ab68fe = $(`<div id="html_911c57b8c80e9892838c367993ab68fe" style="width: 100.0%; height: 100.0%;">코드: 154<br>언급량: 12<br>논조: -1.46342111515424</div>`)[0];
+                popup_f7519a1e163edeb7ce26e5cf74fdca7a.setContent(html_911c57b8c80e9892838c367993ab68fe);
+            
+        
+
+        circle_marker_b0de55513ee54510997fbd164b6c3685.bindPopup(popup_f7519a1e163edeb7ce26e5cf74fdca7a)
+        ;
+
+        
+    
+    
+            var circle_marker_39e4c2b245c7f1985c4fa0310f324664 = L.circleMarker(
+                [24.0, 121.0],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_ef8dcf0efefd6327089de834edb53498 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fdb9a7476beb6c01f1101d8993a73d7e = $(`<div id="html_fdb9a7476beb6c01f1101d8993a73d7e" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 10<br>논조: -5.42168674698795</div>`)[0];
+                popup_ef8dcf0efefd6327089de834edb53498.setContent(html_fdb9a7476beb6c01f1101d8993a73d7e);
+            
+        
+
+        circle_marker_39e4c2b245c7f1985c4fa0310f324664.bindPopup(popup_ef8dcf0efefd6327089de834edb53498)
+        ;
+
+        
+    
+    
+            var circle_marker_cd70f59ad779892360b5ceb2e6af4e8e = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.48, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_f0de7b7fe19df4c6012fa495d6c75a09 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c4ec8193073173a041fcf83b6073a640 = $(`<div id="html_c4ec8193073173a041fcf83b6073a640" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 24<br>논조: -3.99579746701203</div>`)[0];
+                popup_f0de7b7fe19df4c6012fa495d6c75a09.setContent(html_c4ec8193073173a041fcf83b6073a640);
+            
+        
+
+        circle_marker_cd70f59ad779892360b5ceb2e6af4e8e.bindPopup(popup_f0de7b7fe19df4c6012fa495d6c75a09)
+        ;
+
+        
+    
+    
+            var circle_marker_ce43f15e57f426c11e5775087954d93b = L.circleMarker(
+                [24.0, 121.0],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_983fd77294ef6ded96d883bb609b5fba = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d0155f0c6332e899cd3ab8a65ed9ff7c = $(`<div id="html_d0155f0c6332e899cd3ab8a65ed9ff7c" style="width: 100.0%; height: 100.0%;">코드: 192<br>언급량: 10<br>논조: -2.61363636363636</div>`)[0];
+                popup_983fd77294ef6ded96d883bb609b5fba.setContent(html_d0155f0c6332e899cd3ab8a65ed9ff7c);
+            
+        
+
+        circle_marker_ce43f15e57f426c11e5775087954d93b.bindPopup(popup_983fd77294ef6ded96d883bb609b5fba)
+        ;
+
+        
+    
+    
+            var circle_marker_0cfd0fa7ecad4c3819e2caa69fa5929b = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_7440dd23711d8c1043d73e9f0ed7159f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3a610ac5e124f24a3fce05011074cfa5 = $(`<div id="html_3a610ac5e124f24a3fce05011074cfa5" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 1<br>논조: -1.55737704918032</div>`)[0];
+                popup_7440dd23711d8c1043d73e9f0ed7159f.setContent(html_3a610ac5e124f24a3fce05011074cfa5);
+            
+        
+
+        circle_marker_0cfd0fa7ecad4c3819e2caa69fa5929b.bindPopup(popup_7440dd23711d8c1043d73e9f0ed7159f)
+        ;
+
+        
+    
+    
+            var circle_marker_c8ebc10f4915a7d514a7bee7266d4be9 = L.circleMarker(
+                [39.0194, 125.755],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_3a74b2800d59c72aa7a48ef74c8eb4ef = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_58d2c6bac3f403f0beda0855092bf25b = $(`<div id="html_58d2c6bac3f403f0beda0855092bf25b" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 2<br>논조: -5.11811023622047</div>`)[0];
+                popup_3a74b2800d59c72aa7a48ef74c8eb4ef.setContent(html_58d2c6bac3f403f0beda0855092bf25b);
+            
+        
+
+        circle_marker_c8ebc10f4915a7d514a7bee7266d4be9.bindPopup(popup_3a74b2800d59c72aa7a48ef74c8eb4ef)
+        ;
+
+        
+    
+    
+            var circle_marker_f632b3b210df44b585efe53157b08a2b = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.5, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_4dd84724d36a6a3e410070fd630d9e46 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ab616a09d73810d0055e577abf302adb = $(`<div id="html_ab616a09d73810d0055e577abf302adb" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 25<br>논조: -3.04152799112476</div>`)[0];
+                popup_4dd84724d36a6a3e410070fd630d9e46.setContent(html_ab616a09d73810d0055e577abf302adb);
+            
+        
+
+        circle_marker_f632b3b210df44b585efe53157b08a2b.bindPopup(popup_4dd84724d36a6a3e410070fd630d9e46)
+        ;
+
+        
+    
+    
+            var circle_marker_cb451fdf48c0e5f1095eff4e65684ffc = L.circleMarker(
+                [24.0, 121.0],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_f68d3eca49b149539469fbd1f9050ae9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_85aa2d998c3e59348d9628ab46d1c180 = $(`<div id="html_85aa2d998c3e59348d9628ab46d1c180" style="width: 100.0%; height: 100.0%;">코드: 192<br>언급량: 10<br>논조: -2.80135823429542</div>`)[0];
+                popup_f68d3eca49b149539469fbd1f9050ae9.setContent(html_85aa2d998c3e59348d9628ab46d1c180);
+            
+        
+
+        circle_marker_cb451fdf48c0e5f1095eff4e65684ffc.bindPopup(popup_f68d3eca49b149539469fbd1f9050ae9)
+        ;
+
+        
+    
+    
+            var circle_marker_bfed019ce70f57b7d4780fe7d5493cd2 = L.circleMarker(
+                [24.0, 121.0],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_2881e73b7dbcb9601e603236d742543d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_df10172de333cda3de01f1fbdb4aeb2b = $(`<div id="html_df10172de333cda3de01f1fbdb4aeb2b" style="width: 100.0%; height: 100.0%;">코드: 193<br>언급량: 10<br>논조: -2.80135823429542</div>`)[0];
+                popup_2881e73b7dbcb9601e603236d742543d.setContent(html_df10172de333cda3de01f1fbdb4aeb2b);
+            
+        
+
+        circle_marker_bfed019ce70f57b7d4780fe7d5493cd2.bindPopup(popup_2881e73b7dbcb9601e603236d742543d)
+        ;
+
+        
+    
+    
+            var circle_marker_5f2d0ed8c53cd13daa49901e75275889 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.12, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_4bb9131ab76703cbdb0ed2119c027c5d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3150e6cf02246a92488cc7b56d81ed8a = $(`<div id="html_3150e6cf02246a92488cc7b56d81ed8a" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 6<br>논조: 0.59567632688575</div>`)[0];
+                popup_4bb9131ab76703cbdb0ed2119c027c5d.setContent(html_3150e6cf02246a92488cc7b56d81ed8a);
+            
+        
+
+        circle_marker_5f2d0ed8c53cd13daa49901e75275889.bindPopup(popup_4bb9131ab76703cbdb0ed2119c027c5d)
+        ;
+
+        
+    
+    
+            var circle_marker_5296fc1a70f8f5dbf10c1db1a2226c28 = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_7a6f5052ffaa8e0970a3e1ba4bd3903b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_18c4a61841c41bd675fcf314b3780c2a = $(`<div id="html_18c4a61841c41bd675fcf314b3780c2a" style="width: 100.0%; height: 100.0%;">코드: 195<br>언급량: 10<br>논조: -3.03030303030303</div>`)[0];
+                popup_7a6f5052ffaa8e0970a3e1ba4bd3903b.setContent(html_18c4a61841c41bd675fcf314b3780c2a);
+            
+        
+
+        circle_marker_5296fc1a70f8f5dbf10c1db1a2226c28.bindPopup(popup_7a6f5052ffaa8e0970a3e1ba4bd3903b)
+        ;
+
+        
+    
+    
+            var circle_marker_503d0615a730fba27d1d905bed98a307 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.12, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_20f1189650b400dba8512855a6fb0661 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a56bd00918d79a5491eef6129f09f697 = $(`<div id="html_a56bd00918d79a5491eef6129f09f697" style="width: 100.0%; height: 100.0%;">코드: 154<br>언급량: 6<br>논조: 0.0</div>`)[0];
+                popup_20f1189650b400dba8512855a6fb0661.setContent(html_a56bd00918d79a5491eef6129f09f697);
+            
+        
+
+        circle_marker_503d0615a730fba27d1d905bed98a307.bindPopup(popup_20f1189650b400dba8512855a6fb0661)
+        ;
+
+        
+    
+    
+            var circle_marker_414a5451a7cec00a82486b1a036fbc4d = L.circleMarker(
+                [24.4533, 118.389],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_57cf6116162e96725ec883f1e4327799 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3c88c6d5e0153bdc236f4fbef66ed73f = $(`<div id="html_3c88c6d5e0153bdc236f4fbef66ed73f" style="width: 100.0%; height: 100.0%;">코드: 154<br>언급량: 1<br>논조: -2.39596469104665</div>`)[0];
+                popup_57cf6116162e96725ec883f1e4327799.setContent(html_3c88c6d5e0153bdc236f4fbef66ed73f);
+            
+        
+
+        circle_marker_414a5451a7cec00a82486b1a036fbc4d.bindPopup(popup_57cf6116162e96725ec883f1e4327799)
+        ;
+
+        
+    
+    
+            var circle_marker_e419ce4558391fd706536e58e8adfd88 = L.circleMarker(
+                [32.95, 116.642],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.0, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_99945df702370c0556de724ad40e4b51 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_256aaa80fda82ac0ef8d669b53566534 = $(`<div id="html_256aaa80fda82ac0ef8d669b53566534" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 300<br>논조: -4.22261521114685</div>`)[0];
+                popup_99945df702370c0556de724ad40e4b51.setContent(html_256aaa80fda82ac0ef8d669b53566534);
+            
+        
+
+        circle_marker_e419ce4558391fd706536e58e8adfd88.bindPopup(popup_99945df702370c0556de724ad40e4b51)
+        ;
+
+        
+    
+    
+            var circle_marker_d65fe02d9df394a9b4c1594ea852ee3a = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.16, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_064ddfa0e97088a741028db0340f439f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_44995bd5aa36c1401e4858bd5549aa5d = $(`<div id="html_44995bd5aa36c1401e4858bd5549aa5d" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 8<br>논조: -6.87022900763359</div>`)[0];
+                popup_064ddfa0e97088a741028db0340f439f.setContent(html_44995bd5aa36c1401e4858bd5549aa5d);
+            
+        
+
+        circle_marker_d65fe02d9df394a9b4c1594ea852ee3a.bindPopup(popup_064ddfa0e97088a741028db0340f439f)
+        ;
+
+        
+    
+    
+            var circle_marker_737a3eb175812dd313ffa3a255933d9d = L.circleMarker(
+                [23.9769, 121.604],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_238f1f654bd2daa3ec64869e913ab70a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_474cbc1efef7948909843f7a5d8b4004 = $(`<div id="html_474cbc1efef7948909843f7a5d8b4004" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 2<br>논조: -1.72413793103449</div>`)[0];
+                popup_238f1f654bd2daa3ec64869e913ab70a.setContent(html_474cbc1efef7948909843f7a5d8b4004);
+            
+        
+
+        circle_marker_737a3eb175812dd313ffa3a255933d9d.bindPopup(popup_238f1f654bd2daa3ec64869e913ab70a)
+        ;
+
+        
+    
+    
+            var circle_marker_c05f32b006a05a01b31c83ee27a22244 = L.circleMarker(
+                [23.9769, 121.604],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.16, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_237b7026b84964b62c201a7d8228a6f6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1a4434b14a2e824081411b9c432e9bff = $(`<div id="html_1a4434b14a2e824081411b9c432e9bff" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 8<br>논조: -1.72413793103449</div>`)[0];
+                popup_237b7026b84964b62c201a7d8228a6f6.setContent(html_1a4434b14a2e824081411b9c432e9bff);
+            
+        
+
+        circle_marker_c05f32b006a05a01b31c83ee27a22244.bindPopup(popup_237b7026b84964b62c201a7d8228a6f6)
+        ;
+
+        
+    
+    
+            var circle_marker_c5a73b5c27f3dc82489a67c09cffcec2 = L.circleMarker(
+                [24.074, 120.538],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_ce43c5f1ab65bec859e8d30efbcaf543 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8c51a72255999ffca89cad65ba67aa30 = $(`<div id="html_8c51a72255999ffca89cad65ba67aa30" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 10<br>논조: -0.73289902280131</div>`)[0];
+                popup_ce43c5f1ab65bec859e8d30efbcaf543.setContent(html_8c51a72255999ffca89cad65ba67aa30);
+            
+        
+
+        circle_marker_c5a73b5c27f3dc82489a67c09cffcec2.bindPopup(popup_ce43c5f1ab65bec859e8d30efbcaf543)
+        ;
+
+        
+    
+    
+            var circle_marker_0a33001af183a9fdcfbfec8db1383404 = L.circleMarker(
+                [20.6827, 109.951],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_b5b7a54898239fadb62af872f3277b20 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_844911c201c639c9f34d91a9ef0c530f = $(`<div id="html_844911c201c639c9f34d91a9ef0c530f" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 2<br>논조: -4.23076923076924</div>`)[0];
+                popup_b5b7a54898239fadb62af872f3277b20.setContent(html_844911c201c639c9f34d91a9ef0c530f);
+            
+        
+
+        circle_marker_0a33001af183a9fdcfbfec8db1383404.bindPopup(popup_b5b7a54898239fadb62af872f3277b20)
+        ;
+
+        
+    
+    
+            var circle_marker_eb8b348f36fb8a36153f1f0bc0315b9a = L.circleMarker(
+                [20.6827, 109.951],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.5, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_9753effbed43dccadd9ece0c74404581 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_aacb7c5d45c196dc47f6d2449574be04 = $(`<div id="html_aacb7c5d45c196dc47f6d2449574be04" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 25<br>논조: -4.06352401228567</div>`)[0];
+                popup_9753effbed43dccadd9ece0c74404581.setContent(html_aacb7c5d45c196dc47f6d2449574be04);
+            
+        
+
+        circle_marker_eb8b348f36fb8a36153f1f0bc0315b9a.bindPopup(popup_9753effbed43dccadd9ece0c74404581)
+        ;
+
+        
+    
+    
+            var circle_marker_b22552cee69500db5445cbb028a9596a = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.08, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_f62989d0e1d28669b442a11b6aedd637 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_17f8e98020670885b9597c19b43ed353 = $(`<div id="html_17f8e98020670885b9597c19b43ed353" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 4<br>논조: -4.23076923076924</div>`)[0];
+                popup_f62989d0e1d28669b442a11b6aedd637.setContent(html_17f8e98020670885b9597c19b43ed353);
+            
+        
+
+        circle_marker_b22552cee69500db5445cbb028a9596a.bindPopup(popup_f62989d0e1d28669b442a11b6aedd637)
+        ;
+
+        
+    
+    
+            var circle_marker_c3b41ce87d53497a67d88f5871c31d85 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.24, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_6aa2e8bb1d8e70a8e41b933ebfa35a2e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0bd56a4c5f69b10e3ab51a82059b9029 = $(`<div id="html_0bd56a4c5f69b10e3ab51a82059b9029" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 12<br>논조: -5.60490320641117</div>`)[0];
+                popup_6aa2e8bb1d8e70a8e41b933ebfa35a2e.setContent(html_0bd56a4c5f69b10e3ab51a82059b9029);
+            
+        
+
+        circle_marker_c3b41ce87d53497a67d88f5871c31d85.bindPopup(popup_6aa2e8bb1d8e70a8e41b933ebfa35a2e)
+        ;
+
+        
+    
+    
+            var circle_marker_46884c837b6585bba3623ffe7e6aca53 = L.circleMarker(
+                [42.8333, 124.633],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_0ee9ee55c8220f519932d40a69e29e86 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3b3dd74e655fed4e84c9c18e01ac4e90 = $(`<div id="html_3b3dd74e655fed4e84c9c18e01ac4e90" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 10<br>논조: -1.40845070422535</div>`)[0];
+                popup_0ee9ee55c8220f519932d40a69e29e86.setContent(html_3b3dd74e655fed4e84c9c18e01ac4e90);
+            
+        
+
+        circle_marker_46884c837b6585bba3623ffe7e6aca53.bindPopup(popup_0ee9ee55c8220f519932d40a69e29e86)
+        ;
+
+        
+    
+    
+            var circle_marker_0c37aab2e6d2eb2d359f448fcfca3e5a = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.68, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_9407d648afff5ad7963fe54019aab334 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fda1ad8655535cdc19b38996c4579ac5 = $(`<div id="html_fda1ad8655535cdc19b38996c4579ac5" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 34<br>논조: -2.8695700140534</div>`)[0];
+                popup_9407d648afff5ad7963fe54019aab334.setContent(html_fda1ad8655535cdc19b38996c4579ac5);
+            
+        
+
+        circle_marker_0c37aab2e6d2eb2d359f448fcfca3e5a.bindPopup(popup_9407d648afff5ad7963fe54019aab334)
+        ;
+
+        
+    
+    
+            var circle_marker_0f3e186dae6267ae571177d0329aea3e = L.circleMarker(
+                [28.7925, 117.262],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.0, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_e69d9dbc6984c6d1de6438beb5db89e2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d5fff3ab099ac7031d773d80a44ead23 = $(`<div id="html_d5fff3ab099ac7031d773d80a44ead23" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 700<br>논조: -4.22261521114685</div>`)[0];
+                popup_e69d9dbc6984c6d1de6438beb5db89e2.setContent(html_d5fff3ab099ac7031d773d80a44ead23);
+            
+        
+
+        circle_marker_0f3e186dae6267ae571177d0329aea3e.bindPopup(popup_e69d9dbc6984c6d1de6438beb5db89e2)
+        ;
+
+        
+    
+    
+            var circle_marker_bab9dadf6162f3afa32d104ca5665ed2 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_48fa76f21374987baa2624a647ba0207 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_84040a0efabdda712534362c94a2e1f1 = $(`<div id="html_84040a0efabdda712534362c94a2e1f1" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 2<br>논조: -2.08333333333333</div>`)[0];
+                popup_48fa76f21374987baa2624a647ba0207.setContent(html_84040a0efabdda712534362c94a2e1f1);
+            
+        
+
+        circle_marker_bab9dadf6162f3afa32d104ca5665ed2.bindPopup(popup_48fa76f21374987baa2624a647ba0207)
+        ;
+
+        
+    
+    
+            var circle_marker_071bdc0a079c79eba9385a407e3cc4ba = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_b33df1e45eb1a0a88ff4bb11526c15e7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_23b83117184ccaeee0dc0f3358fffad6 = $(`<div id="html_23b83117184ccaeee0dc0f3358fffad6" style="width: 100.0%; height: 100.0%;">코드: 190<br>언급량: 2<br>논조: -3.58649789029535</div>`)[0];
+                popup_b33df1e45eb1a0a88ff4bb11526c15e7.setContent(html_23b83117184ccaeee0dc0f3358fffad6);
+            
+        
+
+        circle_marker_071bdc0a079c79eba9385a407e3cc4ba.bindPopup(popup_b33df1e45eb1a0a88ff4bb11526c15e7)
+        ;
+
+        
+    
+    
+            var circle_marker_fef1a4d1deaf4564ab760f00306a9973 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_884cd534fa10139b6c8eb0b6f8fb3037 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9039735affd54b28358f51c8da2b27ad = $(`<div id="html_9039735affd54b28358f51c8da2b27ad" style="width: 100.0%; height: 100.0%;">코드: 151<br>언급량: 2<br>논조: -3.55140186915887</div>`)[0];
+                popup_884cd534fa10139b6c8eb0b6f8fb3037.setContent(html_9039735affd54b28358f51c8da2b27ad);
+            
+        
+
+        circle_marker_fef1a4d1deaf4564ab760f00306a9973.bindPopup(popup_884cd534fa10139b6c8eb0b6f8fb3037)
+        ;
+
+        
+    
+    
+            var circle_marker_11ffeb5a478fddf2b2f175f379ce4ebf = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.16, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_156693a701e33f829e93372a33762fd7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c4e8fbad621954f4afd4e3b7b1dff830 = $(`<div id="html_c4e8fbad621954f4afd4e3b7b1dff830" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 8<br>논조: -1.55737704918032</div>`)[0];
+                popup_156693a701e33f829e93372a33762fd7.setContent(html_c4e8fbad621954f4afd4e3b7b1dff830);
+            
+        
+
+        circle_marker_11ffeb5a478fddf2b2f175f379ce4ebf.bindPopup(popup_156693a701e33f829e93372a33762fd7)
+        ;
+
+        
+    
+    
+            var circle_marker_aab4383f4cdc2d6da679621a6cfa1c9c = L.circleMarker(
+                [24.4798, 118.082],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_018a84c08561e7ff3d3e5bf97e2aa840 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_98dc3c8337b1f6b2a163222ab83c2acb = $(`<div id="html_98dc3c8337b1f6b2a163222ab83c2acb" style="width: 100.0%; height: 100.0%;">코드: 190<br>언급량: 10<br>논조: -4.16666666666667</div>`)[0];
+                popup_018a84c08561e7ff3d3e5bf97e2aa840.setContent(html_98dc3c8337b1f6b2a163222ab83c2acb);
+            
+        
+
+        circle_marker_aab4383f4cdc2d6da679621a6cfa1c9c.bindPopup(popup_018a84c08561e7ff3d3e5bf97e2aa840)
+        ;
+
+        
+    
+    
+            var circle_marker_6f409afa19af9a42c5594bab6b954a12 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.24, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_b7e5427648ec7c9c0586a93f841c6f20 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5d1604be3791c8b0e18a616fe43eaf82 = $(`<div id="html_5d1604be3791c8b0e18a616fe43eaf82" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 12<br>논조: -3.3600408076228</div>`)[0];
+                popup_b7e5427648ec7c9c0586a93f841c6f20.setContent(html_5d1604be3791c8b0e18a616fe43eaf82);
+            
+        
+
+        circle_marker_6f409afa19af9a42c5594bab6b954a12.bindPopup(popup_b7e5427648ec7c9c0586a93f841c6f20)
+        ;
+
+        
+    
+    
+            var circle_marker_eb4b6f35bc5039df815727aa9eaf995b = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.06, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_5dd2d1a92170cf2ff5d89a3408dd7794 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_021b91898911447e4f3cd2b93d36aef8 = $(`<div id="html_021b91898911447e4f3cd2b93d36aef8" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 3<br>논조: -4.34782608695652</div>`)[0];
+                popup_5dd2d1a92170cf2ff5d89a3408dd7794.setContent(html_021b91898911447e4f3cd2b93d36aef8);
+            
+        
+
+        circle_marker_eb4b6f35bc5039df815727aa9eaf995b.bindPopup(popup_5dd2d1a92170cf2ff5d89a3408dd7794)
+        ;
+
+        
+    
+    
+            var circle_marker_2997597ac36b3a5f8140aeba9b064745 = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_e7bd8f9bfd01004b211716093f46d494 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_30a7b1390aca942effd1e73a1416ea7e = $(`<div id="html_30a7b1390aca942effd1e73a1416ea7e" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 2<br>논조: -4.59518599562364</div>`)[0];
+                popup_e7bd8f9bfd01004b211716093f46d494.setContent(html_30a7b1390aca942effd1e73a1416ea7e);
+            
+        
+
+        circle_marker_2997597ac36b3a5f8140aeba9b064745.bindPopup(popup_e7bd8f9bfd01004b211716093f46d494)
+        ;
+
+        
+    
+    
+            var circle_marker_7409a469d20d7ebdd4b9c4af1f318400 = L.circleMarker(
+                [24.1098, 113.005],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.08, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_a0ee61aebc4deb61f11e377d8f5ae8cc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c0d77b847b43ce1b7cd9169cb8a40af3 = $(`<div id="html_c0d77b847b43ce1b7cd9169cb8a40af3" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 4<br>논조: -2.53025302530253</div>`)[0];
+                popup_a0ee61aebc4deb61f11e377d8f5ae8cc.setContent(html_c0d77b847b43ce1b7cd9169cb8a40af3);
+            
+        
+
+        circle_marker_7409a469d20d7ebdd4b9c4af1f318400.bindPopup(popup_a0ee61aebc4deb61f11e377d8f5ae8cc)
+        ;
+
+        
+    
+    
+            var circle_marker_ed3c023f0411053b7861ff85243b84f0 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_269afd92ba5b3309bef0c5cb8ed05ab6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ed25ece8d05256c5a79f299ce6cef00e = $(`<div id="html_ed25ece8d05256c5a79f299ce6cef00e" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 2<br>논조: -1.67785234899329</div>`)[0];
+                popup_269afd92ba5b3309bef0c5cb8ed05ab6.setContent(html_ed25ece8d05256c5a79f299ce6cef00e);
+            
+        
+
+        circle_marker_ed3c023f0411053b7861ff85243b84f0.bindPopup(popup_269afd92ba5b3309bef0c5cb8ed05ab6)
+        ;
+
+        
+    
+    
+            var circle_marker_a5c8d4a15900b4d288a7c3768cc8d729 = L.circleMarker(
+                [24.1098, 113.005],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_3abb9b750a310b9f15f56cb300272872 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dd3b83ea7223471bffd03bcffff3e94a = $(`<div id="html_dd3b83ea7223471bffd03bcffff3e94a" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 10<br>논조: -2.4232633279483</div>`)[0];
+                popup_3abb9b750a310b9f15f56cb300272872.setContent(html_dd3b83ea7223471bffd03bcffff3e94a);
+            
+        
+
+        circle_marker_a5c8d4a15900b4d288a7c3768cc8d729.bindPopup(popup_3abb9b750a310b9f15f56cb300272872)
+        ;
+
+        
+    
+    
+            var circle_marker_2529c2abbb6ab89d243d8266bf9d5cde = L.circleMarker(
+                [24.1098, 113.005],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.92, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_30a0c8df29be631dbb3bdf3d142371c3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9b7b525ffb5f9fd13a5d3d638036096e = $(`<div id="html_9b7b525ffb5f9fd13a5d3d638036096e" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 96<br>논조: -2.53025302530253</div>`)[0];
+                popup_30a0c8df29be631dbb3bdf3d142371c3.setContent(html_9b7b525ffb5f9fd13a5d3d638036096e);
+            
+        
+
+        circle_marker_2529c2abbb6ab89d243d8266bf9d5cde.bindPopup(popup_30a0c8df29be631dbb3bdf3d142371c3)
+        ;
+
+        
+    
+    
+            var circle_marker_7efd8b7c658523f43db520d307ed318a = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.9, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_a7d9050bb64b2cd46e2284b3775bebe8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_29454b5dfaff1352a09c3fede4e4ad91 = $(`<div id="html_29454b5dfaff1352a09c3fede4e4ad91" style="width: 100.0%; height: 100.0%;">코드: 191<br>언급량: 45<br>논조: -3.66354783271452</div>`)[0];
+                popup_a7d9050bb64b2cd46e2284b3775bebe8.setContent(html_29454b5dfaff1352a09c3fede4e4ad91);
+            
+        
+
+        circle_marker_7efd8b7c658523f43db520d307ed318a.bindPopup(popup_a7d9050bb64b2cd46e2284b3775bebe8)
+        ;
+
+        
+    
+    
+            var circle_marker_81e64f9c8f4cd90699b7fc1411b985c7 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.18, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_8512d99926ffcf6a5c47458e940392d2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6c6f878ae28c4a3dfb27c33f915e7461 = $(`<div id="html_6c6f878ae28c4a3dfb27c33f915e7461" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 9<br>논조: -3.08395488673788</div>`)[0];
+                popup_8512d99926ffcf6a5c47458e940392d2.setContent(html_6c6f878ae28c4a3dfb27c33f915e7461);
+            
+        
+
+        circle_marker_81e64f9c8f4cd90699b7fc1411b985c7.bindPopup(popup_8512d99926ffcf6a5c47458e940392d2)
+        ;
+
+        
+    
+    
+            var circle_marker_72c72125365d56ebd75a699ce2b3e356 = L.circleMarker(
+                [24.1098, 113.005],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.16, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_9885a159e707b274873fdc2e2b1dfe82 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5953d3668f4f5127101bcae62e61e350 = $(`<div id="html_5953d3668f4f5127101bcae62e61e350" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 8<br>논조: -2.62927256792287</div>`)[0];
+                popup_9885a159e707b274873fdc2e2b1dfe82.setContent(html_5953d3668f4f5127101bcae62e61e350);
+            
+        
+
+        circle_marker_72c72125365d56ebd75a699ce2b3e356.bindPopup(popup_9885a159e707b274873fdc2e2b1dfe82)
+        ;
+
+        
+    
+    
+            var circle_marker_097b0d1aff4a2a0be15efbcba0fcb7bc = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.12, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_6098ff54c69726fc30ba831ed1846b82 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9b5f69aa9913660611bfe74143502556 = $(`<div id="html_9b5f69aa9913660611bfe74143502556" style="width: 100.0%; height: 100.0%;">코드: 193<br>언급량: 6<br>논조: -8.33333333333333</div>`)[0];
+                popup_6098ff54c69726fc30ba831ed1846b82.setContent(html_9b5f69aa9913660611bfe74143502556);
+            
+        
+
+        circle_marker_097b0d1aff4a2a0be15efbcba0fcb7bc.bindPopup(popup_6098ff54c69726fc30ba831ed1846b82)
+        ;
+
+        
+    
+    
+            var circle_marker_a93606b14d67903326fb1c78c73f5595 = L.circleMarker(
+                [35.685, 139.751],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.12, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_5e277b1802ebe2037da4cab250c923d6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_55afcf6f2fb0d681332d5675cbaccb64 = $(`<div id="html_55afcf6f2fb0d681332d5675cbaccb64" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 6<br>논조: -3.28542094455852</div>`)[0];
+                popup_5e277b1802ebe2037da4cab250c923d6.setContent(html_55afcf6f2fb0d681332d5675cbaccb64);
+            
+        
+
+        circle_marker_a93606b14d67903326fb1c78c73f5595.bindPopup(popup_5e277b1802ebe2037da4cab250c923d6)
+        ;
+
+        
+    
+    
+            var circle_marker_f452a0f8a159a6bfd8461bd440ccbdf2 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2800000000000002, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_03f8ef29683c356559a8310ea19e1d48 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d28274c42dad4771e9ff55580e66e21a = $(`<div id="html_d28274c42dad4771e9ff55580e66e21a" style="width: 100.0%; height: 100.0%;">코드: 190<br>언급량: 14<br>논조: -4.13878670258475</div>`)[0];
+                popup_03f8ef29683c356559a8310ea19e1d48.setContent(html_d28274c42dad4771e9ff55580e66e21a);
+            
+        
+
+        circle_marker_f452a0f8a159a6bfd8461bd440ccbdf2.bindPopup(popup_03f8ef29683c356559a8310ea19e1d48)
+        ;
+
+        
+    
+    
+            var circle_marker_fe641b286e8277f37fbe3bc03f6a1ddd = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.82, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_30b017725b5d9dbb79296e5c984e109f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_32f0446c2ce4cb54ae4d569abfb3c45c = $(`<div id="html_32f0446c2ce4cb54ae4d569abfb3c45c" style="width: 100.0%; height: 100.0%;">코드: 191<br>언급량: 41<br>논조: -3.63459176494921</div>`)[0];
+                popup_30b017725b5d9dbb79296e5c984e109f.setContent(html_32f0446c2ce4cb54ae4d569abfb3c45c);
+            
+        
+
+        circle_marker_fe641b286e8277f37fbe3bc03f6a1ddd.bindPopup(popup_30b017725b5d9dbb79296e5c984e109f)
+        ;
+
+        
+    
+    
+            var circle_marker_cbae401fea63b8d9d2f4d05ac68d4746 = L.circleMarker(
+                [22.6272, 120.267],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.32, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_7b2b1dc8844fd88071470b036a0f4c9d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_406a936439521b06b667f797f0ae15ea = $(`<div id="html_406a936439521b06b667f797f0ae15ea" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 16<br>논조: -2.57761173313593</div>`)[0];
+                popup_7b2b1dc8844fd88071470b036a0f4c9d.setContent(html_406a936439521b06b667f797f0ae15ea);
+            
+        
+
+        circle_marker_cbae401fea63b8d9d2f4d05ac68d4746.bindPopup(popup_7b2b1dc8844fd88071470b036a0f4c9d)
+        ;
+
+        
+    
+    
+            var circle_marker_e7eedad58e58ea5d1fca503075a762e9 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2800000000000002, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_8ec696bd43a711c46b6aecbb91cb3741 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cef4155d3411a03db695d9227edc6605 = $(`<div id="html_cef4155d3411a03db695d9227edc6605" style="width: 100.0%; height: 100.0%;">코드: 154<br>언급량: 14<br>논조: -2.09523809523809</div>`)[0];
+                popup_8ec696bd43a711c46b6aecbb91cb3741.setContent(html_cef4155d3411a03db695d9227edc6605);
+            
+        
+
+        circle_marker_e7eedad58e58ea5d1fca503075a762e9.bindPopup(popup_8ec696bd43a711c46b6aecbb91cb3741)
+        ;
+
+        
+    
+    
+            var circle_marker_7ff3cbd5a468ac345f9bd65d7c887874 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.18, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_5a0487d473e8239f40bce58d7f47ae32 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b523e2bf032c5387fa0f8d4e9127ef79 = $(`<div id="html_b523e2bf032c5387fa0f8d4e9127ef79" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 159<br>논조: -3.68163401500355</div>`)[0];
+                popup_5a0487d473e8239f40bce58d7f47ae32.setContent(html_b523e2bf032c5387fa0f8d4e9127ef79);
+            
+        
+
+        circle_marker_7ff3cbd5a468ac345f9bd65d7c887874.bindPopup(popup_5a0487d473e8239f40bce58d7f47ae32)
+        ;
+
+        
+    
+    
+            var circle_marker_77f384eba0351cf9770fa2f958898bcf = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.7800000000000002, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_9fee535dc8a10bf932e9888226df9425 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9041230173188445bb5134d9c74e621a = $(`<div id="html_9041230173188445bb5134d9c74e621a" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 39<br>논조: -0.916401143813655</div>`)[0];
+                popup_9fee535dc8a10bf932e9888226df9425.setContent(html_9041230173188445bb5134d9c74e621a);
+            
+        
+
+        circle_marker_77f384eba0351cf9770fa2f958898bcf.bindPopup(popup_9fee535dc8a10bf932e9888226df9425)
+        ;
+
+        
+    
+    
+            var circle_marker_077d34844d9720435bb061afee6bc297 = L.circleMarker(
+                [34.5712, 108.23],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_f9b6c0d8e61c2ba61c1fe1208841e923 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c51476ac88a9f20777c611e265afe497 = $(`<div id="html_c51476ac88a9f20777c611e265afe497" style="width: 100.0%; height: 100.0%;">코드: 193<br>언급량: 1<br>논조: -2.03160270880361</div>`)[0];
+                popup_f9b6c0d8e61c2ba61c1fe1208841e923.setContent(html_c51476ac88a9f20777c611e265afe497);
+            
+        
+
+        circle_marker_077d34844d9720435bb061afee6bc297.bindPopup(popup_f9b6c0d8e61c2ba61c1fe1208841e923)
+        ;
+
+        
+    
+    
+            var circle_marker_8b3ab8b22eb860404299ab0d0acf6b61 = L.circleMarker(
+                [24.757, 121.753],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_d61293155c41269054ab2e94d9e51801 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_acab2f276a33f95db915831ad0b51697 = $(`<div id="html_acab2f276a33f95db915831ad0b51697" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 2<br>논조: -2.62927256792287</div>`)[0];
+                popup_d61293155c41269054ab2e94d9e51801.setContent(html_acab2f276a33f95db915831ad0b51697);
+            
+        
+
+        circle_marker_8b3ab8b22eb860404299ab0d0acf6b61.bindPopup(popup_d61293155c41269054ab2e94d9e51801)
+        ;
+
+        
+    
+    
+            var circle_marker_c674564b2a041549f66e1486ff6f3e66 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_cdf3955529918057bb6e0083318a9850 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bbaec8a2c5f6e4a2c66af1a5517060c1 = $(`<div id="html_bbaec8a2c5f6e4a2c66af1a5517060c1" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 2<br>논조: -3.47432024169184</div>`)[0];
+                popup_cdf3955529918057bb6e0083318a9850.setContent(html_bbaec8a2c5f6e4a2c66af1a5517060c1);
+            
+        
+
+        circle_marker_c674564b2a041549f66e1486ff6f3e66.bindPopup(popup_cdf3955529918057bb6e0083318a9850)
+        ;
+
+        
+    
+    
+            var circle_marker_3f353c2b99958b8f4be310bb44eb4bc7 = L.circleMarker(
+                [51.5, -0.116667],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.1, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_d1829296c20c0ea99703e2fbec0fa736 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1f3ab7b6c174fc600de463f60286b634 = $(`<div id="html_1f3ab7b6c174fc600de463f60286b634" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 5<br>논조: -1.2987012987013</div>`)[0];
+                popup_d1829296c20c0ea99703e2fbec0fa736.setContent(html_1f3ab7b6c174fc600de463f60286b634);
+            
+        
+
+        circle_marker_3f353c2b99958b8f4be310bb44eb4bc7.bindPopup(popup_d1829296c20c0ea99703e2fbec0fa736)
+        ;
+
+        
+    
+    
+            var circle_marker_4ab4f68721b6f4401a507e74faaf0c6e = L.circleMarker(
+                [42.8333, 124.633],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_fd9d1398092782856cbdec0822f1c993 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e73eca21273899b64090b947ddb47409 = $(`<div id="html_e73eca21273899b64090b947ddb47409" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 1<br>논조: -3.46534653465346</div>`)[0];
+                popup_fd9d1398092782856cbdec0822f1c993.setContent(html_e73eca21273899b64090b947ddb47409);
+            
+        
+
+        circle_marker_4ab4f68721b6f4401a507e74faaf0c6e.bindPopup(popup_fd9d1398092782856cbdec0822f1c993)
+        ;
+
+        
+    
+    
+            var circle_marker_bb4bb996b8b472d6dec342a28f9555af = L.circleMarker(
+                [26.8, 105.0],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.4, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_40afe359b59a015f20fe67d471cbe60d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bf12b047b08f9a870e376d1972b3fc83 = $(`<div id="html_bf12b047b08f9a870e376d1972b3fc83" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 20<br>논조: -1.07855107855108</div>`)[0];
+                popup_40afe359b59a015f20fe67d471cbe60d.setContent(html_bf12b047b08f9a870e376d1972b3fc83);
+            
+        
+
+        circle_marker_bb4bb996b8b472d6dec342a28f9555af.bindPopup(popup_40afe359b59a015f20fe67d471cbe60d)
+        ;
+
+        
+    
+    
+            var circle_marker_f2234f2b89634ca24395907cc4393774 = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.12, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_b3ef9faa274064a82293a4658637f6a9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c6e608cdd90b6e83f5e47efec9ec327e = $(`<div id="html_c6e608cdd90b6e83f5e47efec9ec327e" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 6<br>논조: -3.31210191082802</div>`)[0];
+                popup_b3ef9faa274064a82293a4658637f6a9.setContent(html_c6e608cdd90b6e83f5e47efec9ec327e);
+            
+        
+
+        circle_marker_f2234f2b89634ca24395907cc4393774.bindPopup(popup_b3ef9faa274064a82293a4658637f6a9)
+        ;
+
+        
+    
+    
+            var circle_marker_cf333698bda1c729d00ea1d04eae587f = L.circleMarker(
+                [38.8951, -77.0364],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.12, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_719c488588d190fe2ca23be52d389155 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e46ae050d1c3d26f6bc3346359c36688 = $(`<div id="html_e46ae050d1c3d26f6bc3346359c36688" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 6<br>논조: -3.69290573372206</div>`)[0];
+                popup_719c488588d190fe2ca23be52d389155.setContent(html_e46ae050d1c3d26f6bc3346359c36688);
+            
+        
+
+        circle_marker_cf333698bda1c729d00ea1d04eae587f.bindPopup(popup_719c488588d190fe2ca23be52d389155)
+        ;
+
+        
+    
+    
+            var circle_marker_3ca40f24f9f5afb5a0f90d31732e671a = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.08, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_c66a26244625770a7e8a6128c133b8e1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b9f7e2612a1fc91955c75a2f443196a0 = $(`<div id="html_b9f7e2612a1fc91955c75a2f443196a0" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 4<br>논조: -4.17910447761194</div>`)[0];
+                popup_c66a26244625770a7e8a6128c133b8e1.setContent(html_b9f7e2612a1fc91955c75a2f443196a0);
+            
+        
+
+        circle_marker_3ca40f24f9f5afb5a0f90d31732e671a.bindPopup(popup_c66a26244625770a7e8a6128c133b8e1)
+        ;
+
+        
+    
+    
+            var circle_marker_0283cce9863b9aa839aec03aef983d09 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.08, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_ac3955c934b48a2a05bcba6b6d871095 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5f1751593b68cec322e279e36081d2d2 = $(`<div id="html_5f1751593b68cec322e279e36081d2d2" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 4<br>논조: -4.17910447761194</div>`)[0];
+                popup_ac3955c934b48a2a05bcba6b6d871095.setContent(html_5f1751593b68cec322e279e36081d2d2);
+            
+        
+
+        circle_marker_0283cce9863b9aa839aec03aef983d09.bindPopup(popup_ac3955c934b48a2a05bcba6b6d871095)
+        ;
+
+        
+    
+    
+            var circle_marker_6155f5dfd093b8667d952c123d3d5a13 = L.circleMarker(
+                [28.9667, 117.117],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_d8ab502495041fabec9098374ad0a7c0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fe3834cd4f3b368da4234aa69912b2e9 = $(`<div id="html_fe3834cd4f3b368da4234aa69912b2e9" style="width: 100.0%; height: 100.0%;">코드: 154<br>언급량: 1<br>논조: -2.39596469104665</div>`)[0];
+                popup_d8ab502495041fabec9098374ad0a7c0.setContent(html_fe3834cd4f3b368da4234aa69912b2e9);
+            
+        
+
+        circle_marker_6155f5dfd093b8667d952c123d3d5a13.bindPopup(popup_d8ab502495041fabec9098374ad0a7c0)
+        ;
+
+        
+    
+    
+            var circle_marker_b86b5c426e9dcafebe31e7b3fb6a2a14 = L.circleMarker(
+                [38.8951, -77.0364],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_fd28aa7c8cf4c036551e140297114883 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_89a4558719e3b9a63911283f35985cf8 = $(`<div id="html_89a4558719e3b9a63911283f35985cf8" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 1<br>논조: -3.69290573372206</div>`)[0];
+                popup_fd28aa7c8cf4c036551e140297114883.setContent(html_89a4558719e3b9a63911283f35985cf8);
+            
+        
+
+        circle_marker_b86b5c426e9dcafebe31e7b3fb6a2a14.bindPopup(popup_fd28aa7c8cf4c036551e140297114883)
+        ;
+
+        
+    
+    
+            var circle_marker_2b07350d71e3b1c0f1e6db1c18f1effa = L.circleMarker(
+                [38.8951, -77.0364],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.06, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_a2b03ecda38b8baaf7173da046040e9b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c928193883f2f28038b8553dcea049f7 = $(`<div id="html_c928193883f2f28038b8553dcea049f7" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 3<br>논조: -2.62514139145119</div>`)[0];
+                popup_a2b03ecda38b8baaf7173da046040e9b.setContent(html_c928193883f2f28038b8553dcea049f7);
+            
+        
+
+        circle_marker_2b07350d71e3b1c0f1e6db1c18f1effa.bindPopup(popup_a2b03ecda38b8baaf7173da046040e9b)
+        ;
+
+        
+    
+    
+            var circle_marker_c5170ff76f1febae9963aab3a73c1b67 = L.circleMarker(
+                [38.8951, -77.0364],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_a23955960084e670e5da59479cd4edd7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_566f86d99e857d12a2a68612e24b5d63 = $(`<div id="html_566f86d99e857d12a2a68612e24b5d63" style="width: 100.0%; height: 100.0%;">코드: 151<br>언급량: 1<br>논조: -2.68714011516315</div>`)[0];
+                popup_a23955960084e670e5da59479cd4edd7.setContent(html_566f86d99e857d12a2a68612e24b5d63);
+            
+        
+
+        circle_marker_c5170ff76f1febae9963aab3a73c1b67.bindPopup(popup_a23955960084e670e5da59479cd4edd7)
+        ;
+
+        
+    
+    
+            var circle_marker_e003b12aab7c5d403a13aaf04bebef14 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.16, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_b8270a95cb5a43fded64bdae6402162b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ddd79b330d44db2a5fa8b84de9ee1f54 = $(`<div id="html_ddd79b330d44db2a5fa8b84de9ee1f54" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 8<br>논조: -4.04761904761905</div>`)[0];
+                popup_b8270a95cb5a43fded64bdae6402162b.setContent(html_ddd79b330d44db2a5fa8b84de9ee1f54);
+            
+        
+
+        circle_marker_e003b12aab7c5d403a13aaf04bebef14.bindPopup(popup_b8270a95cb5a43fded64bdae6402162b)
+        ;
+
+        
+    
+    
+            var circle_marker_07d420e37b1afd77a3009e5ed1da057f = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.16, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_6e028c04058b2c20c08c843c6bd0242d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_40e4bf59a5b721a8edc07b9cf70f7e9d = $(`<div id="html_40e4bf59a5b721a8edc07b9cf70f7e9d" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 8<br>논조: -4.59518599562364</div>`)[0];
+                popup_6e028c04058b2c20c08c843c6bd0242d.setContent(html_40e4bf59a5b721a8edc07b9cf70f7e9d);
+            
+        
+
+        circle_marker_07d420e37b1afd77a3009e5ed1da057f.bindPopup(popup_6e028c04058b2c20c08c843c6bd0242d)
+        ;
+
+        
+    
+    
+            var circle_marker_0eecf49ffef8b53eeb518a7e5334383e = L.circleMarker(
+                [21.4167, 121.5],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_cc55bb5696942c22d81ee4f61bd665a4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c503a9004990a40da0afbce66dc4be8b = $(`<div id="html_c503a9004990a40da0afbce66dc4be8b" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 10<br>논조: -2.97619047619047</div>`)[0];
+                popup_cc55bb5696942c22d81ee4f61bd665a4.setContent(html_c503a9004990a40da0afbce66dc4be8b);
+            
+        
+
+        circle_marker_0eecf49ffef8b53eeb518a7e5334383e.bindPopup(popup_cc55bb5696942c22d81ee4f61bd665a4)
+        ;
+
+        
+    
+    
+            var circle_marker_2a58e01678e6d11c67fd831cd0a18c3a = L.circleMarker(
+                [45.5, -73.5833],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_3a626c14f5cefa33bb914e5ebe0702be = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_716d18818c9cef8e3e59da0e263cedcc = $(`<div id="html_716d18818c9cef8e3e59da0e263cedcc" style="width: 100.0%; height: 100.0%;">코드: 191<br>언급량: 2<br>논조: -0.63694267515924</div>`)[0];
+                popup_3a626c14f5cefa33bb914e5ebe0702be.setContent(html_716d18818c9cef8e3e59da0e263cedcc);
+            
+        
+
+        circle_marker_2a58e01678e6d11c67fd831cd0a18c3a.bindPopup(popup_3a626c14f5cefa33bb914e5ebe0702be)
+        ;
+
+        
+    
+    
+            var circle_marker_bffca02d5041d8b35f728539de6f7bc0 = L.circleMarker(
+                [25.0327, 121.275],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_835ebb951ac9cf82a697f939320da987 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5285e9aa8d0aca31acaf6a6fa92b34c2 = $(`<div id="html_5285e9aa8d0aca31acaf6a6fa92b34c2" style="width: 100.0%; height: 100.0%;">코드: 154<br>언급량: 10<br>논조: -3.67635273874217</div>`)[0];
+                popup_835ebb951ac9cf82a697f939320da987.setContent(html_5285e9aa8d0aca31acaf6a6fa92b34c2);
+            
+        
+
+        circle_marker_bffca02d5041d8b35f728539de6f7bc0.bindPopup(popup_835ebb951ac9cf82a697f939320da987)
+        ;
+
+        
+    
+    
+            var circle_marker_b303f7c8434a73ca05afbdcc445a7382 = L.circleMarker(
+                [11.55, 104.917],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_63407905d66b55cc113ff45a780c7a6f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3dd470e50e0247e85ca5d964ff669ecf = $(`<div id="html_3dd470e50e0247e85ca5d964ff669ecf" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 10<br>논조: -0.89285714285714</div>`)[0];
+                popup_63407905d66b55cc113ff45a780c7a6f.setContent(html_3dd470e50e0247e85ca5d964ff669ecf);
+            
+        
+
+        circle_marker_b303f7c8434a73ca05afbdcc445a7382.bindPopup(popup_63407905d66b55cc113ff45a780c7a6f)
+        ;
+
+        
+    
+    
+            var circle_marker_7343b9e96c9457752dafeaaad88f521e = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.08, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_7df738081ebc90b9ae84c3658d022fa1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5b638bea440896f7683a9026f1d81469 = $(`<div id="html_5b638bea440896f7683a9026f1d81469" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 4<br>논조: -2.62008733624455</div>`)[0];
+                popup_7df738081ebc90b9ae84c3658d022fa1.setContent(html_5b638bea440896f7683a9026f1d81469);
+            
+        
+
+        circle_marker_7343b9e96c9457752dafeaaad88f521e.bindPopup(popup_7df738081ebc90b9ae84c3658d022fa1)
+        ;
+
+        
+    
+    
+            var circle_marker_3a06c8a4d7da51bc4c2e9ca141fb00d8 = L.circleMarker(
+                [38.8951, -77.0364],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_9f5491e44a8592203945eda233c79f5a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0238d8d5837fb6989e4d65e2302e0ea9 = $(`<div id="html_0238d8d5837fb6989e4d65e2302e0ea9" style="width: 100.0%; height: 100.0%;">코드: 191<br>언급량: 10<br>논조: -3.62531722498723</div>`)[0];
+                popup_9f5491e44a8592203945eda233c79f5a.setContent(html_0238d8d5837fb6989e4d65e2302e0ea9);
+            
+        
+
+        circle_marker_3a06c8a4d7da51bc4c2e9ca141fb00d8.bindPopup(popup_9f5491e44a8592203945eda233c79f5a)
+        ;
+
+        
+    
+    
+            var circle_marker_ca80ab83a97e3bd871b7c6b9889b73b3 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.5, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_07825e891bfe15abb2a37c99a30b7067 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a339248859094ddd232aa4b1a1acdba4 = $(`<div id="html_a339248859094ddd232aa4b1a1acdba4" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 25<br>논조: -3.87260146797786</div>`)[0];
+                popup_07825e891bfe15abb2a37c99a30b7067.setContent(html_a339248859094ddd232aa4b1a1acdba4);
+            
+        
+
+        circle_marker_ca80ab83a97e3bd871b7c6b9889b73b3.bindPopup(popup_07825e891bfe15abb2a37c99a30b7067)
+        ;
+
+        
+    
+    
+            var circle_marker_c8f1832d469f6a252e3887a1100d2425 = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.64, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_7559a5c6994aa1d9f549c1ef0b45ea21 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_414626f1adf40b5bd946031f17215299 = $(`<div id="html_414626f1adf40b5bd946031f17215299" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 32<br>논조: -3.30551573329872</div>`)[0];
+                popup_7559a5c6994aa1d9f549c1ef0b45ea21.setContent(html_414626f1adf40b5bd946031f17215299);
+            
+        
+
+        circle_marker_c8f1832d469f6a252e3887a1100d2425.bindPopup(popup_7559a5c6994aa1d9f549c1ef0b45ea21)
+        ;
+
+        
+    
+    
+            var circle_marker_843b1c9c6585ff2adbf64ea5930303a4 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.24, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_028791c42082badbe7e05ae2685bcecc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_088cee295d3c2f93458ac86052e61287 = $(`<div id="html_088cee295d3c2f93458ac86052e61287" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 62<br>논조: -3.85085075107738</div>`)[0];
+                popup_028791c42082badbe7e05ae2685bcecc.setContent(html_088cee295d3c2f93458ac86052e61287);
+            
+        
+
+        circle_marker_843b1c9c6585ff2adbf64ea5930303a4.bindPopup(popup_028791c42082badbe7e05ae2685bcecc)
+        ;
+
+        
+    
+    
+            var circle_marker_a555a9424cf21e10180910c30d798a93 = L.circleMarker(
+                [29.0, 120.0],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_8e04b3b8e5cbd815177fd654d02ee040 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bc5c37fed34accba88b8b73a5a951837 = $(`<div id="html_bc5c37fed34accba88b8b73a5a951837" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 2<br>논조: -4.72222222222223</div>`)[0];
+                popup_8e04b3b8e5cbd815177fd654d02ee040.setContent(html_bc5c37fed34accba88b8b73a5a951837);
+            
+        
+
+        circle_marker_a555a9424cf21e10180910c30d798a93.bindPopup(popup_8e04b3b8e5cbd815177fd654d02ee040)
+        ;
+
+        
+    
+    
+            var circle_marker_0029dfb65c1c191823e7cf5cbb16e464 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.06, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_6b5bbf542007cec61793aceecc06d803 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c74dc7e67d661780d246722f19dfe263 = $(`<div id="html_c74dc7e67d661780d246722f19dfe263" style="width: 100.0%; height: 100.0%;">코드: 190<br>언급량: 3<br>논조: -2.52147397476117</div>`)[0];
+                popup_6b5bbf542007cec61793aceecc06d803.setContent(html_c74dc7e67d661780d246722f19dfe263);
+            
+        
+
+        circle_marker_0029dfb65c1c191823e7cf5cbb16e464.bindPopup(popup_6b5bbf542007cec61793aceecc06d803)
+        ;
+
+        
+    
+    
+            var circle_marker_b0327fe08cca3f0562cc51e789841c70 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.12, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_8a0281831993e66ffa07da6c4e948156 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_372fec8c5fd04d481ec80f3972ea7958 = $(`<div id="html_372fec8c5fd04d481ec80f3972ea7958" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 6<br>논조: -4.43298969072165</div>`)[0];
+                popup_8a0281831993e66ffa07da6c4e948156.setContent(html_372fec8c5fd04d481ec80f3972ea7958);
+            
+        
+
+        circle_marker_b0327fe08cca3f0562cc51e789841c70.bindPopup(popup_8a0281831993e66ffa07da6c4e948156)
+        ;
+
+        
+    
+    
+            var circle_marker_afde44b08882a43ccb440291dff0d15a = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.34, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_e280f518102c8a1d30ad47963e7fa4c1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6be3138ccfe39d4f81058bf6a86712eb = $(`<div id="html_6be3138ccfe39d4f81058bf6a86712eb" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 17<br>논조: -2.07035759619176</div>`)[0];
+                popup_e280f518102c8a1d30ad47963e7fa4c1.setContent(html_6be3138ccfe39d4f81058bf6a86712eb);
+            
+        
+
+        circle_marker_afde44b08882a43ccb440291dff0d15a.bindPopup(popup_e280f518102c8a1d30ad47963e7fa4c1)
+        ;
+
+        
+    
+    
+            var circle_marker_b27caf49103524c8713fc9daa01d1a15 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.08, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_5351fa4063aebb75289292c26937b0d8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ed52c1c2f657fbea69571c16a9df9715 = $(`<div id="html_ed52c1c2f657fbea69571c16a9df9715" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 4<br>논조: -4.43298969072165</div>`)[0];
+                popup_5351fa4063aebb75289292c26937b0d8.setContent(html_ed52c1c2f657fbea69571c16a9df9715);
+            
+        
+
+        circle_marker_b27caf49103524c8713fc9daa01d1a15.bindPopup(popup_5351fa4063aebb75289292c26937b0d8)
+        ;
+
+        
+    
+    
+            var circle_marker_c36371fe4ab4c9771ba150fcb517e46f = L.circleMarker(
+                [24.455, 122.988],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_507714fd0b51cfd44d566cb9c9f054eb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9f30756c13061df025be52cc8d2bd07b = $(`<div id="html_9f30756c13061df025be52cc8d2bd07b" style="width: 100.0%; height: 100.0%;">코드: 154<br>언급량: 1<br>논조: -2.39596469104665</div>`)[0];
+                popup_507714fd0b51cfd44d566cb9c9f054eb.setContent(html_9f30756c13061df025be52cc8d2bd07b);
+            
+        
+
+        circle_marker_c36371fe4ab4c9771ba150fcb517e46f.bindPopup(popup_507714fd0b51cfd44d566cb9c9f054eb)
+        ;
+
+        
+    
+    
+            var circle_marker_ef182bc6efc7c9dd4c44f3c85f7bec94 = L.circleMarker(
+                [43.0671, 129.075],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_0c4f8cf0f2dc7abbcc608e9d97ab44bd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_62874ad0a2a3b7fe16b4e54647aafd40 = $(`<div id="html_62874ad0a2a3b7fe16b4e54647aafd40" style="width: 100.0%; height: 100.0%;">코드: 154<br>언급량: 10<br>논조: -3.83064516129033</div>`)[0];
+                popup_0c4f8cf0f2dc7abbcc608e9d97ab44bd.setContent(html_62874ad0a2a3b7fe16b4e54647aafd40);
+            
+        
+
+        circle_marker_ef182bc6efc7c9dd4c44f3c85f7bec94.bindPopup(popup_0c4f8cf0f2dc7abbcc608e9d97ab44bd)
+        ;
+
+        
+    
+    
+            var circle_marker_0491c5459fd65a30e6c61a3c1ff61b39 = L.circleMarker(
+                [20.6827, 109.951],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.16, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_09ae698b152d44fb9eb5f9d3fe20bae2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4b2020b29285bc921fca200704001c87 = $(`<div id="html_4b2020b29285bc921fca200704001c87" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 8<br>논조: -3.27022375215147</div>`)[0];
+                popup_09ae698b152d44fb9eb5f9d3fe20bae2.setContent(html_4b2020b29285bc921fca200704001c87);
+            
+        
+
+        circle_marker_0491c5459fd65a30e6c61a3c1ff61b39.bindPopup(popup_09ae698b152d44fb9eb5f9d3fe20bae2)
+        ;
+
+        
+    
+    
+            var circle_marker_6b9a1581aca9622fb2ad8429d318fdc3 = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.08, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_0508aeab5995349fba20f6b32acf5fd1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3967f41816b9b74ddfa2956c4c803f23 = $(`<div id="html_3967f41816b9b74ddfa2956c4c803f23" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 4<br>논조: -4.13062829166975</div>`)[0];
+                popup_0508aeab5995349fba20f6b32acf5fd1.setContent(html_3967f41816b9b74ddfa2956c4c803f23);
+            
+        
+
+        circle_marker_6b9a1581aca9622fb2ad8429d318fdc3.bindPopup(popup_0508aeab5995349fba20f6b32acf5fd1)
+        ;
+
+        
+    
+    
+            var circle_marker_d0538f846324c12a04d35fcb4dd5b872 = L.circleMarker(
+                [34.5712, 108.23],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_8c9c961bb703f848c6aa27596b6b284d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_006b1bc559e57408f90cf68657fa5663 = $(`<div id="html_006b1bc559e57408f90cf68657fa5663" style="width: 100.0%; height: 100.0%;">코드: 193<br>언급량: 1<br>논조: -2.03160270880361</div>`)[0];
+                popup_8c9c961bb703f848c6aa27596b6b284d.setContent(html_006b1bc559e57408f90cf68657fa5663);
+            
+        
+
+        circle_marker_d0538f846324c12a04d35fcb4dd5b872.bindPopup(popup_8c9c961bb703f848c6aa27596b6b284d)
+        ;
+
+        
+    
+    
+            var circle_marker_0b977f9ae1cfe24d3c612f18565c72c3 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.92, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_a1b135c45a9fce21efd9376f77b590e1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_297ba958a3fc398ff8e4e511b288b446 = $(`<div id="html_297ba958a3fc398ff8e4e511b288b446" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 46<br>논조: -3.20825433006932</div>`)[0];
+                popup_a1b135c45a9fce21efd9376f77b590e1.setContent(html_297ba958a3fc398ff8e4e511b288b446);
+            
+        
+
+        circle_marker_0b977f9ae1cfe24d3c612f18565c72c3.bindPopup(popup_a1b135c45a9fce21efd9376f77b590e1)
+        ;
+
+        
+    
+    
+            var circle_marker_66fb84b286c793d0106add63be56e7ac = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_5d8e31efc552edafa25135e124098b2f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_27c4d8dd90a7e13248f72e09e19de1dd = $(`<div id="html_27c4d8dd90a7e13248f72e09e19de1dd" style="width: 100.0%; height: 100.0%;">코드: 194<br>언급량: 10<br>논조: -4.13855830744522</div>`)[0];
+                popup_5d8e31efc552edafa25135e124098b2f.setContent(html_27c4d8dd90a7e13248f72e09e19de1dd);
+            
+        
+
+        circle_marker_66fb84b286c793d0106add63be56e7ac.bindPopup(popup_5d8e31efc552edafa25135e124098b2f)
+        ;
+
+        
+    
+    
+            var circle_marker_59808dac2be674691610bc245836e805 = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.56, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_4efe1876bfdcdae68e4a3e20b3525a52 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bac8311311845df98b6ec23eb9170bb0 = $(`<div id="html_bac8311311845df98b6ec23eb9170bb0" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 28<br>논조: -3.26523751008267</div>`)[0];
+                popup_4efe1876bfdcdae68e4a3e20b3525a52.setContent(html_bac8311311845df98b6ec23eb9170bb0);
+            
+        
+
+        circle_marker_59808dac2be674691610bc245836e805.bindPopup(popup_4efe1876bfdcdae68e4a3e20b3525a52)
+        ;
+
+        
+    
+    
+            var circle_marker_34d16a1e5a40e8592ac15fdfae092b32 = L.circleMarker(
+                [38.8951, -77.0364],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.2, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_f309e6a110cf1b1322582d67fb96aac2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0a401126a7fd21a5dfbffdfb58f3496e = $(`<div id="html_0a401126a7fd21a5dfbffdfb58f3496e" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 10<br>논조: -3.48162475822051</div>`)[0];
+                popup_f309e6a110cf1b1322582d67fb96aac2.setContent(html_0a401126a7fd21a5dfbffdfb58f3496e);
+            
+        
+
+        circle_marker_34d16a1e5a40e8592ac15fdfae092b32.bindPopup(popup_f309e6a110cf1b1322582d67fb96aac2)
+        ;
+
+        
+    
+    
+            var circle_marker_b33815fd3db15172b661e31c5361eb1f = L.circleMarker(
+                [20.6827, 109.951],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 3}
+            ).addTo(map_79b2a162d2c466646e30466c6f77d8b0);
+        
+    
+        var popup_4efcda397778cb2e0c34ef67699a03bd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9fecc2ab283866e7ff92f2bbf8cf311f = $(`<div id="html_9fecc2ab283866e7ff92f2bbf8cf311f" style="width: 100.0%; height: 100.0%;">코드: 150<br>언급량: 2<br>논조: -3.27022375215147</div>`)[0];
+                popup_4efcda397778cb2e0c34ef67699a03bd.setContent(html_9fecc2ab283866e7ff92f2bbf8cf311f);
+            
+        
+
+        circle_marker_b33815fd3db15172b661e31c5361eb1f.bindPopup(popup_4efcda397778cb2e0c34ef67699a03bd)
+        ;
+
+        
+    
+</script>
+</html>
