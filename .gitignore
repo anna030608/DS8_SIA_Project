@@ -1,5 +1,4 @@
 # --- 보안 필수 (절대 금지) ---
-# 구글 클라우드 서비스 계정 키
 google_key.json
 *.json
 
@@ -14,13 +13,23 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# --- 데이터 및 대용량 파일 ---
-# (로컬에 저장하지 않기로 했지만, 만약 생겼을 때를 대비)
-*.csv
+# --- 데이터 파일 ---
+# raw 데이터는 제외 (용량 크고 민감)
+project/01_data/raw/
+
+# processed CSV는 포함 (대시보드 실행에 필요)
+# *.csv 줄 삭제
 *.xlsx
 data/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
 
 # --- 운영체제/툴 관련 ---
 .DS_Store
 .vscode/
 .idea/
+
+# --- EDA 폴더 산출물 ---
+EDA/*.csv
+EDA/*.html
