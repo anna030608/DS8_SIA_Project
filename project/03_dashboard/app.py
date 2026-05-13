@@ -597,7 +597,7 @@ if len(df_filtered) > 0:
             return 'background-color: rgba(255, 215, 0, 0.15)'
 
     st.dataframe(
-        df_table.style.applymap(highlight_score, subset=['Score']),
+        df_table.style.map(highlight_score, subset=['Score']),
         use_container_width=True,
         hide_index=True,
         height=400,
