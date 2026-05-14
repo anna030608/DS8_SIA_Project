@@ -3,6 +3,8 @@ import numpy as np
 import yaml
 import os
 from geopy.distance import geodesic
+from shapely.geometry import Point, LineString
+import geopy.distance
 
 config_path = os.path.join(os.path.dirname(__file__), '..', 'config.yaml')
 with open(config_path, encoding="utf-8") as f:
@@ -13,8 +15,6 @@ df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
 
 weights = config['priority_score']['weights']
 tone_threshold = config['priority_score']['avg_tone_threshold']
-tw_lat = config['priority_score']['taiwan_strait']['lat']
-tw_lon = config['priority_score']['taiwan_strait']['lon']
 geo_bins = config['priority_score']['geo_distance_bins']
 
 # ── 각 지표 정규화 (0~1) ─────────────────────────────────
@@ -32,9 +32,29 @@ df['score_tone'] = np.where(
 )
 
 # ── 거리 기반 지리 점수 ───────────────────────────────────
+# 대만해협 중간선
+MEDIAN_LINE = LineString([(122.0, 27.0), (118.0, 23.0)])
+
+# 대만해협 중간선
+from shapely.geometry import Point, LineString
+MEDIAN_LINE = LineString([(122.0, 27.0), (118.0, 23.0)])
+
 def calc_geo_score(lat, lon):
     try:
-        dist_km = geodesic((tw_lat, tw_lon), (lat, lon)).km
+        point = Point(lon, lat)
+
+        # 선분 위의 최근접점 찾기
+        nearest = MEDIAN_LINE.interpolate(MEDIAN_LINE.project(point))
+        nearest_lat = nearest.y
+        nearest_lon = nearest.x
+
+        # 최근접점까지 실제 거리(km) 계산
+        dist_km = geopy.distance.geodesic(
+            (lat, lon),
+            (nearest_lat, nearest_lon)
+        ).km
+
+        # 구간별 점수 적용
         for bin_ in geo_bins:
             if dist_km <= bin_['max_km']:
                 return bin_['score']
