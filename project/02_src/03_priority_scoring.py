@@ -1,27 +1,21 @@
 import pandas as pd
 import numpy as np
 import yaml
+import os
 from geopy.distance import geodesic
 
-# 수정
-import os
 config_path = os.path.join(os.path.dirname(__file__), '..', 'config.yaml')
 with open(config_path, encoding="utf-8") as f:
     config = yaml.safe_load(f)
 
 df = pd.read_csv("project/01_data/processed/events_filtered.csv")
 df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
-spike = pd.read_csv("project/01_data/processed/spike_events.csv")
-spike['SQLDATE'] = pd.to_datetime(spike['SQLDATE'])
 
 weights = config['priority_score']['weights']
 tone_threshold = config['priority_score']['avg_tone_threshold']
 tw_lat = config['priority_score']['taiwan_strait']['lat']
 tw_lon = config['priority_score']['taiwan_strait']['lon']
 geo_bins = config['priority_score']['geo_distance_bins']
-
-# ── 스파이크 날짜 이벤트만 ────────────────────────────────
-df = df[df['SQLDATE'].isin(spike['SQLDATE'])].copy()
 
 # ── 각 지표 정규화 (0~1) ─────────────────────────────────
 def minmax(series):
@@ -45,7 +39,7 @@ def calc_geo_score(lat, lon):
             if dist_km <= bin_['max_km']:
                 return bin_['score']
     except:
-        return 0.1
+        return 0.0
 
 df['score_geo'] = df.apply(
     lambda row: calc_geo_score(row['ActionGeo_Lat'], row['ActionGeo_Long']),

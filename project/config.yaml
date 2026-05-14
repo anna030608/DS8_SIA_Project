@@ -18,11 +18,15 @@ priority_score:
 
   # 거리 구간별 점수
   geo_distance_bins:
-    - max_km: 300
+    - max_km: 22.2
       score: 1.0
-    - max_km: 700
-      score: 0.7
-    - max_km: 1200
+    - max_km: 44.4
+      score: 0.8
+    - max_km: 88.9
+      score: 0.6
+    - max_km: 177.8
       score: 0.4
+    - max_km: 355.6
+      score: 0.2
     - max_km: 99999
-      score: 0.1
+      score: 0.0
