@@ -5,8 +5,12 @@ df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
 
 # ── 바운딩 박스 정의 (양안관계 관심 범위) ────────────────
 BBOX = {
-    'lat_min': 20, 'lat_max': 45,
-    'lon_min': 105, 'lon_max': 135
+    # 'lat_min': 20, 'lat_max': 45, >> 최초 범위
+    # 'lon_min': 105, 'lon_max': 135
+    'lat_min': 18,  # 남중국해 북부
+    'lat_max': 35,  # 상하이 위쪽까지
+    'lon_min': 108, # 중국 남부 해안
+    'lon_max': 130  # 동중국해 포함
 }
 
 # ── 반복 좌표 목록 (GDELT 국가 대표 좌표) ────────────────

@@ -4,8 +4,25 @@ spike_detection:
 
 priority_score:
   weights:
-    num_mentions: 0.6
+    num_mentions: 0.5
     goldstein: 0.1
-    avg_tone: 0.3
+    avg_tone: 0.2
+    geo_distance: 0.2
 
   avg_tone_threshold: -3        # 이하일 때만 가중치 적용
+
+  # 대만 해협 중심 기준점
+  taiwan_strait:
+    lat: 24.0
+    lon: 119.0
+
+  # 거리 구간별 점수
+  geo_distance_bins:
+    - max_km: 300
+      score: 1.0
+    - max_km: 700
+      score: 0.7
+    - max_km: 1200
+      score: 0.4
+    - max_km: 99999
+      score: 0.1
