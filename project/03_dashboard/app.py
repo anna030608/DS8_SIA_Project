@@ -577,8 +577,8 @@ st.markdown("#### 📋 이벤트 상세 정보")
 if len(df_filtered) > 0:
     df_table = df_filtered[[
         'SQLDATE', 'EventCode', 'NumMentions',
-        'GoldsteinScale', 'AvgTone', 'priority_score',
-        'geo_level', 'SOURCEURL'
+        'GoldsteinScale', 'AvgTone', 'score_geo',
+        'priority_score', 'geo_level', 'SOURCEURL'
     ]].copy()
 
     df_table['SQLDATE'] = df_table['SQLDATE'].dt.strftime('%Y-%m-%d')
@@ -586,7 +586,7 @@ if len(df_filtered) > 0:
         lambda x: f"{int(x)} {CAMEO_DESC.get(str(int(x)), ('',''))[0]}"
     )
     df_table = df_table.sort_values(['SQLDATE', 'priority_score'], ascending=[False, False]).reset_index(drop=True)
-    df_table.columns = ['날짜', '이벤트', '기사수', 'Goldstein', 'AvgTone', 'Score', '신뢰도', '원문링크']
+    df_table.columns = ['날짜', '이벤트', '기사수', 'Goldstein', 'AvgTone', '지리점수', 'Score', '신뢰도', '원문링크']
 
     def highlight_score(val):
         if val >= 0.7:
