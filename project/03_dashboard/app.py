@@ -125,13 +125,15 @@ def get_alert_level(score):
 # ── 데이터 로드 ───────────────────────────────────────────
 @st.cache_data
 def load_data():
-    df = pd.read_csv("project/01_data/processed/final_priority_geo.csv")
+    # df = pd.read_csv("project/01_data/processed/final_priority_geo.csv")
+    df = pd.read_csv(r"C:\Users\angel\DS8_SIA\DS8_SIA_Project\project\01_data\processed\final_priority_geo.csv")
     df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
     return df
 
 @st.cache_data
 def load_spike():
-    df = pd.read_csv("project/01_data/processed/spike_events.csv")
+    # df = pd.read_csv("project/01_data/processed/spike_events.csv")
+    df = pd.read_csv(r"C:\Users\angel\DS8_SIA\DS8_SIA_Project\project\01_data\processed\spike_events.csv")
     df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
     return df
 

@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import yaml
-from geopy.distance import geodesic #추가함
 
 with open("config.yaml", encoding="utf-8") as f:
     config = yaml.safe_load(f)
