@@ -320,6 +320,15 @@ with map_col:
             tooltip=f"{title} | Score: {score:.3f} | {row['geo_level']}"
         ).add_to(m)
 
+    folium.PolyLine(
+        locations=[[27.0, 122.0], [23.0, 118.0]],
+        color='#ffffff',
+        weight=1.5,
+        dash_array='6 4',
+        opacity=0.6,
+        tooltip='Taiwan Strait Median Line'
+    ).add_to(m)
+
     # ── 현황 요약 오버레이 (Folium 내부) ─────────────────
     total = len(df_filtered)
     max_score_str = f"{df_filtered['priority_score'].max():.3f}" if len(df_filtered) > 0 else "N/A"
@@ -579,8 +588,8 @@ st.markdown("#### 📋 이벤트 상세 정보")
 if len(df_filtered) > 0:
     df_table = df_filtered[[
         'SQLDATE', 'EventCode', 'NumMentions',
-        'GoldsteinScale', 'AvgTone', 'priority_score',
-        'geo_level', 'SOURCEURL'
+        'GoldsteinScale', 'AvgTone', 'score_geo',
+        'priority_score', 'geo_level', 'SOURCEURL'
     ]].copy()
 
     df_table['SQLDATE'] = df_table['SQLDATE'].dt.strftime('%Y-%m-%d')
@@ -588,7 +597,7 @@ if len(df_filtered) > 0:
         lambda x: f"{int(x)} {CAMEO_DESC.get(str(int(x)), ('',''))[0]}"
     )
     df_table = df_table.sort_values(['SQLDATE', 'priority_score'], ascending=[False, False]).reset_index(drop=True)
-    df_table.columns = ['날짜', '이벤트', '기사수', 'Goldstein', 'AvgTone', 'Score', '신뢰도', '원문링크']
+    df_table.columns = ['날짜', '이벤트', '기사수', 'Goldstein', 'AvgTone', '지리점수', 'Score', '신뢰도', '원문링크']
 
     def highlight_score(val):
         if val >= 0.7:
