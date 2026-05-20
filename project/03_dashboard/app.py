@@ -196,7 +196,7 @@ if chk_l2:
 st.divider()
 
 # ── 3단 레이아웃 ──────────────────────────────────────────
-left_col, map_col, right_col = st.columns([1, 3, 0.8])
+left_col, map_col, right_col = st.columns([0.8, 3.4, 0.8])
 
 # ════════════════════════════════════════════════════════
 # 좌측: OSINT Feed + 필터
@@ -446,7 +446,7 @@ with right_col:
                     unsafe_allow_html=True
                 )
         else:
-            st.info("1년 이내 이벤트만 위성 정보를 제공합니다.")
+            st.info("1년 이내 이벤트만<br>위성 정보를 제공합니다.")
 
     else:
         st.markdown(
