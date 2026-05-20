@@ -145,6 +145,13 @@ def load_satellite_passes():
 df_passes = load_satellite_passes()
 
 df = load_data()
+
+# ── session_state 초기화 ──────────────────────────────────
+if 'selected_satellite' not in st.session_state:
+    st.session_state['selected_satellite'] = None
+if 'selected_track' not in st.session_state:
+    st.session_state['selected_track'] = None
+
 df_spike = load_spike()
 
 # ── 상단 타이틀 ───────────────────────────────────────────
@@ -327,6 +334,51 @@ with map_col:
             tooltip=f"{title} | Score: {score:.3f} | {row['geo_level']}"
         ).add_to(m)
 
+    # ── 선택된 위성 궤도 표시 ─────────────────────────────
+    if st.session_state['selected_track']:
+        track = st.session_state['selected_track']
+        track_coords = list(zip(track['lats'], track['lons']))
+
+        # 날짜변경선 처리
+        segments = []
+        current_seg = [track_coords[0]]
+        for i in range(1, len(track_coords)):
+            if abs(track_coords[i][1] - track_coords[i-1][1]) > 180:
+                segments.append(current_seg)
+                current_seg = [track_coords[i]]
+            else:
+                current_seg.append(track_coords[i])
+        segments.append(current_seg)
+
+        for seg in segments:
+            if len(seg) > 1:
+                folium.PolyLine(
+                    locations=seg,
+                    color='#00ff88',
+                    weight=2,
+                    opacity=0.8,
+                    tooltip=track['name']
+                ).add_to(m)
+
+        # 궤도 중앙 라벨
+        mid_idx = len(track_coords) // 2
+        folium.Marker(
+            location=track_coords[mid_idx],
+            icon=folium.DivIcon(
+                html=(
+                    '<div style="background:rgba(0,255,136,0.2);'
+                    'border:1px solid #00ff88;border-radius:3px;'
+                    'padding:2px 6px;font-size:10px;color:#00ff88;'
+                    'white-space:nowrap;">'
+                    + track['name'] + '</div>'
+                ),
+                icon_size=(150, 20),
+                icon_anchor=(75, 10)
+            )
+        ).add_to(m)
+
+    # ── 대만해협 중간선 ───────────────────────────────────
+    
     folium.PolyLine(
         locations=[[27.0, 122.0], [23.0, 118.0]],
         color='#ffffff',
@@ -379,12 +431,11 @@ with map_col:
     map_data = st_folium(m, width=None, height=480, returned_objects=["last_object_clicked"])
 
 # ════════════════════════════════════════════════════════
-# 우측: 현황 요약 + 위성 자산 운용
+# 우측: 위성 자산 운용
 # ════════════════════════════════════════════════════════
 with right_col:
     st.markdown("#### 🛰️ 위성 자산 운용")
 
-    # 클릭된 이벤트 좌표 확인
     clicked_lat = None
     clicked_lon = None
 
@@ -393,7 +444,6 @@ with right_col:
         clicked_lon = map_data["last_object_clicked"].get("lng")
 
     if clicked_lat and clicked_lon:
-        # 클릭된 좌표와 가장 가까운 이벤트 찾기
         df_filtered['_dist'] = df_filtered.apply(
             lambda r: geodesic(
                 (clicked_lat, clicked_lon),
@@ -405,12 +455,11 @@ with right_col:
         event_lat = nearest_event['ActionGeo_Lat']
         event_lon = nearest_event['ActionGeo_Long']
 
-        # 해당 이벤트의 근접 위성 필터링
         passes = df_passes[
             (df_passes['SQLDATE'].dt.strftime('%Y-%m-%d') == event_date) &
             (df_passes['event_lat'] == event_lat) &
             (df_passes['event_lon'] == event_lon)
-        ].sort_values('min_dist_km')
+        ].sort_values('min_dist_km').reset_index(drop=True)
 
         st.markdown(
             '<div style="background-color:rgba(255,255,255,0.05);'
@@ -432,21 +481,40 @@ with right_col:
                 unsafe_allow_html=True
             )
 
-            for _, sat in passes.head(5).iterrows():
+            for i, (_, sat) in enumerate(passes.head(10).iterrows()):
+                is_selected = st.session_state['selected_satellite'] == sat['satellite_name']
+                border_color = '#ff8c00' if is_selected else '#4a9eff'
+                bg_color = 'rgba(255,140,0,0.1)' if is_selected else 'rgba(255,255,255,0.04)'
+
                 st.markdown(
-                    '<div style="border-left:3px solid #4a9eff;'
-                    'background-color:rgba(255,255,255,0.04);'
-                    'padding:8px 10px;margin-bottom:6px;border-radius:4px;">'
+                    '<div style="border-left:3px solid ' + border_color + ';'
+                    'background-color:' + bg_color + ';'
+                    'padding:8px 10px;margin-bottom:4px;border-radius:4px;">'
                     '<div style="color:white;font-size:12px;font-weight:bold;">'
                     + sat['satellite_name'] + '</div>'
                     '<div style="color:#aaa;font-size:10px;">'
-                    '최근접 거리: <b style="color:#4a9eff;">'
+                    '최근접 거리: <b style="color:' + border_color + '">'
                     + f"{sat['min_dist_km']:.1f}km</b></div>"
                     '</div>',
                     unsafe_allow_html=True
                 )
+
+                if st.button(
+                    "🛰️ 궤도 보기",
+                    key=f"sat_{i}",
+                    use_container_width=True
+                ):
+                    st.session_state['selected_satellite'] = sat['satellite_name']
+                    st.session_state['selected_track'] = {
+                        'lats': eval(sat['track_lats']),
+                        'lons': eval(sat['track_lons']),
+                        'name': sat['satellite_name'],
+                        'dist': sat['min_dist_km']
+                    }
+                    st.rerun()
+
         else:
-            st.info("1년 이내 이벤트만<br>위성 정보를 제공합니다.")
+            st.info("해당 이벤트의 근접 위성 정보가 없습니다.")
 
     else:
         st.markdown(
