@@ -360,25 +360,19 @@ with map_col:
                     tooltip=track['name']
                 ).add_to(m)
 
-        # 궤도 중앙 라벨
-        mid_idx = len(track_coords) // 2
-        folium.Marker(
-            location=track_coords[mid_idx],
-            icon=folium.DivIcon(
-                html=(
-                    '<div style="background:rgba(0,255,136,0.2);'
-                    'border:1px solid #00ff88;border-radius:3px;'
-                    'padding:2px 6px;font-size:10px;color:#00ff88;'
-                    'white-space:nowrap;">'
-                    + track['name'] + '</div>'
-                ),
-                icon_size=(150, 20),
-                icon_anchor=(75, 10)
-            )
+        # 선택된 이벤트 좌표 강조
+        folium.CircleMarker(
+            location=[track['event_lat'], track['event_lon']],
+            radius=15,
+            color='#ff2d2d',
+            fill=True,
+            fill_color='#ff2d2d',
+            fill_opacity=0.3,
+            tooltip=f"선택된 이벤트: {track['event_date']}"
         ).add_to(m)
 
     # ── 대만해협 중간선 ───────────────────────────────────
-    
+
     folium.PolyLine(
         locations=[[27.0, 122.0], [23.0, 118.0]],
         color='#ffffff',
@@ -509,8 +503,46 @@ with right_col:
                         'lats': eval(sat['track_lats']),
                         'lons': eval(sat['track_lons']),
                         'name': sat['satellite_name'],
-                        'dist': sat['min_dist_km']
+                        'dist': sat['min_dist_km'],
+                        'event_lat': event_lat,      # 추가
+                        'event_lon': event_lon,      # 추가
+                        'event_date': event_date     # 추가
                     }
+                    st.rerun()
+
+            # ── 선택된 위성 상세 정보 ─────────────────────────
+            if st.session_state['selected_satellite']:
+                st.divider()
+                selected = passes[
+                    passes['satellite_name'] == st.session_state['selected_satellite']
+                ]
+                if len(selected) > 0:
+                    sat_info = selected.iloc[0]
+                    st.markdown(
+                        '<div style="background-color:rgba(0,255,136,0.05);'
+                        'border:1px solid rgba(0,255,136,0.3);'
+                        'border-radius:6px;padding:10px;margin-top:6px;">'
+                        '<div style="color:#00ff88;font-size:11px;font-weight:bold;margin-bottom:6px;">'
+                        '🛰️ 선택된 위성 정보</div>'
+                        '<div style="color:white;font-size:13px;font-weight:bold;margin-bottom:4px;">'
+                        + sat_info['satellite_name'] + '</div>'
+                        '<div style="color:#aaa;font-size:11px;margin-bottom:2px;">'
+                        'NORAD ID: <b style="color:white">' + str(sat_info['norad_id']) + '</b></div>'
+                        '<div style="color:#aaa;font-size:11px;margin-bottom:2px;">'
+                        '최근접 거리: <b style="color:#00ff88">' + f"{sat_info['min_dist_km']:.1f}km</b></div>"
+                        '<div style="color:#aaa;font-size:11px;margin-bottom:2px;">'
+                        '이벤트 날짜: <b style="color:white">' + event_date + '</b></div>'
+                        '<div style="color:#aaa;font-size:11px;">'
+                        '이벤트 좌표: <b style="color:white">'
+                        + f'({event_lat:.4f}, {event_lon:.4f})</b></div>'
+                        '</div>',
+                        unsafe_allow_html=True
+                    )
+
+                # 궤도 초기화 버튼
+                if st.button("✕ 궤도 초기화", use_container_width=True):
+                    st.session_state['selected_satellite'] = None
+                    st.session_state['selected_track'] = None
                     st.rerun()
 
         else:
