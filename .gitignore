@@ -1,6 +1,7 @@
 # --- 보안 필수 (절대 금지) ---
 google_key.json
 *.json
+EDA/raw/12_spacetrack.ipynb
 
 # --- 환경 설정 및 가상환경 ---
 .venv/

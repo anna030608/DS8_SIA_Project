@@ -135,6 +135,14 @@ def load_spike():
     df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
     return df
 
+@st.cache_data
+def load_satellite_passes():
+    df = pd.read_csv("project/01_data/processed/satellite_passes.csv")
+    df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
+    return df
+
+df_passes = load_satellite_passes()
+
 df = load_data()
 df_spike = load_spike()
 
@@ -367,143 +375,146 @@ with map_col:
     )
     m.get_root().html.add_child(folium.Element(legend_html))
 
-    st_folium(m, width=None, height=480, returned_objects=[])
+    map_data = st_folium(m, width=None, height=480, returned_objects=["last_object_clicked"])
 
 # ════════════════════════════════════════════════════════
 # 우측: 현황 요약 + 위성 자산 운용
 # ════════════════════════════════════════════════════════
 with right_col:
-
-    # ── 위성 자산 운용 패널 (Mock) ────────────────────────
     st.markdown("#### 🛰️ 위성 자산 운용")
 
-    # 최고 Score 이벤트 기준으로 Mock 데이터 생성
-    if len(df_filtered) > 0:
-        top_event = df_filtered.nlargest(1, 'priority_score').iloc[0]
-        score = top_event['priority_score']
+    # 클릭된 이벤트 좌표 확인
+    clicked_lat = None
+    clicked_lon = None
 
-        # Score 기반 촬영 성공률 및 센서 추천 (규칙 기반)
-        cloud_cover = max(5, int((1 - score) * 40))   # Score 높을수록 구름 적게
-        success_rate = min(99, int(score * 100 + 10))  # Score 높을수록 성공률 높게
+    if map_data and map_data.get("last_object_clicked"):
+        clicked_lat = map_data["last_object_clicked"].get("lat")
+        clicked_lon = map_data["last_object_clicked"].get("lng")
 
-        if cloud_cover <= 20:
-            sensor = "EO (광학)"
-            sensor_color = "#4a9eff"
-            sensor_reason = "구름 수치 양호, 광학 촬영 최적"
-        else:
-            sensor = "SAR (레이더)"
-            sensor_color = "#ff8c00"
-            sensor_reason = "구름 수치 높음, 레이더 촬영 권고"
+    if clicked_lat and clicked_lon:
+        # 클릭된 좌표와 가장 가까운 이벤트 찾기
+        from geopy.distance import geodesic
+        df_filtered['_dist'] = df_filtered.apply(
+            lambda r: geodesic(
+                (clicked_lat, clicked_lon),
+                (r['ActionGeo_Lat'], r['ActionGeo_Long'])
+            ).km, axis=1
+        )
+        nearest_event = df_filtered.nsmallest(1, '_dist').iloc[0]
+        event_date = nearest_event['SQLDATE'].strftime('%Y-%m-%d')
+        event_lat = nearest_event['ActionGeo_Lat']
+        event_lon = nearest_event['ActionGeo_Long']
 
-        # Next Pass Mock (현재 시각 기준 + 랜덤 오프셋)
-        from datetime import datetime, timedelta
-        import random
-        random.seed(int(score * 1000))  # Score 기반 고정값
-        minutes_until = random.randint(8, 45)
-        next_pass = datetime.now() + timedelta(minutes=minutes_until)
+        # 해당 이벤트의 근접 위성 필터링
+        passes = df_passes[
+            (df_passes['SQLDATE'].dt.strftime('%Y-%m-%d') == event_date) &
+            (df_passes['event_lat'] == event_lat) &
+            (df_passes['event_lon'] == event_lon)
+        ].sort_values('min_dist_km')
 
-        # 최적 위성 추천
         st.markdown(
-            f"""
-            <div style="
-                background-color: rgba(255,255,255,0.05);
-                border: 1px solid rgba(255,140,0,0.4);
-                border-radius: 6px;
-                padding: 12px;
-                margin-bottom: 10px;
-            ">
-                <div style="color:#aaaaaa; font-size:11px;">최적 위성 추천</div>
-                <div style="color:#ff8c00; font-size:18px; font-weight:bold;">
-                    SpaceEye-T
-                </div>
-                <div style="color:#aaaaaa; font-size:10px;">(EO/SAR)</div>
-            </div>
-            """,
+            '<div style="background-color:rgba(255,255,255,0.05);'
+            'border:1px solid rgba(255,140,0,0.4);border-radius:6px;'
+            'padding:10px;margin-bottom:10px;">'
+            '<div style="color:#aaa;font-size:11px;">선택된 이벤트</div>'
+            '<div style="color:white;font-size:13px;font-weight:bold;">'
+            + event_date + '</div>'
+            '<div style="color:#aaa;font-size:10px;">'
+            + f'({event_lat:.4f}, {event_lon:.4f})</div>'
+            '</div>',
             unsafe_allow_html=True
         )
 
-        # 촬영 성공 확률
-        bar_color = '#ff2d2d' if success_rate >= 80 else '#ff8c00'
-        st.markdown(
-            f"""
-            <div style="margin-bottom:10px;">
-                <div style="color:#aaaaaa; font-size:11px; margin-bottom:4px;">촬영 성공 확률 예측</div>
-                <div style="color:{bar_color}; font-size:26px; font-weight:bold;">
-                    {success_rate}%
-                </div>
-                <div style="
-                    background-color: rgba(255,255,255,0.1);
-                    border-radius: 4px;
-                    height: 6px;
-                    margin-top: 4px;
-                ">
-                    <div style="
-                        background-color: {bar_color};
-                        width: {success_rate}%;
-                        height: 6px;
-                        border-radius: 4px;
-                    "></div>
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        # Next Pass 카운트다운
-        st.markdown(
-            f"""
-            <div style="margin-bottom:10px;">
-                <div style="color:#aaaaaa; font-size:11px; margin-bottom:2px;">
-                    Next Pass 예상
-                </div>
-                <div style="color:white; font-size:20px; font-weight:bold;">
-                    {minutes_until}분 후
-                </div>
-                <div style="color:#888888; font-size:10px;">
-                    {next_pass.strftime('%Y-%m-%d %H:%M')} (KST)
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        # 구름량 및 센서 추천
-        st.markdown(
-            f"""
-            <div style="margin-bottom:10px;">
-                <div style="color:#aaaaaa; font-size:11px; margin-bottom:2px;">
-                    구름량
-                </div>
-                <div style="color:white; font-size:16px; font-weight:bold;">
-                    {cloud_cover}%
-                </div>
-            </div>
-            <div style="margin-bottom:14px;">
-                <div style="color:#aaaaaa; font-size:11px; margin-bottom:2px;">
-                    센서 유형 추천
-                </div>
-                <div style="color:{sensor_color}; font-size:14px; font-weight:bold;">
-                    {sensor}
-                </div>
-                <div style="color:#888888; font-size:10px;">
-                    {sensor_reason}
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        # 촬영 예약 버튼
-        if st.button("📷 촬영 예약", use_container_width=True, type="primary"):
-            st.success(
-                f"✅ 촬영 예약 완료\n\n"
-                f"위성: SpaceEye-T\n"
-                f"시각: {next_pass.strftime('%Y-%m-%d %H:%M')}\n"
-                f"센서: {sensor}"
+        if len(passes) > 0:
+            st.markdown(
+                f"<div style='color:#aaa;font-size:11px;margin-bottom:6px;'>"
+                f"근접 위성 {len(passes)}개 탐지</div>",
+                unsafe_allow_html=True
             )
 
+            for _, sat in passes.head(5).iterrows():
+                st.markdown(
+                    '<div style="border-left:3px solid #4a9eff;'
+                    'background-color:rgba(255,255,255,0.04);'
+                    'padding:8px 10px;margin-bottom:6px;border-radius:4px;">'
+                    '<div style="color:white;font-size:12px;font-weight:bold;">'
+                    + sat['satellite_name'] + '</div>'
+                    '<div style="color:#aaa;font-size:10px;">'
+                    '최근접 거리: <b style="color:#4a9eff;">'
+                    + f"{sat['min_dist_km']:.1f}km</b></div>"
+                    '</div>',
+                    unsafe_allow_html=True
+                )
+        else:
+            st.info("1년 이내 이벤트만 위성 정보를 제공합니다.")
+
     else:
-        st.info("필터 조건에 해당하는 이벤트가 없습니다.")
+        st.markdown(
+            '<div style="color:#aaa;font-size:12px;text-align:center;'
+            'padding:20px;">지도에서 이벤트 핀을 클릭하면<br>근접 위성 정보가 표시됩니다.</div>',
+            unsafe_allow_html=True
+        )
+
+        # 기존 Mock 데이터 유지 (클릭 전 기본 표시)
+        if len(df_filtered) > 0:
+            top_event = df_filtered.nlargest(1, 'priority_score').iloc[0]
+            score = top_event['priority_score']
+            cloud_cover = max(5, int((1 - score) * 40))
+            success_rate = min(99, int(score * 100 + 10))
+
+            if cloud_cover <= 20:
+                sensor = "EO (광학)"
+                sensor_color = "#4a9eff"
+                sensor_reason = "구름 수치 양호, 광학 촬영 최적"
+            else:
+                sensor = "SAR (레이더)"
+                sensor_color = "#ff8c00"
+                sensor_reason = "구름 수치 높음, 레이더 촬영 권고"
+
+            from datetime import datetime, timedelta
+            import random
+            random.seed(int(score * 1000))
+            minutes_until = random.randint(8, 45)
+            next_pass = datetime.now() + timedelta(minutes=minutes_until)
+
+            st.markdown(
+                f"""
+                <div style="background-color:rgba(255,255,255,0.05);
+                border:1px solid rgba(255,140,0,0.4);border-radius:6px;
+                padding:12px;margin-bottom:10px;">
+                    <div style="color:#aaaaaa;font-size:11px;">최적 위성 추천</div>
+                    <div style="color:#ff8c00;font-size:18px;font-weight:bold;">SpaceEye-T</div>
+                    <div style="color:#aaaaaa;font-size:10px;">(EO/SAR)</div>
+                </div>
+                <div style="margin-bottom:10px;">
+                    <div style="color:#aaaaaa;font-size:11px;margin-bottom:4px;">촬영 성공 확률 예측</div>
+                    <div style="color:#ff2d2d;font-size:26px;font-weight:bold;">{success_rate}%</div>
+                </div>
+                <div style="margin-bottom:10px;">
+                    <div style="color:#aaaaaa;font-size:11px;margin-bottom:2px;">Next Pass 예상</div>
+                    <div style="color:white;font-size:20px;font-weight:bold;">{minutes_until}분 후</div>
+                    <div style="color:#888888;font-size:10px;">{next_pass.strftime('%Y-%m-%d %H:%M')} (KST)</div>
+                </div>
+                <div style="margin-bottom:10px;">
+                    <div style="color:#aaaaaa;font-size:11px;margin-bottom:2px;">구름량</div>
+                    <div style="color:white;font-size:16px;font-weight:bold;">{cloud_cover}%</div>
+                </div>
+                <div style="margin-bottom:14px;">
+                    <div style="color:#aaaaaa;font-size:11px;margin-bottom:2px;">센서 유형 추천</div>
+                    <div style="color:{sensor_color};font-size:14px;font-weight:bold;">{sensor}</div>
+                    <div style="color:#888888;font-size:10px;">{sensor_reason}</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+            if st.button("📷 촬영 예약", use_container_width=True, type="primary"):
+                st.success(
+                    f"✅ 촬영 예약 완료\n\n"
+                    f"위성: SpaceEye-T\n"
+                    f"시각: {next_pass.strftime('%Y-%m-%d %H:%M')}\n"
+                    f"센서: {sensor}"
+                )
 # ════════════════════════════════════════════════════════
 # 하단: 시계열 그래프
 # ════════════════════════════════════════════════════════
