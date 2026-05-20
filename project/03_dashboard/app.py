@@ -3,6 +3,7 @@ import pandas as pd
 import folium
 import plotly.graph_objects as go
 from streamlit_folium import st_folium
+from geopy.distance import geodesic
 
 # ── 페이지 설정 ───────────────────────────────────────────
 st.set_page_config(
@@ -393,7 +394,6 @@ with right_col:
 
     if clicked_lat and clicked_lon:
         # 클릭된 좌표와 가장 가까운 이벤트 찾기
-        from geopy.distance import geodesic
         df_filtered['_dist'] = df_filtered.apply(
             lambda r: geodesic(
                 (clicked_lat, clicked_lon),

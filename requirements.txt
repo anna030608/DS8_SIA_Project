@@ -6,3 +6,4 @@ plotly
 PyYAML
 numpy
 scikit-learn
+geopy
