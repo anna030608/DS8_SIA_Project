@@ -521,17 +521,7 @@ with right_col:
             (df_passes['event_lon'] == event_lon)
         ].sort_values('min_dist_km').reset_index(drop=True)
 
-        panel_html = (
-            '<div style="background-color:rgba(255,255,255,0.05);'
-            'border:1px solid rgba(255,140,0,0.4);border-radius:6px;'
-            'padding:10px;margin-bottom:10px;">'
-            '<div style="color:#aaa;font-size:11px;">선택된 이벤트</div>'
-            '<div style="color:white;font-size:13px;font-weight:bold;">'
-            + event_date + '</div>'
-            '<div style="color:#aaa;font-size:10px;">'
-            + f'({event_lat:.4f}, {event_lon:.4f})</div>'
-            '</div>'
-        )
+        panel_html = ""
 
         if len(passes) > 0:
             panel_html += (
