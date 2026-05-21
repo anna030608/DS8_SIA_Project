@@ -206,6 +206,8 @@ if 'selected_satellite' not in st.session_state:
     st.session_state['selected_satellite'] = None
 if 'selected_track' not in st.session_state:
     st.session_state['selected_track'] = None
+if 'selected_event' not in st.session_state:
+    st.session_state['selected_event'] = None
 
 df_spike = load_spike()
 
@@ -492,6 +494,7 @@ with right_col:
         clicked_lat = map_data["last_object_clicked"].get("lat")
         clicked_lon = map_data["last_object_clicked"].get("lng")
 
+    # 새로운 핀 클릭 시 이벤트 저장
     if clicked_lat and clicked_lon:
         df_filtered['_dist'] = df_filtered.apply(
             lambda r: geodesic(
@@ -500,9 +503,17 @@ with right_col:
             ).km, axis=1
         )
         nearest_event = df_filtered.nsmallest(1, '_dist').iloc[0]
-        event_date = nearest_event['SQLDATE'].strftime('%Y-%m-%d')
-        event_lat = nearest_event['ActionGeo_Lat']
-        event_lon = nearest_event['ActionGeo_Long']
+        st.session_state['selected_event'] = {
+            'date': nearest_event['SQLDATE'].strftime('%Y-%m-%d'),
+            'lat': nearest_event['ActionGeo_Lat'],
+            'lon': nearest_event['ActionGeo_Long']
+        }
+
+    # session_state에서 이벤트 정보 읽기
+    if st.session_state['selected_event']:
+        event_date = st.session_state['selected_event']['date']
+        event_lat = st.session_state['selected_event']['lat']
+        event_lon = st.session_state['selected_event']['lon']
 
         passes = df_passes[
             (df_passes['SQLDATE'].dt.strftime('%Y-%m-%d') == event_date) &
@@ -510,8 +521,6 @@ with right_col:
             (df_passes['event_lon'] == event_lon)
         ].sort_values('min_dist_km').reset_index(drop=True)
 
-        # ── 전체 스크롤 컨테이너 ──────────────────────────
-        # HTML 부분 먼저 구성
         panel_html = (
             '<div style="background-color:rgba(255,255,255,0.05);'
             'border:1px solid rgba(255,140,0,0.4);border-radius:6px;'
@@ -612,7 +621,6 @@ with right_col:
                 '해당 이벤트의 근접 위성 정보가 없습니다.</div>'
             )
 
-        # 전체를 스크롤 컨테이너로 감싸서 출력
         st.markdown(
             '<div style="max-height:560px;overflow-y:auto;'
             'padding-right:4px;scrollbar-width:thin;">'
@@ -621,7 +629,6 @@ with right_col:
             unsafe_allow_html=True
         )
 
-        # 궤도 보기 버튼 (st 위젯이라 스크롤 밖)
         if len(passes) > 0:
             st.divider()
             for i, (_, sat) in enumerate(passes.head(10).iterrows()):
