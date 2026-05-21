@@ -631,18 +631,25 @@ with right_col:
 
         if len(passes) > 0:
             st.divider()
-            for i, (_, sat) in enumerate(passes.head(10).iterrows()):
-                if st.button(
-                    f"🛰️ {sat['satellite_name']}",
-                    key=f"sat_{i}",
-                    use_container_width=True
-                ):
-                    st.session_state['selected_satellite'] = sat['satellite_name']
+            
+            # selectbox로 위성 선택
+            sat_names = passes.head(10)['satellite_name'].tolist()
+            
+            selected_name = st.selectbox(
+                "위성 선택",
+                options=['선택하세요'] + sat_names,
+                key="sat_selectbox"
+            )
+            
+            if selected_name != '선택하세요':
+                sat_row = passes[passes['satellite_name'] == selected_name].iloc[0]
+                if st.button("🛰️ 궤도 보기", use_container_width=True, type="primary"):
+                    st.session_state['selected_satellite'] = selected_name
                     st.session_state['selected_track'] = {
-                        'lats': eval(sat['track_lats']),
-                        'lons': eval(sat['track_lons']),
-                        'name': sat['satellite_name'],
-                        'dist': sat['min_dist_km'],
+                        'lats': eval(sat_row['track_lats']),
+                        'lons': eval(sat_row['track_lons']),
+                        'name': selected_name,
+                        'dist': sat_row['min_dist_km'],
                         'event_lat': event_lat,
                         'event_lon': event_lon,
                         'event_date': event_date
@@ -654,7 +661,6 @@ with right_col:
                     st.session_state['selected_satellite'] = None
                     st.session_state['selected_track'] = None
                     st.rerun()
-
     else:
         st.markdown(
             '<div style="color:#aaa;font-size:12px;text-align:center;'
