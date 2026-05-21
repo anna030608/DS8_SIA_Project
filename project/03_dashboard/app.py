@@ -4,6 +4,7 @@ import folium
 import plotly.graph_objects as go
 from streamlit_folium import st_folium
 from geopy.distance import geodesic
+import math
 
 # ── 페이지 설정 ───────────────────────────────────────────
 st.set_page_config(
@@ -123,6 +124,32 @@ def get_alert_level(score):
     else:
         return 'LOW', '#ffd700'
 
+def estimate_swath(sensor_type, detailed_purpose, altitude):
+    try:
+        altitude = float(altitude) if altitude and str(altitude) != 'nan' else 500
+    except:
+        altitude = 500
+
+    purpose = str(detailed_purpose).upper() if detailed_purpose else ''
+
+    if sensor_type == 'SAR':
+        if 'SCANSAR' in purpose:
+            fov = 30
+        else:
+            fov = 4
+    else:
+        if 'VIDEO' in purpose:
+            fov = 5
+        elif 'HYPERSPECTRAL' in purpose or 'MULTISPECTRAL' in purpose:
+            fov = 12
+        elif altitude < 600:
+            fov = 1.5
+        else:
+            fov = 10
+
+    swath_km = round(2 * altitude * math.tan(math.radians(fov / 2)), 1)
+    return swath_km
+
 # ── 데이터 로드 ───────────────────────────────────────────
 @st.cache_data
 def load_data():
@@ -141,6 +168,13 @@ def load_satellite_passes():
     df = pd.read_csv("project/01_data/processed/satellite_passes.csv")
     df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
     return df
+
+@st.cache_data
+def load_satellite_info():
+    df = pd.read_csv("project/01_data/raw/satellite_info.csv")
+    return df
+
+df_sat_info = load_satellite_info()
 
 df_passes = load_satellite_passes()
 
@@ -455,7 +489,9 @@ with right_col:
             (df_passes['event_lon'] == event_lon)
         ].sort_values('min_dist_km').reset_index(drop=True)
 
-        st.markdown(
+        # ── 전체 스크롤 컨테이너 ──────────────────────────
+        # HTML 부분 먼저 구성
+        panel_html = (
             '<div style="background-color:rgba(255,255,255,0.05);'
             'border:1px solid rgba(255,140,0,0.4);border-radius:6px;'
             'padding:10px;margin-bottom:10px;">'
@@ -464,23 +500,72 @@ with right_col:
             + event_date + '</div>'
             '<div style="color:#aaa;font-size:10px;">'
             + f'({event_lat:.4f}, {event_lon:.4f})</div>'
-            '</div>',
-            unsafe_allow_html=True
+            '</div>'
         )
 
         if len(passes) > 0:
-            st.markdown(
-                f"<div style='color:#aaa;font-size:11px;margin-bottom:6px;'>"
-                f"근접 위성 {len(passes)}개 탐지</div>",
-                unsafe_allow_html=True
+            panel_html += (
+                '<div style="color:#aaa;font-size:11px;margin-bottom:6px;">'
+                f'근접 위성 {len(passes)}개 탐지</div>'
             )
 
-            for i, (_, sat) in enumerate(passes.head(10).iterrows()):
+            # 선택된 위성 상세 정보
+            if st.session_state['selected_satellite']:
+                selected = passes[
+                    passes['satellite_name'] == st.session_state['selected_satellite']
+                ]
+                if len(selected) > 0:
+                    sat_info = selected.iloc[0]
+                    sat_detail = df_sat_info[
+                        df_sat_info['NORAD_CAT_ID'] == int(sat_info['norad_id'])
+                    ]
+                    sensor_type = sat_detail['sensor_type'].values[0] if len(sat_detail) > 0 else 'EO'
+                    altitude = round(sat_detail['APOAPSIS'].values[0]) if len(sat_detail) > 0 else 'N/A'
+                    country = sat_detail['COUNTRY_CODE'].values[0] if len(sat_detail) > 0 else 'N/A'
+                    detailed_purpose = sat_detail['Detailed Purpose'].values[0] if len(sat_detail) > 0 else None
+                    swath_km = estimate_swath(sensor_type, detailed_purpose, altitude)
+                    swath = f"{swath_km}km (추정)"
+
+                    panel_html += (
+                        '<div style="background-color:rgba(0,255,136,0.05);'
+                        'border:1px solid rgba(0,255,136,0.3);'
+                        'border-radius:6px;padding:10px;margin-bottom:8px;">'
+                        '<div style="color:#00ff88;font-size:11px;font-weight:bold;margin-bottom:6px;">'
+                        '🛰️ 선택된 위성 정보</div>'
+                        '<div style="color:white;font-size:13px;font-weight:bold;margin-bottom:6px;">'
+                        + sat_info['satellite_name'] + '</div>'
+                        '<div style="display:flex;gap:8px;margin-bottom:6px;">'
+                        '<span style="background:rgba(74,158,255,0.2);border:1px solid #4a9eff;'
+                        'border-radius:3px;padding:1px 6px;font-size:10px;color:#4a9eff;">'
+                        + str(sensor_type) + '</span>'
+                        '<span style="background:rgba(255,255,255,0.1);'
+                        'border-radius:3px;padding:1px 6px;font-size:10px;color:#aaa;">'
+                        + str(country) + '</span>'
+                        '</div>'
+                        '<div style="color:#aaa;font-size:11px;margin-bottom:2px;">'
+                        'NORAD ID: <b style="color:white">' + str(int(sat_info['norad_id'])) + '</b></div>'
+                        '<div style="color:#aaa;font-size:11px;margin-bottom:2px;">'
+                        '고도: <b style="color:white">' + str(altitude) + 'km</b></div>'
+                        '<div style="color:#aaa;font-size:11px;margin-bottom:2px;">'
+                        '촬영 예상 폭: <b style="color:#00ff88">' + swath + '</b></div>'
+                        '<div style="color:#aaa;font-size:11px;margin-bottom:2px;">'
+                        '최근접 거리: <b style="color:#00ff88">' + f"{sat_info['min_dist_km']:.1f}km</b></div>"
+                        '<div style="color:#aaa;font-size:11px;margin-bottom:2px;">'
+                        '이벤트 날짜: <b style="color:white">' + event_date + '</b></div>'
+                        '<div style="color:#aaa;font-size:11px;">'
+                        '이벤트 좌표: <b style="color:white">'
+                        + f'({event_lat:.4f}, {event_lon:.4f})</b></div>'
+                        '</div>'
+                        '<hr style="border-color:rgba(255,255,255,0.1);margin:8px 0;">'
+                    )
+
+            # 위성 목록
+            for _, sat in passes.head(10).iterrows():
                 is_selected = st.session_state['selected_satellite'] == sat['satellite_name']
                 border_color = '#ff8c00' if is_selected else '#4a9eff'
                 bg_color = 'rgba(255,140,0,0.1)' if is_selected else 'rgba(255,255,255,0.04)'
 
-                st.markdown(
+                panel_html += (
                     '<div style="border-left:3px solid ' + border_color + ';'
                     'background-color:' + bg_color + ';'
                     'padding:8px 10px;margin-bottom:4px;border-radius:4px;">'
@@ -489,12 +574,29 @@ with right_col:
                     '<div style="color:#aaa;font-size:10px;">'
                     '최근접 거리: <b style="color:' + border_color + '">'
                     + f"{sat['min_dist_km']:.1f}km</b></div>"
-                    '</div>',
-                    unsafe_allow_html=True
+                    '</div>'
                 )
+        else:
+            panel_html += (
+                '<div style="color:#aaa;font-size:12px;padding:10px 0;">'
+                '해당 이벤트의 근접 위성 정보가 없습니다.</div>'
+            )
 
+        # 전체를 스크롤 컨테이너로 감싸서 출력
+        st.markdown(
+            '<div style="max-height:560px;overflow-y:auto;'
+            'padding-right:4px;scrollbar-width:thin;">'
+            + panel_html +
+            '</div>',
+            unsafe_allow_html=True
+        )
+
+        # 궤도 보기 버튼 (st 위젯이라 스크롤 밖)
+        if len(passes) > 0:
+            st.divider()
+            for i, (_, sat) in enumerate(passes.head(10).iterrows()):
                 if st.button(
-                    "🛰️ 궤도 보기",
+                    f"🛰️ {sat['satellite_name']}",
                     key=f"sat_{i}",
                     use_container_width=True
                 ):
@@ -504,49 +606,17 @@ with right_col:
                         'lons': eval(sat['track_lons']),
                         'name': sat['satellite_name'],
                         'dist': sat['min_dist_km'],
-                        'event_lat': event_lat,      # 추가
-                        'event_lon': event_lon,      # 추가
-                        'event_date': event_date     # 추가
+                        'event_lat': event_lat,
+                        'event_lon': event_lon,
+                        'event_date': event_date
                     }
                     st.rerun()
 
-            # ── 선택된 위성 상세 정보 ─────────────────────────
             if st.session_state['selected_satellite']:
-                st.divider()
-                selected = passes[
-                    passes['satellite_name'] == st.session_state['selected_satellite']
-                ]
-                if len(selected) > 0:
-                    sat_info = selected.iloc[0]
-                    st.markdown(
-                        '<div style="background-color:rgba(0,255,136,0.05);'
-                        'border:1px solid rgba(0,255,136,0.3);'
-                        'border-radius:6px;padding:10px;margin-top:6px;">'
-                        '<div style="color:#00ff88;font-size:11px;font-weight:bold;margin-bottom:6px;">'
-                        '🛰️ 선택된 위성 정보</div>'
-                        '<div style="color:white;font-size:13px;font-weight:bold;margin-bottom:4px;">'
-                        + sat_info['satellite_name'] + '</div>'
-                        '<div style="color:#aaa;font-size:11px;margin-bottom:2px;">'
-                        'NORAD ID: <b style="color:white">' + str(sat_info['norad_id']) + '</b></div>'
-                        '<div style="color:#aaa;font-size:11px;margin-bottom:2px;">'
-                        '최근접 거리: <b style="color:#00ff88">' + f"{sat_info['min_dist_km']:.1f}km</b></div>"
-                        '<div style="color:#aaa;font-size:11px;margin-bottom:2px;">'
-                        '이벤트 날짜: <b style="color:white">' + event_date + '</b></div>'
-                        '<div style="color:#aaa;font-size:11px;">'
-                        '이벤트 좌표: <b style="color:white">'
-                        + f'({event_lat:.4f}, {event_lon:.4f})</b></div>'
-                        '</div>',
-                        unsafe_allow_html=True
-                    )
-
-                # 궤도 초기화 버튼
                 if st.button("✕ 궤도 초기화", use_container_width=True):
                     st.session_state['selected_satellite'] = None
                     st.session_state['selected_track'] = None
                     st.rerun()
-
-        else:
-            st.info("해당 이벤트의 근접 위성 정보가 없습니다.")
 
     else:
         st.markdown(
