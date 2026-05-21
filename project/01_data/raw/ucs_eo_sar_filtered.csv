@@ -1,0 +1,420 @@
+Current Official Name of Satellite,NORAD Number,Detailed Purpose,Users,sensor_type
+1HOPSAT-TD,44859,Infrared Imaging,Commercial,EO
+Arthur,48953,Optical Imaging,Commercial,EO
+Beijing-3,48840,Optical Imaging,Commercial,EO
+BeijinGalaxy-1,28890,Optical Imaging,Commercial,EO
+Beiyou-1,55257,Radar Imaging,Commercial,SAR
+BlackSky Global 1,43730,Optical Imaging,Commercial,EO
+BlackSky Global 14,49469,Optical Imaging,Commercial,EO
+BlackSky Global 15,49470,Optical Imaging,Commercial,EO
+BlackSky Global 16,49950,Optical Imaging,Commercial,EO
+BlackSky Global 17,49949,Optical Imaging,Commercial,EO
+BlackSky Global 18,52196,Optical Imaging,Commercial,EO
+BlackSky Global 19,55982,Optical Imaging,Commercial,EO
+BlackSky Global 2,43812,Optical Imaging,Commercial,EO
+BlackSky Global 20,52197,Optical Imaging,Commercial,EO
+BlackSky Global 3,44367,Optical Imaging,Commercial,EO
+BlackSky Global 4,44499,Optical Imaging,Commercial,EO
+BlackSky Global 5,55983,Optical Imaging,Commercial,EO
+BlackSky Global 7,46088,Optical Imaging,Commercial,EO
+BlackSky Global 8,46089,Optical Imaging,Commercial,EO
+BlackSky Global 9,47971,Optical Imaging,Commercial,EO
+BlackSky Pathfinder 1,41787,Optical Imaging,Commercial,EO
+Capella-8,55910,Radar Imaging (SAR),Commercial,SAR
+Capella-6,48605,Radar Imaging (SAR),Commercial,SAR
+Capella-7,51072,Radar Imaging (SAR),Commercial,SAR
+Capella-8,51071,Radar Imaging (SAR),Commercial,SAR
+Capella-9,55909,Radar Imaging (SAR),Commercial,SAR
+Chaohu-1,51843,Radar Imaging,Commercial,SAR
+Connecta T2-1,56210,Multispectral Imaging,Commercial,EO
+DMC 3-1,40715,Optical Imaging,Commercial,EO
+DMC 3-2,40716,Optical Imaging,Commercial,EO
+DMC 3-3,40717,Optical Imaging,Commercial,EO
+Dove 3k-10,43905,Optical Imaging,Commercial,EO
+Dove 3k-4,43893,Optical Imaging,Commercial,EO
+Dove 3k-5,43899,Optical Imaging,Commercial,EO
+Dove 3k-7,43902,Optical Imaging,Commercial,EO
+Dove 3k-9,43906,Optical Imaging,Commercial,EO
+Dove 3m-4,42997,Optical Imaging,Commercial,EO
+Dove 3p-11,41975,Optical Imaging,Commercial,EO
+Dove  3p-12,41972,Optical Imaging,Commercial,EO
+Dove 3p-2,41966,Optical Imaging,Commercial,EO
+Dove  3p-23,42018,Optical Imaging,Commercial,EO
+Dove 3p-37,41968,Optical Imaging,Commercial,EO
+Dove 3p-32,42023,Optical Imaging,Commercial,EO
+Dove 3p-33,41990,Optical Imaging,Commercial,EO
+Dove 3p-34,41988,Optical Imaging,Commercial,EO
+Dove 3p-4,41965,Optical Imaging,Commercial,EO
+Dove 3p-46,42031,Optical Imaging,Commercial,EO
+Dove 3p-49,42001,Optical Imaging,Commercial,EO
+Dove 3p-50,42029,Optical Imaging,Commercial,EO
+Dove 3p-54,42014,Optical Imaging,Commercial,EO
+Dove 3p-55,42041,Optical Imaging,Commercial,EO
+Dove 3p-57,41978,Optical Imaging,Commercial,EO
+Dove 3p-58,41977,Optical Imaging,Commercial,EO
+Dove 3p-61,42009,Optical Imaging,Commercial,EO
+Dove 3p-64,42034,Optical Imaging,Commercial,EO
+Dove 3p-65,42028,Optical Imaging,Commercial,EO
+Dove 3p-66,42027,Optical Imaging,Commercial,EO
+Dove 3p-74,42048,Optical Imaging,Commercial,EO
+Dove 3p-76,42019,Optical Imaging,Commercial,EO
+Dove 3p-80,42026,Optical Imaging,Commercial,EO
+Dove 3r-1,43747,Optical Imaging,Commercial,EO
+Dove 3r-11,43725,Optical Imaging,Commercial,EO
+Dove 3r-12,43724,Optical Imaging,Commercial,EO
+Dove 3r-4,43733,Optical Imaging,Commercial,EO
+Dove 3r-7,43741,Optical Imaging,Commercial,EO
+Dove 3r-7,43742,Optical Imaging,Commercial,EO
+Dove 3r-9,43723,Optical Imaging,Commercial,EO
+Dove 3s-1,43769,Optical Imaging,Commercial,EO
+Dove 4a-17,44088,Optical Imaging,Commercial,EO
+Dove 4a-19,44090,Optical Imaging,Commercial,EO
+Dove 4a-2,44080,Optical Imaging,Commercial,EO
+Dove 4a-5,44095,Optical Imaging,Commercial,EO
+Dove 4a-9,44098,Optical Imaging,Commercial,EO
+Dove 4e'-1,46813,Optical Imaging,Commercial,EO
+Dove 4e’-2,46820,Optical Imaging,Commercial,EO
+Dove 4e’-3 ,46819,Optical Imaging,Commercial,EO
+Dove 4e’-4 ,46821,Optical Imaging,Commercial,EO
+Dove 4e’-5 ,46817,Optical Imaging,Commercial,EO
+Dove 4e’-6 ,46822,Optical Imaging,Commercial,EO
+Dove 4e'-8,46814,Optical Imaging,Commercial,EO
+Dove 4e’-8,46816,Optical Imaging,Commercial,EO
+Dove 4e’-9 ,46815,Optical Imaging,Commercial,EO
+Dove 4p-1,44814,Multispectral Imaging,Commercial,EO
+Dove 4p-10,44808,Multispectral Imaging,Commercial,EO
+Dove 4p-11,44809,Multispectral Imaging,Commercial,EO
+Dove 4p-3,44812,Multispectral Imaging,Commercial,EO
+Dove 4p-4,44811,Multispectral Imaging,Commercial,EO
+Dove 4p-5,44818,Multispectral Imaging,Commercial,EO
+Dove 4p-7,44816,Multispectral Imaging,Commercial,EO
+Dove 4s-1 ,47543,Optical Imaging,Commercial,EO
+Dove 4s-10 ,47523,Optical Imaging,Commercial,EO
+Dove 4s-11 ,47462,Optical Imaging,Commercial,EO
+Dove 4s-12 ,47471,Optical Imaging,Commercial,EO
+Dove 4s-13 ,47472,Optical Imaging,Commercial,EO
+Dove 4s-14 ,47528,Optical Imaging,Commercial,EO
+Dove 4s-15 ,47521,Optical Imaging,Commercial,EO
+Dove 4s-16 ,47516,Optical Imaging,Commercial,EO
+Dove 4s-17 ,47492,Optical Imaging,Commercial,EO
+Dove 4s-18 ,47496,Optical Imaging,Commercial,EO
+Dove 4s-19 ,47500,Optical Imaging,Commercial,EO
+Dove 4s-2 ,47498,Optical Imaging,Commercial,EO
+Dove 4s-20 ,47540,Optical Imaging,Commercial,EO
+Dove 4s-21 ,47456,Optical Imaging,Commercial,EO
+Dove 4s-22 ,47452,Optical Imaging,Commercial,EO
+Dove 4s-23 ,47545,Optical Imaging,Commercial,EO
+Dove 4s-24 ,47539,Optical Imaging,Commercial,EO
+Dove 4s-25 ,47542,Optical Imaging,Commercial,EO
+Dove 4s-27 ,47495,Optical Imaging,Commercial,EO
+Dove 4s-28 ,47514,Optical Imaging,Commercial,EO
+Dove 4s-3 ,47494,Optical Imaging,Commercial,EO
+Dove 4s-30 ,47544,Optical Imaging,Commercial,EO
+Dove 4s-31 ,47475,Optical Imaging,Commercial,EO
+Dove 4s-33 ,47469,Optical Imaging,Commercial,EO
+Dove 4s-34 ,47477,Optical Imaging,Commercial,EO
+Dove 4s-35 ,47473,Optical Imaging,Commercial,EO
+Dove 4s-36 ,47530,Optical Imaging,Commercial,EO
+Dove 4s-37 ,47522,Optical Imaging,Commercial,EO
+Dove 4s-39 ,47490,Optical Imaging,Commercial,EO
+Dove 4s-4 ,47491,Optical Imaging,Commercial,EO
+Dove 4s-41 ,47698,Optical Imaging,Commercial,EO
+Dove 4s-42 ,47612,Optical Imaging,Commercial,EO
+Dove 4s-43 ,47687,Optical Imaging,Commercial,EO
+Dove 4s-44 ,47686,Optical Imaging,Commercial,EO
+Dove 4s-45 ,47688,Optical Imaging,Commercial,EO
+Dove 4s-46 ,47684,Optical Imaging,Commercial,EO
+Dove 4s-47 ,47685,Optical Imaging,Commercial,EO
+Dove 4s-48 ,47617,Optical Imaging,Commercial,EO
+Dove 4s-5 ,47515,Optical Imaging,Commercial,EO
+Dove 4s-6 ,47518,Optical Imaging,Commercial,EO
+Dove 4s-7 ,47527,Optical Imaging,Commercial,EO
+Dove 4s-8 ,47474,Optical Imaging,Commercial,EO
+Dove 4s-9 ,47478,Optical Imaging,Commercial,EO
+Dove 4v-1,46313,Optical Imaging,Commercial,EO
+Dove 4v-10,46296,Optical Imaging,Commercial,EO
+Dove 4v-11,46285,Optical Imaging,Commercial,EO
+Dove 4v-13,46297,Optical Imaging,Commercial,EO
+Dove 4v-14,46286,Optical Imaging,Commercial,EO
+Dove 4v-15,46528,Optical Imaging,Commercial,EO
+Dove 4v-16,46527,Optical Imaging,Commercial,EO
+Dove 4v-17,46529,Optical Imaging,Commercial,EO
+Dove 4v-18,46597,Optical Imaging,Commercial,EO
+Dove 4v-19,46609,Optical Imaging,Commercial,EO
+Dove 4v-20,46621,Optical Imaging,Commercial,EO
+Dove 4v-22,46735,Optical Imaging,Commercial,EO
+Dove 4v-23,46737,Optical Imaging,Commercial,EO
+Dove 4v-24,46738,Optical Imaging,Commercial,EO
+Dove 4v-25,46812,Optical Imaging,Commercial,EO
+Dove 4v-26,46825,Optical Imaging,Commercial,EO
+Dove 4v-4,46314,Optical Imaging,Commercial,EO
+Dove 4v-5,46290,Optical Imaging,Commercial,EO
+Dove 4v-6,46289,Optical Imaging,Commercial,EO
+Dove 4v-7,46291,Optical Imaging,Commercial,EO
+Dove 4v-8,46288,Optical Imaging,Commercial,EO
+Dove 4x-1,51017,Optical Imaging,Commercial,EO
+Dove 4x-10,51037,Optical Imaging,Commercial,EO
+Dove 4x-11,51049,Optical Imaging,Commercial,EO
+Dove 4x-12,51015,Optical Imaging,Commercial,EO
+Dove 4x-13,51028,Optical Imaging,Commercial,EO
+Dove 4x-14,51066,Optical Imaging,Commercial,EO
+Dove 4x-15,51010,Optical Imaging,Commercial,EO
+Dove 4x-16,51020,Optical Imaging,Commercial,EO
+Dove 4x-17,51035,Optical Imaging,Commercial,EO
+Dove 4x-18,51007,Optical Imaging,Commercial,EO
+Dove 4x-19,51046,Optical Imaging,Commercial,EO
+Dove 4x-2,50996,Optical Imaging,Commercial,EO
+Dove 4x-20,50997,Optical Imaging,Commercial,EO
+Dove 4x-21,51040,Optical Imaging,Commercial,EO
+Dove 4x-22,51003,Optical Imaging,Commercial,EO
+Dove 4x-24,51056,Optical Imaging,Commercial,EO
+Dove 4x-25,51016,Optical Imaging,Commercial,EO
+Dove 4x-26,51026,Optical Imaging,Commercial,EO
+Dove 4x-28,51045,Optical Imaging,Commercial,EO
+Dove 4x-29,51011,Optical Imaging,Commercial,EO
+Dove 4x-3,51006,Optical Imaging,Commercial,EO
+Dove 4x-30,51000,Optical Imaging,Commercial,EO
+Dove 4x-31,51041,Optical Imaging,Commercial,EO
+Dove 4x-32,51024,Optical Imaging,Commercial,EO
+Dove 4x-34,51042,Optical Imaging,Commercial,EO
+Dove 4x-35,51048,Optical Imaging,Commercial,EO
+Dove 4x-36,51039,Optical Imaging,Commercial,EO
+Dove 4x-37,51009,Optical Imaging,Commercial,EO
+Dove 4x-38,51023,Optical Imaging,Commercial,EO
+Dove 4x-39,51029,Optical Imaging,Commercial,EO
+Dove 4x-4,51064,Optical Imaging,Commercial,EO
+Dove 4x-40,51052,Optical Imaging,Commercial,EO
+Dove 4x-41,51005,Optical Imaging,Commercial,EO
+Dove 4x-42,51018,Optical Imaging,Commercial,EO
+Dove 4x-43,51027,Optical Imaging,Commercial,EO
+Dove 4x-44,50993,Optical Imaging,Commercial,EO
+Dove 4x-5,51004,Optical Imaging,Commercial,EO
+Dove 4x-6,51043,Optical Imaging,Commercial,EO
+Dove 4x-7,51065,Optical Imaging,Commercial,EO
+Dove 4x-8 ,50992,Optical Imaging,Commercial,EO
+Dove 4x-9,51047,Optical Imaging,Commercial,EO
+Dove 4y-1,55039,Optical Imaging,Commercial,EO
+Dove 4y-10,55029,Optical Imaging,Commercial,EO
+Dove 4y-11,55043,Optical Imaging,Commercial,EO
+Dove 4y-12,55065,Optical Imaging,Commercial,EO
+Dove 4y-13,55079,Optical Imaging,Commercial,EO
+Dove 4y-14,55024,Optical Imaging,Commercial,EO
+Dove 4y-15,55068,Optical Imaging,Commercial,EO
+Dove 4y-16,55040,Optical Imaging,Commercial,EO
+Dove 4y-17,55031,Optical Imaging,Commercial,EO
+Dove 4y-18,55023,Optical Imaging,Commercial,EO
+Dove 4y-19,55026,Optical Imaging,Commercial,EO
+Dove 4y-2,55074,Optical Imaging,Commercial,EO
+Dove 4y-20,55063,Optical Imaging,Commercial,EO
+Dove 4y-21,55077,Optical Imaging,Commercial,EO
+Dove 4y-22,55022,Optical Imaging,Commercial,EO
+Dove 4y-23,55080,Optical Imaging,Commercial,EO
+Dove 4y-24,55020,Optical Imaging,Commercial,EO
+Dove 4y-25,55027,Optical Imaging,Commercial,EO
+Dove 4y-26,55070,Optical Imaging,Commercial,EO
+Dove 4y-27,55083,Optical Imaging,Commercial,EO
+Dove 4y-28,55033,Optical Imaging,Commercial,EO
+Dove 4y-29,55030,Optical Imaging,Commercial,EO
+Dove 4y-3,55035,Optical Imaging,Commercial,EO
+Dove 4y-30,55025,Optical Imaging,Commercial,EO
+Dove 4y-31,55075,Optical Imaging,Commercial,EO
+Dove 4y-32,55021,Optical Imaging,Commercial,EO
+Dove 4y-33,55042,Optical Imaging,Commercial,EO
+Dove 4y-34,55082,Optical Imaging,Commercial,EO
+Dove 4y-35,55057,Optical Imaging,Commercial,EO
+Dove 4y-36,55078,Optical Imaging,Commercial,EO
+Dove 4y-4,55055,Optical Imaging,Commercial,EO
+Dove 4y-5,55028,Optical Imaging,Commercial,EO
+Dove 4-y6,55066,Optical Imaging,Commercial,EO
+Dove 4y-7,55032,Optical Imaging,Commercial,EO
+Dove 4y-8,55071,Optical Imaging,Commercial,EO
+Dove 4y-9,55069,Optical Imaging,Commercial,EO
+EOS Sat-1,55053,Multispectral Imaging,Commercial,EO
+EROS B-1,29079,Optical Imaging,Military/Commercial,EO
+GeoEye-1,33331,Optical Imaging,Government/Commercial,EO
+GHOSt-1,56195,Hyperspectral Imaging,Commercial,EO
+GHOSt-2,56197,Hyperspectral Imaging,Commercial,EO
+Gossamer Piccolomini,50999,Subsurface Imaging,Commercial,EO
+GRUS-1A,43890,Multispectral Imaging,Commercial,EO
+GRUS-1B,47934,Optical Imaging,Commercial,EO
+GRUS-1C,47933,Optical Imaging,Commercial,EO
+GRUS-1D,47936,Optical Imaging,Commercial,EO
+GRUS-1E,47935,Optical Imaging,Commercial,EO
+Hisea-1,47297,Radar Imaging,Commercial,SAR
+Hongtu 1-01,56153,Radar Imaging,Commercial,SAR
+Hongtu 1-02,56154,Radar Imaging,Commercial,SAR
+Hongtu 1-03,56155,Radar Imaging,Commercial,SAR
+Hongtu 1-04,56156,Radar Imaging,Commercial,SAR
+ICEYE-X1,43114,Radar Imaging,Commercial,SAR
+ICEYE-X10 ,47507,Radar Imaging,Commercial,SAR
+ICEYE-X11,48918,Radar Imaging (SAR),Commercial,SAR
+ICEYE-X12,48914,Radar Imaging (SAR),Commercial,SAR
+ICEYE-X13,48916,Radar Imaging (SAR),Commercial,SAR
+ICEYE-X14,51070,Radar Imaging (SAR),Commercial,SAR
+ICEYE-X15,48917,Radar Imaging (SAR),Commercial,SAR
+ICEYE-X16,51008,Radar Imaging (SAR),Commercial,SAR
+ICEYE-X17,52762,Radar Imaging,Commercial,SAR
+ICEYE-X18,52749,Radar Imaging,Commercial,SAR
+ICEYE-X19,52758,Radar Imaging,Commercial,SAR
+ICEYE-X2,43800,Radar Imaging (SAR),Commercial,SAR
+ICEYE-X20,52759,Radar Imaging,Commercial,SAR
+ICEYE-X21,55049,Radar Imaging,Commercial,SAR
+ICEYE-X24,52755,Radar Imaging,Commercial,SAR
+ICEYE-X27,55062,Radar Imaging,Commercial,SAR
+ICEYE-X4,44390,Radar Imaging,Commercial,SAR
+ICEYE-X5,44389,Radar Imaging,Commercial,SAR
+ICEYE-X6,46497,Radar Imaging,Commercial,SAR
+ICEYE-X7,46496,Radar Imaging,Commercial,SAR
+ICEYE-X8,47510,Radar Imaging,Commercial,SAR
+ICEYE-X9,47506,Radar Imaging,Commercial,SAR
+Jilin-1,44310,Optical Imaging,Commercial,EO
+Jilin-1,40959,Optical Imaging (video),Commercial,EO
+Jilin-1,40960,Optical Imaging (video),Commercial,EO
+Jilin-1 GaoFen 02A,44777,Multispectral Imaging,Commercial,EO
+Jilin-1 GaoFen 02B,44836,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 02D ,49256,Optical Imaging,Commercial,EO
+Jilin 1 GaoFen 02F,49338,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03B-01 ,46454,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03B-02 ,46455,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03B-03 ,46456,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03B-04 ,46457,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03B-05 ,46458,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03B-06 ,46459,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03C-01 ,46460,Video Imaging,Commercial,EO
+Jilin-1 GaoFen 03C-02 ,46461,Video Imaging,Commercial,EO
+Jilin-1 GaoFen 03C-03 ,46462,Video Imaging,Commercial,EO
+Jilin-1 GaoFen 03D 10,51833,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D 11,51834,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D 12,51835,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D 13,51836,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D 14,51837,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D 15,51838,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D 16 ,51839,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D 17,51840,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D 18,51841,Optical Imaging,Commercial,EO
+Jilin-1 Gaofen 03D-01,49004,Optical Imaging,Commercial,EO
+Jilin-1 Gaofen 03D-02,49005,Optical Imaging,Commercial,EO
+Jilin-1 Gaofen 03D-03,49006,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D-04,52389,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D-05,52390,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D-06,52391,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D-07,52392,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D-27,52444,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D-28,52445,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D-29,52446,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D-30,52447,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D-31,52448,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D-32,52449,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D-33,52450,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 03D-34,55251,Optical Imaging,Commercial,EO
+Jilin-1 GaoFen 04A,52388,Optical Imaging,Commercial,EO
+Wofuman,55256,Optical Imaging,Commercial,EO
+Haihe-1,55255,Optical Imaging,Commercial,EO
+Jilin 1 Kuanfu 01B,49003,Optical Imaging,Commercial,EO
+Jilin 1 Kuanfu 01C,52443,Optical Imaging,Commercial,EO
+Jilin-1 Kuanfu-1,45016,Optical Imaging,Commercial,EO
+Jilin-1 Mofang 02A01,51832,Optical Imaging,Commercial,EO
+Jilin-1 Mofang 02A03,55252,Optical Imaging,Commercial,EO
+Jilin-1 Mofang 02A04,55253,Optical Imaging,Commercial,EO
+Jilin-1 Mofang 02A07,55254,Optical Imaging,Commercial,EO
+Jilin-1,40961,Optical Imaging,Commercial,EO
+Jilin-1-10,43946,Multispectral Imaging,Commercial,EO
+Jilin-1,41914,Optical Imaging,Commercial,EO
+Jilin-1-4,43022,Optical Imaging,Commercial,EO
+Jilin-1-5,43023,Optical Imaging,Commercial,EO
+Jilin-1-6,43024,Optical Imaging,Commercial,EO
+Jilin-1-7,43159,Optical Imaging,Commercial,EO
+Jilin-1-8,43160,Optical Imaging,Commercial,EO
+Jilin-1-9,43943,Multispectral Imaging,Commercial,EO
+Jin Zijing 3,55259,Optical Imaging,Commercial,EO
+Jin Zijing 4,55260,Optical Imaging,Commercial,EO
+Jin Zijing 5,49816,Optical Imaging,Commercial,EO
+Jin Zijing 6,55258,Optical Imaging,Commercial,EO
+KazSTSAT,43783,Optical Imaging,Commercial,EO
+Kompsat-2,29268,Optical Imaging,Government/Commercial,EO
+Kompsat-3,38338,Optical Imaging,Government/Commercial,EO
+Kompsat-3A,40536,Optical Imaging,Government/Commercial,EO
+Kompsat-5,39227,Radar Imaging,Government/Commercial,SAR
+Lize 1,49815,Optical Imaging,Commercial,EO
+Menut,55010,Optical/Infrared Imaging,Commercial,EO
+NovaSAR-1,43619,Radar Imaging,Government/Commercial,SAR
+Ñt-19,48905,Optical/Hyperspectral Imaging,Commercial,EO
+Ñt-3 ,42760,Optical Imaging,Commercial,EO
+Ñt-4,43195,Hyperspectral Imaging,Commercial,EO
+Ñt-5,43204,Hyperspectral Imaging,Commercial,EO
+Ñt-6 ,46272,Optical Imaging,Commercial,EO
+Paz,43215,Radar Imaging,Military/Commercial,SAR
+Pléiades HR1B ,39019,Optical Imaging,Commercial,EO
+Pléiades Neo 3 ,48268,Optical Imaging,Commercial,EO
+Pléiades Neo 4,49070,Optical Imaging,Commercial,EO
+Qiancheng-01,44486,Optical Imaging,Commercial,EO
+QPS-SAR 1,44856,Radar Imaging,Commercial,SAR
+QPS-SAR 2,47485,Radar Imaging,Commercial,SAR
+Radarsat-2,32382,Radar Imaging,Commercial,SAR
+Reaktor Hello World,43743,Hyperspectral Imaging,Commercial,EO
+Resurs-P1,39186,Optical Imaging,Government/Commercial,EO
+Resurs-P2,40360,Optical Imaging/Automatic Identification System (AIS),Government/Commercial,EO
+Siwei 01,52320,Optical Imaging,Commercial,EO
+Siwei 02,52322,Optical Imaging,Commercial,EO
+Siwei Gaojing 2-01 ,53128,Radar Imaging,Commercial,SAR
+Siwei Gaojing 2-02 ,53129,Radar Imaging,Commercial,SAR
+SkySat-1,39418,Optical Imaging,Commercial,EO
+SkySat-10,42990,Optical Imaging,Commercial,EO
+SkySat-11,42989,Optical Imaging,Commercial,EO
+SkySat-12,42988,Optical Imaging,Commercial,EO
+SkySat-13,42987,Optical Imaging,Commercial,EO
+SkySat-14,43797,Optical Imaging,Commercial,EO
+SkySat-15,43802,Optical Imaging,Commercial,EO
+SkySat-16,45788,Optical Imaging,Commercial,EO
+SkySat-17,45790,Optical Imaging,Commercial,EO
+SkySat-18,45789,Optical Imaging,Commercial,EO
+SkySat-19,46179,Optical Imaging,Commercial,EO
+SkySat-2,40072,Optical Imaging,Commercial,EO
+SkySat-20,46180,Optical Imaging,Commercial,EO
+SkySat-21,46235,Optical Imaging,Commercial,EO
+SkySat-3,41601,Optical Imaging,Commercial,EO
+SkySat-4,41771,Optical Imaging,Commercial,EO
+SkySat-5,41772,Optical Imaging,Commercial,EO
+SkySat-6,41773,Optical Imaging,Commercial,EO
+SkySat-7,41774,Optical Imaging,Commercial,EO
+SkySat-8,42992,Optical Imaging,Commercial,EO
+SkySat-9,42991,Optical Imaging,Commercial,EO
+Spot 6,38755,Optical Imaging,Commercial,EO
+Spot 7,40053,Optical Imaging,Commercial,EO
+SSS-2A,49324,Optical Imaging,Commercial,EO
+SSTL-S1-4,43618,Optical Imaging,Commercial,EO
+StriX β,51847,Radar Imaging,Commercial,SAR
+StriX-1,53815,Radar Imaging,Commercial,SAR
+StriX-a,47253,Radar Imaging,Commercial,SAR
+Superview 1-01,41907,Optical Imaging,Commercial,EO
+Superview 1-02,41908,Optical Imaging,Commercial,EO
+Superview 1-03,43099,Optical Imaging,Commercial,EO
+Superview 1-04,43100,Optical Imaging,Commercial,EO
+Taijing 3-01,51829,Optical Imaging,Commercial,EO
+Taijing 4-01,51830,Synthetic Aperture Imaging,Commercial,SAR
+TeLEOS 1,41169,Optical Imaging,Commercial,EO
+TerraSAR X-1,31698,Radar Imaging,Government/Commercial,SAR
+Umbra-02,50986,Radar Imaging,Commercial,SAR
+Umbra-04,55050,Radar Imaging,Commercial,SAR
+Umbra-05,55036,Radar Imaging,Commercial,SAR
+Umbra-06,56198,Radar Imaging,Commercial,SAR
+Umbra-SAR 2001,48906,Synthetic Aperture Imaging,Commercial,SAR
+WNISat-1,39423,Optical Imaging,Commercial,EO
+WNISat-1R,42835,Optical Imaging,Commercial,EO
+Worldview 1,32060,Optical Imaging,Commercial,EO
+Worldview 2,35946,Optical Imaging,Commercial,EO
+Worldview 3,40115,Optical Imaging/Infrared Imaging,Commercial,EO
+Xingshidai 10,49007,Optical Imaging,Commercial,EO
+Xingshidai 5,44488,Optical Imaging,Commercial,EO
+OHS-5,44536,Hyperspectral Imaging,Commercial,EO
+OHS-6,44537,Hyperspectral Imaging,Commercial,EO
+OHS-7,44538,Hyperspectral Imaging,Commercial,EO
+OHS-8,44539,Hyperspectral Imaging,Commercial,EO
+OVS-1A,42761,Video Imaging,Commercial,EO
+OVS-1B,42759,Video Imaging,Commercial,EO
+OVS-2A,43440,Video Imaging,Commercial,EO
+OVS-3,44534,Video Imaging,Commercial,EO
+OHS-1,43439,Hyperspectral Imaging,Commercial,EO
+OHS-2,43441,Hyperspectral Imaging,Commercial,EO
+OHS-3,43442,Hyperspectral Imaging,Commercial,EO
+OHS-4,43443,Hyperspectral Imaging,Commercial,EO
