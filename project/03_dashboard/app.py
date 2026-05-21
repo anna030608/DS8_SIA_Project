@@ -135,17 +135,38 @@ def estimate_swath(sensor_type, detailed_purpose, altitude):
     if sensor_type == 'SAR':
         if 'SCANSAR' in purpose:
             fov = 30
-        else:
-            fov = 4
-    else:
-        if 'VIDEO' in purpose:
+        elif 'SYNTHETIC APERTURE' in purpose:
             fov = 5
-        elif 'HYPERSPECTRAL' in purpose or 'MULTISPECTRAL' in purpose:
-            fov = 12
-        elif altitude < 600:
-            fov = 1.5
         else:
-            fov = 10
+            # Radar Imaging, Radar Imaging (SAR)
+            fov = 4
+
+    else:  # EO
+        if 'VIDEO' in purpose:
+            # Video Imaging, Optical Imaging (video), Optical/Video
+            fov = 5
+        elif 'HYPERSPECTRAL' in purpose:
+            # Hyperspectral Imaging, Optical/Hyperspectral
+            fov = 8
+        elif 'MULTISPECTRAL' in purpose:
+            # Multispectral Imaging
+            fov = 12
+        elif 'INFRARED' in purpose:
+            # Infrared Imaging, Optical/Infrared, Optical Imaging/Infrared
+            fov = 15
+        elif 'SUBSURFACE' in purpose:
+            # Subsurface Imaging - 광각 센서
+            fov = 20
+        else:
+            # Optical Imaging 기본 - 고도 기반 구분
+            if altitude < 500:
+                fov = 1.0   # 초고해상도 (500km 미만)
+            elif altitude < 600:
+                fov = 1.5   # 고해상도 (500~600km)
+            elif altitude < 700:
+                fov = 8.0   # 중해상도 (600~700km)
+            else:
+                fov = 12.0  # 저해상도 (700km 이상)
 
     swath_km = round(2 * altitude * math.tan(math.radians(fov / 2)), 1)
     return swath_km

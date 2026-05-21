@@ -15,8 +15,12 @@ __pycache__/
 *$py.class
 
 # --- 데이터 파일 ---
-# raw 데이터는 제외 (용량 크고 민감)
+# raw 폴더 전체 제외
 project/01_data/raw/
+
+# satellite_info.csv와 ucs 파일만 예외 허용
+!project/01_data/raw/satellite_info.csv
+!project/01_data/raw/ucs_eo_sar_filtered.csv
 
 # processed CSV는 포함 (대시보드 실행에 필요)
 # *.csv 줄 삭제
