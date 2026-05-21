@@ -540,10 +540,19 @@ with right_col:
                     sat_detail = df_sat_info[
                         df_sat_info['NORAD_CAT_ID'] == int(sat_info['norad_id'])
                     ]
-                    sensor_type = sat_detail['sensor_type'].values[0] if len(sat_detail) > 0 else 'EO'
-                    altitude = round(sat_detail['APOAPSIS'].values[0]) if len(sat_detail) > 0 else 'N/A'
-                    country = sat_detail['COUNTRY_CODE'].values[0] if len(sat_detail) > 0 else 'N/A'
-                    detailed_purpose = sat_detail['Detailed Purpose'].values[0] if len(sat_detail) > 0 else None
+
+                    if len(sat_detail) > 0:
+                        row = sat_detail.iloc[0]
+                        sensor_type = row['sensor_type'] if pd.notna(row['sensor_type']) else 'EO'
+                        altitude = round(float(row['APOAPSIS'])) if pd.notna(row['APOAPSIS']) else 500
+                        country = row['COUNTRY_CODE'] if pd.notna(row['COUNTRY_CODE']) else 'N/A'
+                        detailed_purpose = row['Detailed Purpose'] if pd.notna(row['Detailed Purpose']) else None
+                    else:
+                        sensor_type = 'EO'
+                        altitude = 500
+                        country = 'N/A'
+                        detailed_purpose = None
+
                     swath_km = estimate_swath(sensor_type, detailed_purpose, altitude)
                     swath = f"{swath_km}km (추정)"
 
