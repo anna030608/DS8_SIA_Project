@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_963181a1f453c1aa72829bf3d8820dc8 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_963181a1f453c1aa72829bf3d8820dc8" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_963181a1f453c1aa72829bf3d8820dc8 = L.map(
+                "map_963181a1f453c1aa72829bf3d8820dc8",
+                {
+                    center: [23.5, 119.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_279cae0954e27f723ad95309407d206c = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_279cae0954e27f723ad95309407d206c.addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+            var circle_marker_732d722b4df1f13d5fd6d098efb0cbde = L.circleMarker(
+                [22.61, 120.26],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_431c657baa42813476b820a360e828ed = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4a9653c087c8fe0364a54e27f077ed93 = $(`<div id="html_4a9653c087c8fe0364a54e27f077ed93" style="width: 100.0%; height: 100.0%;"><b>[사건 1] 리젠-2024A 연합훈련</b><br>날짜: 2024-05-23<br>위치: 가오슝 항구 외곽<br>좌표: 22.61, 120.26</div>`)[0];
+                popup_431c657baa42813476b820a360e828ed.setContent(html_4a9653c087c8fe0364a54e27f077ed93);
+            
+        
+
+        circle_marker_732d722b4df1f13d5fd6d098efb0cbde.bindPopup(popup_431c657baa42813476b820a360e828ed)
+        ;
+
+        
+    
+    
+            circle_marker_732d722b4df1f13d5fd6d098efb0cbde.bindTooltip(
+                `<div>
+                     [1] 가오슝 항구 외곽
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d91f43991d75ee8ad8bd37d0adaad855 = L.circleMarker(
+                [25.13, 121.74],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_7ef9359076ba962e66ca72bdf3aadfb5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fd6a912aa3c4cc9187ce8f8b37d72061 = $(`<div id="html_fd6a912aa3c4cc9187ce8f8b37d72061" style="width: 100.0%; height: 100.0%;"><b>[사건 1] 리젠-2024A 연합훈련</b><br>날짜: 2024-05-23<br>위치: 지룽 항구<br>좌표: 25.13, 121.74</div>`)[0];
+                popup_7ef9359076ba962e66ca72bdf3aadfb5.setContent(html_fd6a912aa3c4cc9187ce8f8b37d72061);
+            
+        
+
+        circle_marker_d91f43991d75ee8ad8bd37d0adaad855.bindPopup(popup_7ef9359076ba962e66ca72bdf3aadfb5)
+        ;
+
+        
+    
+    
+            circle_marker_d91f43991d75ee8ad8bd37d0adaad855.bindTooltip(
+                `<div>
+                     [1] 지룽 항구
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_694c1283329644b4112021c1d2efa773 = L.circleMarker(
+                [23.5, 122.5],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_f8da1142f07e56c6f28b6081a085de8c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4b9af560df077e284537e988e10e7b31 = $(`<div id="html_4b9af560df077e284537e988e10e7b31" style="width: 100.0%; height: 100.0%;"><b>[사건 2] 연합이검 훈련</b><br>날짜: 2023-04-08<br>위치: 대만 동부 필리핀해<br>좌표: 23.5, 122.5</div>`)[0];
+                popup_f8da1142f07e56c6f28b6081a085de8c.setContent(html_4b9af560df077e284537e988e10e7b31);
+            
+        
+
+        circle_marker_694c1283329644b4112021c1d2efa773.bindPopup(popup_f8da1142f07e56c6f28b6081a085de8c)
+        ;
+
+        
+    
+    
+            circle_marker_694c1283329644b4112021c1d2efa773.bindTooltip(
+                `<div>
+                     [2] 대만 동부 필리핀해
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2e4018ecb5714fa12040e4ff8200c41c = L.circleMarker(
+                [24.3, 118.0],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_21b3b01aabbbeb19e539ebfe95abedb5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_663128f5878210695e274a81b120d404 = $(`<div id="html_663128f5878210695e274a81b120d404" style="width: 100.0%; height: 100.0%;"><b>[사건 2] 연합이검 훈련</b><br>날짜: 2023-04-08<br>위치: 핑탄섬 인근<br>좌표: 24.3, 118.0</div>`)[0];
+                popup_21b3b01aabbbeb19e539ebfe95abedb5.setContent(html_663128f5878210695e274a81b120d404);
+            
+        
+
+        circle_marker_2e4018ecb5714fa12040e4ff8200c41c.bindPopup(popup_21b3b01aabbbeb19e539ebfe95abedb5)
+        ;
+
+        
+    
+    
+            circle_marker_2e4018ecb5714fa12040e4ff8200c41c.bindTooltip(
+                `<div>
+                     [2] 핑탄섬 인근
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_521074215040ca33a463a5ca47054c0c = L.circleMarker(
+                [25.03, 121.51],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_291fe0af2b60299f2a649c3c1940fe6b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9f18bb03f5dde9344036770c6e4ad4e1 = $(`<div id="html_9f18bb03f5dde9344036770c6e4ad4e1" style="width: 100.0%; height: 100.0%;"><b>[사건 3] 펠로시 방문 봉쇄훈련</b><br>날짜: 2022-08-04<br>위치: 타이베이 인근 해역<br>좌표: 25.03, 121.51</div>`)[0];
+                popup_291fe0af2b60299f2a649c3c1940fe6b.setContent(html_9f18bb03f5dde9344036770c6e4ad4e1);
+            
+        
+
+        circle_marker_521074215040ca33a463a5ca47054c0c.bindPopup(popup_291fe0af2b60299f2a649c3c1940fe6b)
+        ;
+
+        
+    
+    
+            circle_marker_521074215040ca33a463a5ca47054c0c.bindTooltip(
+                `<div>
+                     [3] 타이베이 인근 해역
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7b1a0fa14b4b5d80d087f11e854d546d = L.circleMarker(
+                [24.47, 118.08],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_0da3152e3ad4064789bdcc5c83aa9790 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a70b3c73ffe53d775c1bfa7ec9633b20 = $(`<div id="html_a70b3c73ffe53d775c1bfa7ec9633b20" style="width: 100.0%; height: 100.0%;"><b>[사건 3] 펠로시 방문 봉쇄훈련</b><br>날짜: 2022-08-04<br>위치: 샤먼 항구<br>좌표: 24.47, 118.08</div>`)[0];
+                popup_0da3152e3ad4064789bdcc5c83aa9790.setContent(html_a70b3c73ffe53d775c1bfa7ec9633b20);
+            
+        
+
+        circle_marker_7b1a0fa14b4b5d80d087f11e854d546d.bindPopup(popup_0da3152e3ad4064789bdcc5c83aa9790)
+        ;
+
+        
+    
+    
+            circle_marker_7b1a0fa14b4b5d80d087f11e854d546d.bindTooltip(
+                `<div>
+                     [3] 샤먼 항구
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c62e911f802a37bfe020e2655a7d489e = L.circleMarker(
+                [24.56, 117.65],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_27c47653b65ecc1fae249164308f80e9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_aec27794ff8e7608fad1b88807422101 = $(`<div id="html_aec27794ff8e7608fad1b88807422101" style="width: 100.0%; height: 100.0%;"><b>[사건 4] 국경절 최대 무력시위</b><br>날짜: 2021-10-01<br>위치: 장저우 공군기지<br>좌표: 24.56, 117.65</div>`)[0];
+                popup_27c47653b65ecc1fae249164308f80e9.setContent(html_aec27794ff8e7608fad1b88807422101);
+            
+        
+
+        circle_marker_c62e911f802a37bfe020e2655a7d489e.bindPopup(popup_27c47653b65ecc1fae249164308f80e9)
+        ;
+
+        
+    
+    
+            circle_marker_c62e911f802a37bfe020e2655a7d489e.bindTooltip(
+                `<div>
+                     [4] 장저우 공군기지
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3b97724d171689530125c8c6a5d27d3f = L.circleMarker(
+                [25.02, 118.81],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_3134597c07648740ea4ba9eb840130a7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8af2cb09010a1d931df86682b8ba0e7e = $(`<div id="html_8af2cb09010a1d931df86682b8ba0e7e" style="width: 100.0%; height: 100.0%;"><b>[사건 4] 국경절 최대 무력시위</b><br>날짜: 2021-10-01<br>위치: 후이안 공군기지<br>좌표: 25.02, 118.81</div>`)[0];
+                popup_3134597c07648740ea4ba9eb840130a7.setContent(html_8af2cb09010a1d931df86682b8ba0e7e);
+            
+        
+
+        circle_marker_3b97724d171689530125c8c6a5d27d3f.bindPopup(popup_3134597c07648740ea4ba9eb840130a7)
+        ;
+
+        
+    
+    
+            circle_marker_3b97724d171689530125c8c6a5d27d3f.bindTooltip(
+                `<div>
+                     [4] 후이안 공군기지
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_06107e1bbee53321e740dd8dcc403bb7 = L.circleMarker(
+                [18.23, 109.51],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_14b01f1206f79732832c6eba00f3d286 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2174e19f08c32cd0f5f3c8060a010428 = $(`<div id="html_2174e19f08c32cd0f5f3c8060a010428" style="width: 100.0%; height: 100.0%;"><b>[사건 4] 국경절 최대 무력시위</b><br>날짜: 2021-10-01<br>위치: 하이난 산야 해군기지<br>좌표: 18.23, 109.51</div>`)[0];
+                popup_14b01f1206f79732832c6eba00f3d286.setContent(html_2174e19f08c32cd0f5f3c8060a010428);
+            
+        
+
+        circle_marker_06107e1bbee53321e740dd8dcc403bb7.bindPopup(popup_14b01f1206f79732832c6eba00f3d286)
+        ;
+
+        
+    
+    
+            circle_marker_06107e1bbee53321e740dd8dcc403bb7.bindTooltip(
+                `<div>
+                     [4] 하이난 산야 해군기지
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c18d6c6cbfdde2b2182d18ad2c8d9c32 = L.circleMarker(
+                [24.43, 118.1],
+                {"bubblingMouseEvents": true, "color": "darkgreen", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkgreen", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_4e977cfc0817d463e9470323deee20ec = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bcba1f72ec6567b49ca44c2e9868a1ad = $(`<div id="html_bcba1f72ec6567b49ca44c2e9868a1ad" style="width: 100.0%; height: 100.0%;"><b>[사건 5] 해경 협력 반발 시위</b><br>날짜: 2021-03-26<br>위치: 샤먼 해경 부두<br>좌표: 24.43, 118.1</div>`)[0];
+                popup_4e977cfc0817d463e9470323deee20ec.setContent(html_bcba1f72ec6567b49ca44c2e9868a1ad);
+            
+        
+
+        circle_marker_c18d6c6cbfdde2b2182d18ad2c8d9c32.bindPopup(popup_4e977cfc0817d463e9470323deee20ec)
+        ;
+
+        
+    
+    
+            circle_marker_c18d6c6cbfdde2b2182d18ad2c8d9c32.bindTooltip(
+                `<div>
+                     [5] 샤먼 해경 부두
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_df63b05c0bd2be9994b886fbf6a8c172 = L.circleMarker(
+                [22.8, 120.5],
+                {"bubblingMouseEvents": true, "color": "darkgreen", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkgreen", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_13aa4641c5453891d21cf7b4b6e9d41b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_eda7ce45fee0bd45a8461aaa6a64cc93 = $(`<div id="html_eda7ce45fee0bd45a8461aaa6a64cc93" style="width: 100.0%; height: 100.0%;"><b>[사건 5] 해경 협력 반발 시위</b><br>날짜: 2021-03-26<br>위치: 대만 남서부 해역<br>좌표: 22.8, 120.5</div>`)[0];
+                popup_13aa4641c5453891d21cf7b4b6e9d41b.setContent(html_eda7ce45fee0bd45a8461aaa6a64cc93);
+            
+        
+
+        circle_marker_df63b05c0bd2be9994b886fbf6a8c172.bindPopup(popup_13aa4641c5453891d21cf7b4b6e9d41b)
+        ;
+
+        
+    
+    
+            circle_marker_df63b05c0bd2be9994b886fbf6a8c172.bindTooltip(
+                `<div>
+                     [5] 대만 남서부 해역
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1d2f61755c68b7029122d6a73e60a8d1 = L.circleMarker(
+                [25.5, 119.7],
+                {"bubblingMouseEvents": true, "color": "cadetblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "cadetblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_793fbaa586243388908ab02c63d5a929 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_94b071113366a5b9539552a0fd503856 = $(`<div id="html_94b071113366a5b9539552a0fd503856" style="width: 100.0%; height: 100.0%;"><b>[사건 6] 중간선 침범 대치</b><br>날짜: 2020-09-18<br>위치: 핑탄섬 북동쪽 연안<br>좌표: 25.5, 119.7</div>`)[0];
+                popup_793fbaa586243388908ab02c63d5a929.setContent(html_94b071113366a5b9539552a0fd503856);
+            
+        
+
+        circle_marker_1d2f61755c68b7029122d6a73e60a8d1.bindPopup(popup_793fbaa586243388908ab02c63d5a929)
+        ;
+
+        
+    
+    
+            circle_marker_1d2f61755c68b7029122d6a73e60a8d1.bindTooltip(
+                `<div>
+                     [6] 핑탄섬 북동쪽 연안
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e87b83d2eb81ab8055f90d8100d227ba = L.circleMarker(
+                [25.4, 119.2],
+                {"bubblingMouseEvents": true, "color": "pink", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "pink", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_236437f74ca3392db48e2256bf193851 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_aac04bdeccfa3d8a5c98357ee2c15149 = $(`<div id="html_aac04bdeccfa3d8a5c98357ee2c15149" style="width: 100.0%; height: 100.0%;"><b>[사건 7] 20년만의 중간선 침범</b><br>날짜: 2019-03-31<br>위치: 푸톈 공군기지<br>좌표: 25.4, 119.2</div>`)[0];
+                popup_236437f74ca3392db48e2256bf193851.setContent(html_aac04bdeccfa3d8a5c98357ee2c15149);
+            
+        
+
+        circle_marker_e87b83d2eb81ab8055f90d8100d227ba.bindPopup(popup_236437f74ca3392db48e2256bf193851)
+        ;
+
+        
+    
+    
+            circle_marker_e87b83d2eb81ab8055f90d8100d227ba.bindTooltip(
+                `<div>
+                     [7] 푸톈 공군기지
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_411ca30ad322f8c416d1dddf7a5782c5 = L.circleMarker(
+                [24.81, 118.6],
+                {"bubblingMouseEvents": true, "color": "beige", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "beige", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_62cd4f938b9575f5a14d329b5e2b471c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bf65e87b3f8019682b5cd248ceaf84de = $(`<div id="html_bf65e87b3f8019682b5cd248ceaf84de" style="width: 100.0%; height: 100.0%;"><b>[사건 8] 대만해협 실사격 훈련</b><br>날짜: 2018-04-18<br>위치: 취안저우 인근 해안<br>좌표: 24.81, 118.6</div>`)[0];
+                popup_62cd4f938b9575f5a14d329b5e2b471c.setContent(html_bf65e87b3f8019682b5cd248ceaf84de);
+            
+        
+
+        circle_marker_411ca30ad322f8c416d1dddf7a5782c5.bindPopup(popup_62cd4f938b9575f5a14d329b5e2b471c)
+        ;
+
+        
+    
+    
+            circle_marker_411ca30ad322f8c416d1dddf7a5782c5.bindTooltip(
+                `<div>
+                     [8] 취안저우 인근 해안
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_25a036304159025efe72efd0a4eed14d = L.circleMarker(
+                [24.15, 115.76],
+                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_b3a41ce4e7a0e254cabc4f4f142ce72d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c2b0cec2ff2b6f863df9438c6ea8b168 = $(`<div id="html_c2b0cec2ff2b6f863df9438c6ea8b168" style="width: 100.0%; height: 100.0%;"><b>[사건 9] 섬 포위 비행 상설화</b><br>날짜: 2017-12-01<br>위치: 싱닝 공군기지<br>좌표: 24.15, 115.76</div>`)[0];
+                popup_b3a41ce4e7a0e254cabc4f4f142ce72d.setContent(html_c2b0cec2ff2b6f863df9438c6ea8b168);
+            
+        
+
+        circle_marker_25a036304159025efe72efd0a4eed14d.bindPopup(popup_b3a41ce4e7a0e254cabc4f4f142ce72d)
+        ;
+
+        
+    
+    
+            circle_marker_25a036304159025efe72efd0a4eed14d.bindTooltip(
+                `<div>
+                     [9] 싱닝 공군기지
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_132d1190da7cd1c0575a99a1ac507dfb = L.circleMarker(
+                [31.4, 117.0],
+                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_00a2c981afc7c54c85aa42df88f5b023 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c955b00924c9c1a0bf4309c610ceb493 = $(`<div id="html_c955b00924c9c1a0bf4309c610ceb493" style="width: 100.0%; height: 100.0%;"><b>[사건 9] 섬 포위 비행 상설화</b><br>날짜: 2017-12-01<br>위치: 안칭 폭격기 기지<br>좌표: 31.4, 117.0</div>`)[0];
+                popup_00a2c981afc7c54c85aa42df88f5b023.setContent(html_c955b00924c9c1a0bf4309c610ceb493);
+            
+        
+
+        circle_marker_132d1190da7cd1c0575a99a1ac507dfb.bindPopup(popup_00a2c981afc7c54c85aa42df88f5b023)
+        ;
+
+        
+    
+    
+            circle_marker_132d1190da7cd1c0575a99a1ac507dfb.bindTooltip(
+                `<div>
+                     [9] 안칭 폭격기 기지
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e16a65375c2249fa8893e8707ca1748e = L.circleMarker(
+                [9.91, 114.5],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_37f1f95202ee8bba76d399d0d9b9f978 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f39b34b8539e97d7487acdff84b986f3 = $(`<div id="html_f39b34b8539e97d7487acdff84b986f3" style="width: 100.0%; height: 100.0%;"><b>[사건 10] 남중국해 판결 후 긴장</b><br>날짜: 2016-07-01<br>위치: 미스치프 암초<br>좌표: 9.91, 114.5</div>`)[0];
+                popup_37f1f95202ee8bba76d399d0d9b9f978.setContent(html_f39b34b8539e97d7487acdff84b986f3);
+            
+        
+
+        circle_marker_e16a65375c2249fa8893e8707ca1748e.bindPopup(popup_37f1f95202ee8bba76d399d0d9b9f978)
+        ;
+
+        
+    
+    
+            circle_marker_e16a65375c2249fa8893e8707ca1748e.bindTooltip(
+                `<div>
+                     [10] 미스치프 암초
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ffb7d78a65cca349ef76af147d92c1ec = L.circleMarker(
+                [10.91, 114.08],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_40593dd4f92a4794c04bd62de9bee3ad = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a34779bc7cf7532fc0edaf893be73f87 = $(`<div id="html_a34779bc7cf7532fc0edaf893be73f87" style="width: 100.0%; height: 100.0%;"><b>[사건 10] 남중국해 판결 후 긴장</b><br>날짜: 2016-07-01<br>위치: 수비 암초<br>좌표: 10.91, 114.08</div>`)[0];
+                popup_40593dd4f92a4794c04bd62de9bee3ad.setContent(html_a34779bc7cf7532fc0edaf893be73f87);
+            
+        
+
+        circle_marker_ffb7d78a65cca349ef76af147d92c1ec.bindPopup(popup_40593dd4f92a4794c04bd62de9bee3ad)
+        ;
+
+        
+    
+    
+            circle_marker_ffb7d78a65cca349ef76af147d92c1ec.bindTooltip(
+                `<div>
+                     [10] 수비 암초
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5cc8d1b8e90a3177dfe4966a23a6c345 = L.circleMarker(
+                [10.37, 114.36],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_1e4e02a2f276bd42a17a4c2375cf5bbc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b08c13348f0bd7d96f6f6c266d96c737 = $(`<div id="html_b08c13348f0bd7d96f6f6c266d96c737" style="width: 100.0%; height: 100.0%;"><b>[사건 10] 남중국해 판결 후 긴장</b><br>날짜: 2016-07-01<br>위치: 태평도<br>좌표: 10.37, 114.36</div>`)[0];
+                popup_1e4e02a2f276bd42a17a4c2375cf5bbc.setContent(html_b08c13348f0bd7d96f6f6c266d96c737);
+            
+        
+
+        circle_marker_5cc8d1b8e90a3177dfe4966a23a6c345.bindPopup(popup_1e4e02a2f276bd42a17a4c2375cf5bbc)
+        ;
+
+        
+    
+    
+            circle_marker_5cc8d1b8e90a3177dfe4966a23a6c345.bindTooltip(
+                `<div>
+                     [10] 태평도
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7f495ccd18309c3c617dc7212fa52ea3 = L.circleMarker(
+                [42.25, 112.89],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_ad68d11f2ee166d66a06bdedaaa208a4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bdc4fb6debb26bb255e594835e673d36 = $(`<div id="html_bdc4fb6debb26bb255e594835e673d36" style="width: 100.0%; height: 100.0%;"><b>[사건 11] 총통부 복제 모형 훈련</b><br>날짜: 2015-07-01<br>위치: 네이멍구 주리허 기지<br>좌표: 42.25, 112.89</div>`)[0];
+                popup_ad68d11f2ee166d66a06bdedaaa208a4.setContent(html_bdc4fb6debb26bb255e594835e673d36);
+            
+        
+
+        circle_marker_7f495ccd18309c3c617dc7212fa52ea3.bindPopup(popup_ad68d11f2ee166d66a06bdedaaa208a4)
+        ;
+
+        
+    
+    
+            circle_marker_7f495ccd18309c3c617dc7212fa52ea3.bindTooltip(
+                `<div>
+                     [11] 네이멍구 주리허 기지
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e2e6994eb4d71e468a2c79f5db337009 = L.circleMarker(
+                [42.21, 112.17],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_addf8a0b5c9b5f36f20916d12dd297c6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4b888a1c49c15fc6651243656dbdd706 = $(`<div id="html_4b888a1c49c15fc6651243656dbdd706" style="width: 100.0%; height: 100.0%;"><b>[사건 11] 총통부 복제 모형 훈련</b><br>날짜: 2015-07-01<br>위치: 주리허 도심지 훈련구역<br>좌표: 42.21, 112.17</div>`)[0];
+                popup_addf8a0b5c9b5f36f20916d12dd297c6.setContent(html_4b888a1c49c15fc6651243656dbdd706);
+            
+        
+
+        circle_marker_e2e6994eb4d71e468a2c79f5db337009.bindPopup(popup_addf8a0b5c9b5f36f20916d12dd297c6)
+        ;
+
+        
+    
+    
+            circle_marker_e2e6994eb4d71e468a2c79f5db337009.bindTooltip(
+                `<div>
+                     [11] 주리허 도심지 훈련구역
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9be0ee3f0897627c69161338d012483e = L.circleMarker(
+                [25.74, 123.47],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_4145e85a6ed33938f0a77647db2f9a98 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3bf09fca62e7ef02848677c3282cdaa5 = $(`<div id="html_3bf09fca62e7ef02848677c3282cdaa5" style="width: 100.0%; height: 100.0%;"><b>[사건 12] 동중국해 ADIZ 선포</b><br>날짜: 2013-11-23<br>위치: 다오위다오 인근<br>좌표: 25.74, 123.47</div>`)[0];
+                popup_4145e85a6ed33938f0a77647db2f9a98.setContent(html_3bf09fca62e7ef02848677c3282cdaa5);
+            
+        
+
+        circle_marker_9be0ee3f0897627c69161338d012483e.bindPopup(popup_4145e85a6ed33938f0a77647db2f9a98)
+        ;
+
+        
+    
+    
+            circle_marker_9be0ee3f0897627c69161338d012483e.bindTooltip(
+                `<div>
+                     [12] 다오위다오 인근
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a18ffa5c710779e29de12dc1180faddb = L.circleMarker(
+                [28.0, 121.2],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_05bc8ade7cc54332a0686c3d06af7a77 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0abf4610e45431b744cd7023dac0e3a3 = $(`<div id="html_0abf4610e45431b744cd7023dac0e3a3" style="width: 100.0%; height: 100.0%;"><b>[사건 12] 동중국해 ADIZ 선포</b><br>날짜: 2013-11-23<br>위치: 저장성 연안 기지<br>좌표: 28.0, 121.2</div>`)[0];
+                popup_05bc8ade7cc54332a0686c3d06af7a77.setContent(html_0abf4610e45431b744cd7023dac0e3a3);
+            
+        
+
+        circle_marker_a18ffa5c710779e29de12dc1180faddb.bindPopup(popup_05bc8ade7cc54332a0686c3d06af7a77)
+        ;
+
+        
+    
+    
+            circle_marker_a18ffa5c710779e29de12dc1180faddb.bindTooltip(
+                `<div>
+                     [12] 저장성 연안 기지
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a18c0b2556e26454146e67dc6f2e851e = L.circleMarker(
+                [27.99, 120.85],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_8d8e5b42fd4a15178104688214a7b8f7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fc53887ce47d336d28374f4981d3aa05 = $(`<div id="html_fc53887ce47d336d28374f4981d3aa05" style="width: 100.0%; height: 100.0%;"><b>[사건 12] 동중국해 ADIZ 선포</b><br>날짜: 2013-11-23<br>위치: 원저우 기지<br>좌표: 27.99, 120.85</div>`)[0];
+                popup_8d8e5b42fd4a15178104688214a7b8f7.setContent(html_fc53887ce47d336d28374f4981d3aa05);
+            
+        
+
+        circle_marker_a18c0b2556e26454146e67dc6f2e851e.bindPopup(popup_8d8e5b42fd4a15178104688214a7b8f7)
+        ;
+
+        
+    
+    
+            circle_marker_a18c0b2556e26454146e67dc6f2e851e.bindTooltip(
+                `<div>
+                     [12] 원저우 기지
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f59304a11e43c805a2b140e05a32cc06 = L.circleMarker(
+                [25.57, 119.46],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_963181a1f453c1aa72829bf3d8820dc8);
+        
+    
+        var popup_cbcb468722cd33799fb8369f2648dbe7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5f50d4a8ba02ab4a2e026f1400a577ab = $(`<div id="html_5f50d4a8ba02ab4a2e026f1400a577ab" style="width: 100.0%; height: 100.0%;"><b>[사건 13] 룽톈 비행장 확장 (상시)</b><br>날짜: 상시관측<br>위치: 룽톈 공군기지<br>좌표: 25.57, 119.46</div>`)[0];
+                popup_cbcb468722cd33799fb8369f2648dbe7.setContent(html_5f50d4a8ba02ab4a2e026f1400a577ab);
+            
+        
+
+        circle_marker_f59304a11e43c805a2b140e05a32cc06.bindPopup(popup_cbcb468722cd33799fb8369f2648dbe7)
+        ;
+
+        
+    
+    
+            circle_marker_f59304a11e43c805a2b140e05a32cc06.bindTooltip(
+                `<div>
+                     [13] 룽톈 공군기지
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>

@@ -1,0 +1,2886 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_64e7a1bcc344653d0df942c637c4fa16 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="position:fixed; bottom:30px; left:30px; z-index:1000;
+     background:white; padding:12px 16px; border-radius:8px;
+     border:1px solid #ccc; font-size:12px; line-height:2.0;">
+  <b>ROI 생성 — Hub & Dynamic Cluster</b><br>
+  <span style="color:#C44E52;">● ○</span>
+    <b>우선순위 1</b> — 거점 ROI (군사 기지 반경)<br>
+  &nbsp;&nbsp;&nbsp;
+    <span style="color:#4C72B0;">─</span> 육군 &nbsp;
+    <span style="color:#C44E52;">─</span> 해군 &nbsp;
+    <span style="color:#55A868;">─</span> 공군<br>
+  <span style="color:#55A868;">● ┄</span>
+    <b>우선순위 2</b> — 임시 ROI (DBSCAN 클러스터)<br>
+  <hr style="margin:4px 0; border-color:#eee;">
+  <small>거점반경: 육군20km·해군15km·공군30km·특수50km<br>
+  DBSCAN eps=12km, min_samples=3</small>
+</div>
+    
+            <div class="folium-map" id="map_64e7a1bcc344653d0df942c637c4fa16" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_64e7a1bcc344653d0df942c637c4fa16 = L.map(
+                "map_64e7a1bcc344653d0df942c637c4fa16",
+                {
+                    center: [23.5, 120.5],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_4bb7d6fa15039c5f2c50a762f9ac4045 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_4bb7d6fa15039c5f2c50a762f9ac4045.addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            var circle_5b264154da456f32cec2a60ee40227e9 = L.circle(
+                [24.864, 121.238],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_5b264154da456f32cec2a60ee40227e9.bindTooltip(
+                `<div>
+                     육군사령부 (육군) — 반경 20km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ea1ab1b1c8a3496db028cc131b545238 = L.circleMarker(
+                [24.864, 121.238],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_ea1ab1b1c8a3496db028cc131b545238.bindTooltip(
+                `<div>
+                     육군사령부 (육군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_32edcb93ff1eda8cb889169e73068329 = L.circle(
+                [24.87, 121.24],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_32edcb93ff1eda8cb889169e73068329.bindTooltip(
+                `<div>
+                     제6군단사령부 (육군) — 반경 20km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5828fd3dc665ba76251a0de3d492cb2c = L.circleMarker(
+                [24.87, 121.24],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_5828fd3dc665ba76251a0de3d492cb2c.bindTooltip(
+                `<div>
+                     제6군단사령부 (육군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_2b81a94fa15de865b5eb59205c4421e0 = L.circle(
+                [24.912, 121.245],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_2b81a94fa15de865b5eb59205c4421e0.bindTooltip(
+                `<div>
+                     제21포병지휘부 (육군) — 반경 20km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cd6cbe966177e2e0ae93a1c90383c966 = L.circleMarker(
+                [24.912, 121.245],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_cd6cbe966177e2e0ae93a1c90383c966.bindTooltip(
+                `<div>
+                     제21포병지휘부 (육군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_12facfdb3ab99bf8a67f42e8505e3f66 = L.circle(
+                [22.845, 120.485],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_12facfdb3ab99bf8a67f42e8505e3f66.bindTooltip(
+                `<div>
+                     제8군단사령부 (육군) — 반경 20km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f22a65d9d936f5203b24d2ce648c86fa = L.circleMarker(
+                [22.845, 120.485],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_f22a65d9d936f5203b24d2ce648c86fa.bindTooltip(
+                `<div>
+                     제8군단사령부 (육군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_8d1f06dd0def0fc19402243383ee046c = L.circle(
+                [24.232, 120.812],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_8d1f06dd0def0fc19402243383ee046c.bindTooltip(
+                `<div>
+                     제10군단사령부 (육군) — 반경 20km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e95c592712beecd006b7942cc82382e6 = L.circleMarker(
+                [24.232, 120.812],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_e95c592712beecd006b7942cc82382e6.bindTooltip(
+                `<div>
+                     제10군단사령부 (육군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_29d55d4da362022650dcfc0f46bdb01f = L.circle(
+                [24.448, 118.388],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_29d55d4da362022650dcfc0f46bdb01f.bindTooltip(
+                `<div>
+                     진먼방위지휘부 (육군) — 반경 50km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_05dc1a8dabd628f2c814acb283cd4174 = L.circleMarker(
+                [24.448, 118.388],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_05dc1a8dabd628f2c814acb283cd4174.bindTooltip(
+                `<div>
+                     진먼방위지휘부 (육군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_37cd703667aa168e605ada81dce117dd = L.circle(
+                [26.155, 119.936],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_37cd703667aa168e605ada81dce117dd.bindTooltip(
+                `<div>
+                     마주방위지휘부 (육군) — 반경 50km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e18aa0d02ca27bee0afe89f9e1593ab1 = L.circleMarker(
+                [26.155, 119.936],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_e18aa0d02ca27bee0afe89f9e1593ab1.bindTooltip(
+                `<div>
+                     마주방위지휘부 (육군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_a2f08915b6fe5e61d42b0c1cb129dff1 = L.circle(
+                [23.571, 119.574],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_a2f08915b6fe5e61d42b0c1cb129dff1.bindTooltip(
+                `<div>
+                     펑후방위지휘부 (육군) — 반경 50km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5ad3fa571108264824e9023f3e91c4c9 = L.circleMarker(
+                [23.571, 119.574],
+                {"bubblingMouseEvents": true, "color": "#4C72B0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4C72B0", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_5ad3fa571108264824e9023f3e91c4c9.bindTooltip(
+                `<div>
+                     펑후방위지휘부 (육군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_d486756b34d1ef595620c30e092ee21b = L.circle(
+                [25.085, 121.538],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_d486756b34d1ef595620c30e092ee21b.bindTooltip(
+                `<div>
+                     해군사령부 (해군) — 반경 15km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6781e1366b151d8f3f779d2ecb1703aa = L.circleMarker(
+                [25.085, 121.538],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_6781e1366b151d8f3f779d2ecb1703aa.bindTooltip(
+                `<div>
+                     해군사령부 (해군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_2dfd7ffdf830320ac6615bb369743e83 = L.circle(
+                [22.695, 120.285],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_2dfd7ffdf830320ac6615bb369743e83.bindTooltip(
+                `<div>
+                     제124함대(가오슝) (해군) — 반경 15km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f1c00a3af40efbd3ec51baffc98be536 = L.circleMarker(
+                [22.695, 120.285],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_f1c00a3af40efbd3ec51baffc98be536.bindTooltip(
+                `<div>
+                     제124함대(가오슝) (해군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_0defb6334d9b2ddb3ad10da2d835d9eb = L.circle(
+                [25.138, 121.748],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_0defb6334d9b2ddb3ad10da2d835d9eb.bindTooltip(
+                `<div>
+                     제131함대(지룽항) (해군) — 반경 15km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2df330491babaae224b76c9eaa08ac8c = L.circleMarker(
+                [25.138, 121.748],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_2df330491babaae224b76c9eaa08ac8c.bindTooltip(
+                `<div>
+                     제131함대(지룽항) (해군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_172337114e0fa7b387810b2235b4ce96 = L.circle(
+                [23.555, 119.565],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_172337114e0fa7b387810b2235b4ce96.bindTooltip(
+                `<div>
+                     제146함대(광후마공항) (해군) — 반경 50km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_963544c89dcf82387ef10624572a614e = L.circleMarker(
+                [23.555, 119.565],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_963544c89dcf82387ef10624572a614e.bindTooltip(
+                `<div>
+                     제146함대(광후마공항) (해군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_c4eb2717946282696e561be35826aa4d = L.circle(
+                [22.69, 120.288],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_c4eb2717946282696e561be35826aa4d.bindTooltip(
+                `<div>
+                     제151함대(가오슝) (해군) — 반경 15km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1c995d3e0cdb306fc36a775089c1e141 = L.circleMarker(
+                [22.69, 120.288],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_1c995d3e0cdb306fc36a775089c1e141.bindTooltip(
+                `<div>
+                     제151함대(가오슝) (해군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_292eee4a8d5b9d4df870b1b0ef4af739 = L.circle(
+                [24.598, 121.872],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_292eee4a8d5b9d4df870b1b0ef4af739.bindTooltip(
+                `<div>
+                     제168함대(쑤아오항) (해군) — 반경 15km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_db66e4b7556b6379d78750c35581696b = L.circleMarker(
+                [24.598, 121.872],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_db66e4b7556b6379d78750c35581696b.bindTooltip(
+                `<div>
+                     제168함대(쑤아오항) (해군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_b4968129bce857bfbabdb2d1f3bb979d = L.circle(
+                [22.691, 120.287],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_b4968129bce857bfbabdb2d1f3bb979d.bindTooltip(
+                `<div>
+                     제192함대(가오슝) (해군) — 반경 15km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c8e5994c282561e108cfa8415f57ec4d = L.circleMarker(
+                [22.691, 120.287],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_c8e5994c282561e108cfa8415f57ec4d.bindTooltip(
+                `<div>
+                     제192함대(가오슝) (해군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_91fd11fbf373458bde003c31496017cf = L.circle(
+                [24.415, 118.299],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_91fd11fbf373458bde003c31496017cf.bindTooltip(
+                `<div>
+                     진먼기지지휘부 (해군) — 반경 50km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7f2e13df271453eda796d50abe9b058f = L.circleMarker(
+                [24.415, 118.299],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_7f2e13df271453eda796d50abe9b058f.bindTooltip(
+                `<div>
+                     진먼기지지휘부 (해군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_579ca3486728b2c91901d9d163d15eb0 = L.circle(
+                [26.158, 119.925],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_579ca3486728b2c91901d9d163d15eb0.bindTooltip(
+                `<div>
+                     마쭈기지지휘부 (해군) — 반경 50km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4f372daead6398079950bed8dd9a295d = L.circleMarker(
+                [26.158, 119.925],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_4f372daead6398079950bed8dd9a295d.bindTooltip(
+                `<div>
+                     마쭈기지지휘부 (해군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_dc441f2e885c6007d06a994d1504bc05 = L.circle(
+                [25.085, 121.538],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_dc441f2e885c6007d06a994d1504bc05.bindTooltip(
+                `<div>
+                     공군사령부 (공군) — 반경 30km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f0944e5e9e784a9100d07347057cc4cd = L.circleMarker(
+                [25.085, 121.538],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_f0944e5e9e784a9100d07347057cc4cd.bindTooltip(
+                `<div>
+                     공군사령부 (공군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_bb0e11e358f78313b76287491d838f49 = L.circle(
+                [22.95, 120.205],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_bb0e11e358f78313b76287491d838f49.bindTooltip(
+                `<div>
+                     제1전술전투기연대(타이난) (공군) — 반경 30km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_87611cb8ae539d080b8bca99be1a2c81 = L.circleMarker(
+                [22.95, 120.205],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_87611cb8ae539d080b8bca99be1a2c81.bindTooltip(
+                `<div>
+                     제1전술전투기연대(타이난) (공군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_c7fb4eb433e1db94d667594dc5ac3cd3 = L.circle(
+                [24.818, 120.939],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_c7fb4eb433e1db94d667594dc5ac3cd3.bindTooltip(
+                `<div>
+                     제2전술전투기연대(신주) (공군) — 반경 30km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e2bc046162c4bbced092458777be7319 = L.circleMarker(
+                [24.818, 120.939],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_e2bc046162c4bbced092458777be7319.bindTooltip(
+                `<div>
+                     제2전술전투기연대(신주) (공군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_e181cfc8f011cf492e9df91ec425190f = L.circle(
+                [24.262, 120.619],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_e181cfc8f011cf492e9df91ec425190f.bindTooltip(
+                `<div>
+                     제3전술전투기연대(타이중) (공군) — 반경 30km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_58a02a3bc0c448652a18cdaeda385106 = L.circleMarker(
+                [24.262, 120.619],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_58a02a3bc0c448652a18cdaeda385106.bindTooltip(
+                `<div>
+                     제3전술전투기연대(타이중) (공군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_8d897c881744168feaaca5020682fa35 = L.circle(
+                [23.461, 120.395],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_8d897c881744168feaaca5020682fa35.bindTooltip(
+                `<div>
+                     제4전술전투기연대(자이) (공군) — 반경 30km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b071d17e4a5c29af478d71b345c5d1c6 = L.circleMarker(
+                [23.461, 120.395],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_b071d17e4a5c29af478d71b345c5d1c6.bindTooltip(
+                `<div>
+                     제4전술전투기연대(자이) (공군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_64ad3109dbcb90c1d684d321dfaf1c62 = L.circle(
+                [24.023, 121.617],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_64ad3109dbcb90c1d684d321dfaf1c62.bindTooltip(
+                `<div>
+                     제5전술훈련연대(화롄) (공군) — 반경 30km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fc28dae8ff3dd06bceeb21449cbda420 = L.circleMarker(
+                [24.023, 121.617],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_fc28dae8ff3dd06bceeb21449cbda420.bindTooltip(
+                `<div>
+                     제5전술훈련연대(화롄) (공군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_446d01aa0c7ce527f15e25bbe4664ede = L.circle(
+                [22.695, 120.485],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_446d01aa0c7ce527f15e25bbe4664ede.bindTooltip(
+                `<div>
+                     제6혼합연대(펑둥) (공군) — 반경 30km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eff2ee6aa2cb635500ede31faca738a3 = L.circleMarker(
+                [22.695, 120.485],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_eff2ee6aa2cb635500ede31faca738a3.bindTooltip(
+                `<div>
+                     제6혼합연대(펑둥) (공군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_a23010edf854908015edd58f90a4f165 = L.circle(
+                [22.793, 121.181],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_a23010edf854908015edd58f90a4f165.bindTooltip(
+                `<div>
+                     제7비행훈련연대(타이둥) (공군) — 반경 30km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_91a31c308ce9bfef9a8fc07562d882c7 = L.circleMarker(
+                [22.793, 121.181],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_91a31c308ce9bfef9a8fc07562d882c7.bindTooltip(
+                `<div>
+                     제7비행훈련연대(타이둥) (공군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_67f66862c1940425cf049066dbf7adf8 = L.circle(
+                [25.068, 121.552],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_67f66862c1940425cf049066dbf7adf8.bindTooltip(
+                `<div>
+                     쏭산기지지휘부(타이베이) (공군) — 반경 30km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2a8f95c7eb175cdd2414bbb0df50a6ed = L.circleMarker(
+                [25.068, 121.552],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_2a8f95c7eb175cdd2414bbb0df50a6ed.bindTooltip(
+                `<div>
+                     쏭산기지지휘부(타이베이) (공군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_0395bb9f01934c9f8df4f4cc1c16b99e = L.circle(
+                [25.05, 121.5],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_0395bb9f01934c9f8df4f4cc1c16b99e.bindTooltip(
+                `<div>
+                     791방공여단 (공군) — 반경 30km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_92ff80707809cbb8d77377192fcdb6b3 = L.circleMarker(
+                [25.05, 121.5],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_92ff80707809cbb8d77377192fcdb6b3.bindTooltip(
+                `<div>
+                     791방공여단 (공군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_9aeaf0196f96388fea4d13ab2a948e7b = L.circle(
+                [24.15, 120.65],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_9aeaf0196f96388fea4d13ab2a948e7b.bindTooltip(
+                `<div>
+                     792방공여단 (공군) — 반경 30km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6540c16860ac4a192dcbdcd22678ee96 = L.circleMarker(
+                [24.15, 120.65],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_6540c16860ac4a192dcbdcd22678ee96.bindTooltip(
+                `<div>
+                     792방공여단 (공군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_4b633e16b314e9206e0408fef5848966 = L.circle(
+                [22.6, 120.3],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30000, "stroke": true, "weight": 1.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_4b633e16b314e9206e0408fef5848966.bindTooltip(
+                `<div>
+                     793방공여단 (공군) — 반경 30km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4ed68b13b0c4da9c618cf41915dc6f31 = L.circleMarker(
+                [22.6, 120.3],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_4ed68b13b0c4da9c618cf41915dc6f31.bindTooltip(
+                `<div>
+                     793방공여단 (공군)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_89a085ad0fc8c774b3fdd57d35b1f34a = L.circleMarker(
+                [22.4884, 120.392],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_89a085ad0fc8c774b3fdd57d35b1f34a.bindTooltip(
+                `<div>
+                     [우선순위1] 793방공여단<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3d4f831f0071a2dab2e3e2cba56423cb = L.circleMarker(
+                [22.4956, 120.614],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.014, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_3d4f831f0071a2dab2e3e2cba56423cb.bindTooltip(
+                `<div>
+                     [우선순위1] 제6혼합연대(펑둥)<br>기사량: 507
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0877a4c787c9040defbf3210e968be05 = L.circleMarker(
+                [22.5124, 120.359],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.014, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_0877a4c787c9040defbf3210e968be05.bindTooltip(
+                `<div>
+                     [우선순위1] 793방공여단<br>기사량: 7
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e030325b9fb129d6e342899adb88e350 = L.circleMarker(
+                [22.5851, 120.318],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.202, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_e030325b9fb129d6e342899adb88e350.bindTooltip(
+                `<div>
+                     [우선순위1] 793방공여단<br>기사량: 101
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2a70a86d1e9b56447fac07eb0ab72da1 = L.circleMarker(
+                [22.6124, 120.269],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.004, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_2a70a86d1e9b56447fac07eb0ab72da1.bindTooltip(
+                `<div>
+                     [우선순위1] 793방공여단<br>기사량: 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_568683ab3ac4c7da62eae1c0d7a2617f = L.circleMarker(
+                [22.6125, 121.004],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.016, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_568683ab3ac4c7da62eae1c0d7a2617f.bindTooltip(
+                `<div>
+                     [우선순위1] 제7비행훈련연대(타이둥)<br>기사량: 8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_32cdc0147d6e087c124ea1fe3a4f74ed = L.circleMarker(
+                [22.6163, 120.313],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.01, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_32cdc0147d6e087c124ea1fe3a4f74ed.bindTooltip(
+                `<div>
+                     [우선순위1] 793방공여단<br>기사량: 5
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4b6b778e03d747abf701266ec425741b = L.circleMarker(
+                [22.6218, 120.32],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_4b6b778e03d747abf701266ec425741b.bindTooltip(
+                `<div>
+                     [우선순위1] 793방공여단<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_277b37db4599eb21397e8ab952b58026 = L.circleMarker(
+                [22.6272, 120.267],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.162, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_277b37db4599eb21397e8ab952b58026.bindTooltip(
+                `<div>
+                     [우선순위1] 793방공여단<br>기사량: 81
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_42433b1ec6d3bde463c95fba67661b0b = L.circleMarker(
+                [22.6723, 120.286],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.01, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_42433b1ec6d3bde463c95fba67661b0b.bindTooltip(
+                `<div>
+                     [우선순위1] 제151함대(가오슝)<br>기사량: 5
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b99d2bf79219974ab9ee25358869f957 = L.circleMarker(
+                [22.6886, 120.293],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.082, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_b99d2bf79219974ab9ee25358869f957.bindTooltip(
+                `<div>
+                     [우선순위1] 제151함대(가오슝)<br>기사량: 41
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3b0d71816b6c67dc3e599897798b287b = L.circleMarker(
+                [22.7141, 120.336],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.004, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_3b0d71816b6c67dc3e599897798b287b.bindTooltip(
+                `<div>
+                     [우선순위1] 제151함대(가오슝)<br>기사량: 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_de5b953503cc1e0b5304abd83a9ea7ea = L.circleMarker(
+                [22.7483, 120.28],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.004, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_de5b953503cc1e0b5304abd83a9ea7ea.bindTooltip(
+                `<div>
+                     [우선순위1] 제124함대(가오슝)<br>기사량: 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_40d4f176c46815aed6bb297c4de27ef2 = L.circleMarker(
+                [22.7506, 120.445],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_40d4f176c46815aed6bb297c4de27ef2.bindTooltip(
+                `<div>
+                     [우선순위1] 제6혼합연대(펑둥)<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7c0eacfbbcb1813d1f0eced5a6d3c4be = L.circleMarker(
+                [22.7611, 120.266],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_7c0eacfbbcb1813d1f0eced5a6d3c4be.bindTooltip(
+                `<div>
+                     [우선순위1] 제124함대(가오슝)<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_25811fd9cf2ea05b4ffe9bc8da0ee86c = L.circleMarker(
+                [22.7781, 120.495],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.048, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_25811fd9cf2ea05b4ffe9bc8da0ee86c.bindTooltip(
+                `<div>
+                     [우선순위1] 제8군단사령부<br>기사량: 24
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c1a929060b423ccb505b3d2f63bec117 = L.circleMarker(
+                [22.7933, 120.291],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_c1a929060b423ccb505b3d2f63bec117.bindTooltip(
+                `<div>
+                     [우선순위1] 제124함대(가오슝)<br>기사량: 20
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_48bfc806f5c00a38778f6e95d69555e7 = L.circleMarker(
+                [22.8431, 120.439],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.008, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_48bfc806f5c00a38778f6e95d69555e7.bindTooltip(
+                `<div>
+                     [우선순위1] 제8군단사령부<br>기사량: 4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9d36c98883d87cf2c3281fbb7d5ddd42 = L.circleMarker(
+                [22.857, 120.521],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.012, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_9d36c98883d87cf2c3281fbb7d5ddd42.bindTooltip(
+                `<div>
+                     [우선순위1] 제8군단사령부<br>기사량: 6
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b1e4d846f1d40bed81ea3e4681c33f8d = L.circleMarker(
+                [22.8836, 121.048],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.008, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_b1e4d846f1d40bed81ea3e4681c33f8d.bindTooltip(
+                `<div>
+                     [우선순위1] 제7비행훈련연대(타이둥)<br>기사량: 4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4fcdc579f12a38441e364d2b5c261594 = L.circleMarker(
+                [22.9026, 120.63],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.012, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_4fcdc579f12a38441e364d2b5c261594.bindTooltip(
+                `<div>
+                     [우선순위1] 제8군단사령부<br>기사량: 6
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_65224d4ebbf6d608548c4a753d4f4ad9 = L.circleMarker(
+                [22.9058, 121.184],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.004, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_65224d4ebbf6d608548c4a753d4f4ad9.bindTooltip(
+                `<div>
+                     [우선순위1] 제7비행훈련연대(타이둥)<br>기사량: 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e4a5aac21cd540639250f163206b8ee7 = L.circleMarker(
+                [22.9408, 120.461],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.012, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_e4a5aac21cd540639250f163206b8ee7.bindTooltip(
+                `<div>
+                     [우선순위1] 제8군단사령부<br>기사량: 6
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_529c84a8503f0211609fd63f0084da46 = L.circleMarker(
+                [22.9596, 121.158],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_529c84a8503f0211609fd63f0084da46.bindTooltip(
+                `<div>
+                     [우선순위1] 제7비행훈련연대(타이둥)<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9a2bbf61b1e7f516780f3845023d78c0 = L.circleMarker(
+                [23.0439, 120.064],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_9a2bbf61b1e7f516780f3845023d78c0.bindTooltip(
+                `<div>
+                     [우선순위1] 제1전술전투기연대(타이난)<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f50f16261dd9f7abf62828c17eacb9fd = L.circleMarker(
+                [23.075, 120.294],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.036, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_f50f16261dd9f7abf62828c17eacb9fd.bindTooltip(
+                `<div>
+                     [우선순위1] 제1전술전투기연대(타이난)<br>기사량: 18
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_86885ff674c09db6a89f6e0dde2b7271 = L.circleMarker(
+                [23.1939, 120.157],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.016, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_86885ff674c09db6a89f6e0dde2b7271.bindTooltip(
+                `<div>
+                     [우선순위1] 제1전술전투기연대(타이난)<br>기사량: 8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ed1f90704379ea2433e4a42880405073 = L.circleMarker(
+                [23.1972, 120.317],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_ed1f90704379ea2433e4a42880405073.bindTooltip(
+                `<div>
+                     [우선순위1] 제1전술전투기연대(타이난)<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a24726750c5afbea3d937f7863fd906a = L.circleMarker(
+                [23.2131, 119.425],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.036, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_a24726750c5afbea3d937f7863fd906a.bindTooltip(
+                `<div>
+                     [우선순위1] 제146함대(광후마공항)<br>기사량: 18
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6a9e81554abbb2fbaf819b05106240c2 = L.circleMarker(
+                [23.2167, 119.417],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_6a9e81554abbb2fbaf819b05106240c2.bindTooltip(
+                `<div>
+                     [우선순위1] 제146함대(광후마공항)<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5dce569f67114bba434c0e3ce706004b = L.circleMarker(
+                [23.2783, 120.314],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.004, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_5dce569f67114bba434c0e3ce706004b.bindTooltip(
+                `<div>
+                     [우선순위1] 제4전술전투기연대(자이)<br>기사량: 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0e4f4bf46fe78e46e2ec7952c6e0a50e = L.circleMarker(
+                [23.3108, 120.459],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.016, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_0e4f4bf46fe78e46e2ec7952c6e0a50e.bindTooltip(
+                `<div>
+                     [우선순위1] 제4전술전투기연대(자이)<br>기사량: 8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9b13f94549207963dbdd04da273beb42 = L.circleMarker(
+                [23.32, 120.267],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.006, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_9b13f94549207963dbdd04da273beb42.bindTooltip(
+                `<div>
+                     [우선순위1] 제4전술전투기연대(자이)<br>기사량: 3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_993cc2de77dbbd7ed083e2ff9188a6e4 = L.circleMarker(
+                [23.3781, 120.416],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.004, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_993cc2de77dbbd7ed083e2ff9188a6e4.bindTooltip(
+                `<div>
+                     [우선순위1] 제4전술전투기연대(자이)<br>기사량: 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5152c9f8300562f2d5afc081efbede1f = L.circleMarker(
+                [23.4633, 120.582],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_5152c9f8300562f2d5afc081efbede1f.bindTooltip(
+                `<div>
+                     [우선순위1] 제4전술전투기연대(자이)<br>기사량: 20
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1a69ea9c4760eeb757661dfe66afafc4 = L.circleMarker(
+                [23.4792, 120.449],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.24, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_1a69ea9c4760eeb757661dfe66afafc4.bindTooltip(
+                `<div>
+                     [우선순위1] 제4전술전투기연대(자이)<br>기사량: 120
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7bd4c3f96a52064806dc5b495a8bd6d4 = L.circleMarker(
+                [23.5025, 119.505],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_7bd4c3f96a52064806dc5b495a8bd6d4.bindTooltip(
+                `<div>
+                     [우선순위1] 제146함대(광후마공항)<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ba36e24fa7bfb3e8c00cae18943e5b25 = L.circleMarker(
+                [23.5103, 120.547],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.1, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_ba36e24fa7bfb3e8c00cae18943e5b25.bindTooltip(
+                `<div>
+                     [우선순위1] 제4전술전투기연대(자이)<br>기사량: 50
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_606a27c55527ba56e723548db589badc = L.circleMarker(
+                [23.5667, 119.567],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.016, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_606a27c55527ba56e723548db589badc.bindTooltip(
+                `<div>
+                     [우선순위1] 펑후방위지휘부<br>기사량: 8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0629343cbd2eb11a2dbabcf3294c0611 = L.circleMarker(
+                [23.57, 119.57],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.98, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_0629343cbd2eb11a2dbabcf3294c0611.bindTooltip(
+                `<div>
+                     [우선순위1] 펑후방위지휘부<br>기사량: 490
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0e291e947c15cb44dd526bdb93e3e088 = L.circleMarker(
+                [23.5711, 119.611],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.104, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_0e291e947c15cb44dd526bdb93e3e088.bindTooltip(
+                `<div>
+                     [우선순위1] 펑후방위지휘부<br>기사량: 52
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_04c731a80456cb7a2dd684ce2a6ed2e7 = L.circleMarker(
+                [23.5953, 119.607],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.016, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_04c731a80456cb7a2dd684ce2a6ed2e7.bindTooltip(
+                `<div>
+                     [우선순위1] 펑후방위지휘부<br>기사량: 8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_377c93c014ce845e61ee3b0c6379a289 = L.circleMarker(
+                [23.7864, 119.6],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.008, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_377c93c014ce845e61ee3b0c6379a289.bindTooltip(
+                `<div>
+                     [우선순위1] 펑후방위지휘부<br>기사량: 4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_68afcef5d21136d65d39d4bc1376da61 = L.circleMarker(
+                [23.9536, 120.491],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.004, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_68afcef5d21136d65d39d4bc1376da61.bindTooltip(
+                `<div>
+                     [우선순위1] 792방공여단<br>기사량: 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5506c14e3c4ae712b30773f885a057a6 = L.circleMarker(
+                [23.9769, 121.604],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.694, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_5506c14e3c4ae712b30773f885a057a6.bindTooltip(
+                `<div>
+                     [우선순위1] 제5전술훈련연대(화롄)<br>기사량: 347
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b260d65a8470c61264cac0cd1779697b = L.circleMarker(
+                [24.004, 120.849],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.016, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_b260d65a8470c61264cac0cd1779697b.bindTooltip(
+                `<div>
+                     [우선순위1] 792방공여단<br>기사량: 8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ece69dc59a20eeb26ab4e07d51a4891c = L.circleMarker(
+                [24.0197, 121.376],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.062, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_ece69dc59a20eeb26ab4e07d51a4891c.bindTooltip(
+                `<div>
+                     [우선순위1] 제5전술훈련연대(화롄)<br>기사량: 31
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eaaa5bff50f322d745bfebe096ebfdfd = L.circleMarker(
+                [24.0558, 120.435],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.048, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_eaaa5bff50f322d745bfebe096ebfdfd.bindTooltip(
+                `<div>
+                     [우선순위1] 792방공여단<br>기사량: 24
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_13eacca91e6601411b0126ae71282acb = L.circleMarker(
+                [24.074, 120.538],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.18, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_13eacca91e6601411b0126ae71282acb.bindTooltip(
+                `<div>
+                     [우선순위1] 792방공여단<br>기사량: 90
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_780eb55bc1759f945e14787b92c3b6a9 = L.circleMarker(
+                [24.0999, 120.89],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.008, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_780eb55bc1759f945e14787b92c3b6a9.bindTooltip(
+                `<div>
+                     [우선순위1] 제10군단사령부<br>기사량: 4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_80d2393687c4a0c4bb09fdc317a14a5e = L.circleMarker(
+                [24.1028, 120.456],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.016, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_80d2393687c4a0c4bb09fdc317a14a5e.bindTooltip(
+                `<div>
+                     [우선순위1] 792방공여단<br>기사량: 8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3f71499e60e8dd09242c4baa1e577ed6 = L.circleMarker(
+                [24.1057, 120.896],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.106, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_3f71499e60e8dd09242c4baa1e577ed6.bindTooltip(
+                `<div>
+                     [우선순위1] 제10군단사령부<br>기사량: 53
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_58a6f6702e65baf6bf97047b0c44ec67 = L.circleMarker(
+                [24.1413, 120.63],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.06, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_58a6f6702e65baf6bf97047b0c44ec67.bindTooltip(
+                `<div>
+                     [우선순위1] 792방공여단<br>기사량: 30
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2697412cfdd417e95b59aadefe0a8962 = L.circleMarker(
+                [24.1667, 121.55],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_2697412cfdd417e95b59aadefe0a8962.bindTooltip(
+                `<div>
+                     [우선순위1] 제5전술훈련연대(화롄)<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a0e61b7dc4a0029160dc2590fe1f920b = L.circleMarker(
+                [24.1718, 120.913],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.056, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_a0e61b7dc4a0029160dc2590fe1f920b.bindTooltip(
+                `<div>
+                     [우선순위1] 제10군단사령부<br>기사량: 28
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9dc685bed25c64ffe5e331f53475cf21 = L.circleMarker(
+                [24.2208, 120.581],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.434, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_9dc685bed25c64ffe5e331f53475cf21.bindTooltip(
+                `<div>
+                     [우선순위1] 제3전술전투기연대(타이중)<br>기사량: 217
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_42d75bbceb5dceb446b10be72f3f61f6 = L.circleMarker(
+                [24.2286, 120.577],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.03, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_42d75bbceb5dceb446b10be72f3f61f6.bindTooltip(
+                `<div>
+                     [우선순위1] 제3전술전투기연대(타이중)<br>기사량: 15
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fd1e18a5a45bf77d2eaabf6d2b458d06 = L.circleMarker(
+                [24.2392, 120.627],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.122, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_fd1e18a5a45bf77d2eaabf6d2b458d06.bindTooltip(
+                `<div>
+                     [우선순위1] 제3전술전투기연대(타이중)<br>기사량: 61
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_99ce804c5ef6760d8aaea1ea189de6e1 = L.circleMarker(
+                [24.2731, 120.632],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.01, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_99ce804c5ef6760d8aaea1ea189de6e1.bindTooltip(
+                `<div>
+                     [우선순위1] 제3전술전투기연대(타이중)<br>기사량: 5
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_48e9b1a09811a70c3e7616aacbc1674b = L.circleMarker(
+                [24.2947, 120.718],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_48e9b1a09811a70c3e7616aacbc1674b.bindTooltip(
+                `<div>
+                     [우선순위1] 제3전술전투기연대(타이중)<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_85b5e5c72d44d05075504c360714ce48 = L.circleMarker(
+                [24.3069, 120.6],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.004, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_85b5e5c72d44d05075504c360714ce48.bindTooltip(
+                `<div>
+                     [우선순위1] 제3전술전투기연대(타이중)<br>기사량: 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ce974a612bc3d7db96f7a7c9d8bd8641 = L.circleMarker(
+                [24.3113, 120.828],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_ce974a612bc3d7db96f7a7c9d8bd8641.bindTooltip(
+                `<div>
+                     [우선순위1] 제10군단사령부<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_237ca9cd5cd6f54025020d179042d7b9 = L.circleMarker(
+                [24.3381, 120.657],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.06, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_237ca9cd5cd6f54025020d179042d7b9.bindTooltip(
+                `<div>
+                     [우선순위1] 제3전술전투기연대(타이중)<br>기사량: 30
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_33603765f8244852fc22b04fe56c23a4 = L.circleMarker(
+                [24.3578, 120.613],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.012, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_33603765f8244852fc22b04fe56c23a4.bindTooltip(
+                `<div>
+                     [우선순위1] 제3전술전투기연대(타이중)<br>기사량: 6
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6e065f32347791b1af8161e0cedd461d = L.circleMarker(
+                [24.4025, 118.315],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.048, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_6e065f32347791b1af8161e0cedd461d.bindTooltip(
+                `<div>
+                     [우선순위1] 진먼기지지휘부<br>기사량: 24
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c7c1eb31b9168494d250bee97500ff63 = L.circleMarker(
+                [24.4202, 120.811],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.01, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_c7c1eb31b9168494d250bee97500ff63.bindTooltip(
+                `<div>
+                     [우선순위1] 제3전술전투기연대(타이중)<br>기사량: 5
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0eeac014fd1eff0407c41259b08a9cf0 = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.364, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_0eeac014fd1eff0407c41259b08a9cf0.bindTooltip(
+                `<div>
+                     [우선순위1] 진먼기지지휘부<br>기사량: 4182
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_584c440f4cb903f31de2acf6166fa70f = L.circleMarker(
+                [24.4533, 118.389],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.082, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_584c440f4cb903f31de2acf6166fa70f.bindTooltip(
+                `<div>
+                     [우선순위1] 진먼방위지휘부<br>기사량: 41
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_516c6204a9457c67df07f665e343cf4b = L.circleMarker(
+                [24.4539, 118.398],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.104, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_516c6204a9457c67df07f665e343cf4b.bindTooltip(
+                `<div>
+                     [우선순위1] 진먼방위지휘부<br>기사량: 52
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3aaa1de02faa60f60e8225952144d576 = L.circleMarker(
+                [24.4798, 118.082],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.05, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_3aaa1de02faa60f60e8225952144d576.bindTooltip(
+                `<div>
+                     [우선순위1] 진먼기지지휘부<br>기사량: 525
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8ccf74b3c2264ae22f99397696cedec0 = L.circleMarker(
+                [24.4917, 118.312],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.024, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_8ccf74b3c2264ae22f99397696cedec0.bindTooltip(
+                `<div>
+                     [우선순위1] 진먼기지지휘부<br>기사량: 12
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_db92a1e06cca19f9da9a5daf65fc7658 = L.circleMarker(
+                [24.5283, 118.577],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.026, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_db92a1e06cca19f9da9a5daf65fc7658.bindTooltip(
+                `<div>
+                     [우선순위1] 진먼방위지휘부<br>기사량: 13
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ee1a36a3dd565594ff3f11909ef11ff5 = L.circleMarker(
+                [24.5318, 118.104],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.012, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_ee1a36a3dd565594ff3f11909ef11ff5.bindTooltip(
+                `<div>
+                     [우선순위1] 진먼기지지휘부<br>기사량: 6
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fbf65c7d1fafdb629d115832e544b6d7 = L.circleMarker(
+                [24.5956, 121.852],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.066, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_fbf65c7d1fafdb629d115832e544b6d7.bindTooltip(
+                `<div>
+                     [우선순위1] 제168함대(쑤아오항)<br>기사량: 33
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_44f86b1320b54f1621310f2123e82473 = L.circleMarker(
+                [24.6192, 121.114],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.016, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_44f86b1320b54f1621310f2123e82473.bindTooltip(
+                `<div>
+                     [우선순위1] 제2전술전투기연대(신주)<br>기사량: 8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dc27741a3a8c8a42c128ebb3560f59d2 = L.circleMarker(
+                [24.6503, 121.789],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.06, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_dc27741a3a8c8a42c128ebb3560f59d2.bindTooltip(
+                `<div>
+                     [우선순위1] 제168함대(쑤아오항)<br>기사량: 30
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5cf2baf4588cccc7ef11817b9c03fdf4 = L.circleMarker(
+                [24.6738, 120.916],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.004, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_5cf2baf4588cccc7ef11817b9c03fdf4.bindTooltip(
+                `<div>
+                     [우선순위1] 제2전술전투기연대(신주)<br>기사량: 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ef7da3cfac31ee9de23c0a2c05fe1f1f = L.circleMarker(
+                [24.6742, 121.161],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.06, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_ef7da3cfac31ee9de23c0a2c05fe1f1f.bindTooltip(
+                `<div>
+                     [우선순위1] 제2전술전투기연대(신주)<br>기사량: 30
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d709802bd22f2b3bb0403b0e1a02f183 = L.circleMarker(
+                [24.8383, 121.008],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_d709802bd22f2b3bb0403b0e1a02f183.bindTooltip(
+                `<div>
+                     [우선순위1] 제2전술전투기연대(신주)<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4bb8842642d8acf3fda84ebc4a114b37 = L.circleMarker(
+                [24.895, 121.246],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_4bb8842642d8acf3fda84ebc4a114b37.bindTooltip(
+                `<div>
+                     [우선순위1] 제21포병지휘부<br>기사량: 20
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3045ce96ed296f95338626b0980a93e0 = L.circleMarker(
+                [24.9345, 121.371],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_3045ce96ed296f95338626b0980a93e0.bindTooltip(
+                `<div>
+                     [우선순위1] 제21포병지휘부<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fcfc05cfa4ba9e6d7191a9ca015f02bb = L.circleMarker(
+                [24.947, 121.582],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.028, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_fcfc05cfa4ba9e6d7191a9ca015f02bb.bindTooltip(
+                `<div>
+                     [우선순위1] 쏭산기지지휘부(타이베이)<br>기사량: 14
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_55ee536ee4a56544e1d27b9dcc5cec13 = L.circleMarker(
+                [24.9855, 121.574],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.366, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_55ee536ee4a56544e1d27b9dcc5cec13.bindTooltip(
+                `<div>
+                     [우선순위1] 쏭산기지지휘부(타이베이)<br>기사량: 183
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_43cd7592757c340dbd209ba6433f87ae = L.circleMarker(
+                [24.9922, 121.816],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.008, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_43cd7592757c340dbd209ba6433f87ae.bindTooltip(
+                `<div>
+                     [우선순위1] 쏭산기지지휘부(타이베이)<br>기사량: 4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f48a4e9aa11c58c04f6b7e6fdf0e44cc = L.circleMarker(
+                [25.0033, 121.63],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.004, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_f48a4e9aa11c58c04f6b7e6fdf0e44cc.bindTooltip(
+                `<div>
+                     [우선순위1] 쏭산기지지휘부(타이베이)<br>기사량: 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6f03f167b462413f92e4e28d37111d8f = L.circleMarker(
+                [25.0177, 121.174],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.056, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_6f03f167b462413f92e4e28d37111d8f.bindTooltip(
+                `<div>
+                     [우선순위1] 제21포병지휘부<br>기사량: 528
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d8e3acfbd70db697014d578f792c7040 = L.circleMarker(
+                [25.0196, 121.537],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.098, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_d8e3acfbd70db697014d578f792c7040.bindTooltip(
+                `<div>
+                     [우선순위1] 791방공여단<br>기사량: 49
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f83c7a2520395344c58b5d00452aeb9e = L.circleMarker(
+                [25.0327, 121.275],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.7, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_f83c7a2520395344c58b5d00452aeb9e.bindTooltip(
+                `<div>
+                     [우선순위1] 제21포병지휘부<br>기사량: 850
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2e5ba90b68a52c8419f6fd23f243bba3 = L.circleMarker(
+                [25.0345, 121.522],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.14, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_2e5ba90b68a52c8419f6fd23f243bba3.bindTooltip(
+                `<div>
+                     [우선순위1] 791방공여단<br>기사량: 70
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_626e543c29da5079f3eff5098d45ea9d = L.circleMarker(
+                [25.0383, 121.564],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.016, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_626e543c29da5079f3eff5098d45ea9d.bindTooltip(
+                `<div>
+                     [우선순위1] 쏭산기지지휘부(타이베이)<br>기사량: 8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f4c07596e18fb39edf3436386363f229 = L.circleMarker(
+                [25.0415, 121.517],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.026, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_f4c07596e18fb39edf3436386363f229.bindTooltip(
+                `<div>
+                     [우선순위1] 791방공여단<br>기사량: 13
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_835744028658b57bde44245b3e7f9104 = L.circleMarker(
+                [25.0431, 121.58],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.112, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_835744028658b57bde44245b3e7f9104.bindTooltip(
+                `<div>
+                     [우선순위1] 쏭산기지지휘부(타이베이)<br>기사량: 56
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_34a74ae7665031d47f25f24fec908e21 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_34a74ae7665031d47f25f24fec908e21.bindTooltip(
+                `<div>
+                     [우선순위1] 쏭산기지지휘부(타이베이)<br>기사량: 34519
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6eac3f0ffaeaf0cf1b5b621d03658cbe = L.circleMarker(
+                [25.0616, 121.367],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.02, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_6eac3f0ffaeaf0cf1b5b621d03658cbe.bindTooltip(
+                `<div>
+                     [우선순위1] 791방공여단<br>기사량: 10
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5fba68b3312dcd477abfafa5faf38494 = L.circleMarker(
+                [25.064, 121.552],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_5fba68b3312dcd477abfafa5faf38494.bindTooltip(
+                `<div>
+                     [우선순위1] 쏭산기지지휘부(타이베이)<br>기사량: 20
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_59962d26eb6481f5f17f90ca722d2319 = L.circleMarker(
+                [25.0907, 121.523],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.06, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_59962d26eb6481f5f17f90ca722d2319.bindTooltip(
+                `<div>
+                     [우선순위1] 해군사령부<br>기사량: 30
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0579525e7c2fcf3774268d77c17e4851 = L.circleMarker(
+                [25.0972, 121.713],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.016, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_0579525e7c2fcf3774268d77c17e4851.bindTooltip(
+                `<div>
+                     [우선순위1] 제131함대(지룽항)<br>기사량: 8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_965134593f3dbfea6838c52a09d1cc0d = L.circleMarker(
+                [25.1043, 121.27],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.012, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_965134593f3dbfea6838c52a09d1cc0d.bindTooltip(
+                `<div>
+                     [우선순위1] 791방공여단<br>기사량: 6
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fde268527bbd17d556357e0b8b0f8ccd = L.circleMarker(
+                [25.123, 121.466],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.01, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_fde268527bbd17d556357e0b8b0f8ccd.bindTooltip(
+                `<div>
+                     [우선순위1] 해군사령부<br>기사량: 5
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dd315e1c035acf533c376790000d2bfb = L.circleMarker(
+                [25.1303, 121.502],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.01, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_dd315e1c035acf533c376790000d2bfb.bindTooltip(
+                `<div>
+                     [우선순위1] 해군사령부<br>기사량: 5
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0d46aa69dc7e45647e5cc0efd6d33eb8 = L.circleMarker(
+                [25.1376, 121.774],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.002, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_0d46aa69dc7e45647e5cc0efd6d33eb8.bindTooltip(
+                `<div>
+                     [우선순위1] 제131함대(지룽항)<br>기사량: 1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ee0c2682a607e825742d1c12b37a7749 = L.circleMarker(
+                [25.1466, 121.399],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.536, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_ee0c2682a607e825742d1c12b37a7749.bindTooltip(
+                `<div>
+                     [우선순위1] 791방공여단<br>기사량: 268
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_92c19f7a281acc1f43cb534838b33bab = L.circleMarker(
+                [25.1725, 121.421],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.1, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_92c19f7a281acc1f43cb534838b33bab.bindTooltip(
+                `<div>
+                     [우선순위1] 공군사령부<br>기사량: 50
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f382547059e5693f7083ed1a00809238 = L.circleMarker(
+                [25.2019, 121.678],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.012, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_f382547059e5693f7083ed1a00809238.bindTooltip(
+                `<div>
+                     [우선순위1] 제131함대(지룽항)<br>기사량: 6
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_837ca0d612cc6f83b98bf6ca496842ef = L.circleMarker(
+                [25.202, 121.668],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.008, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_837ca0d612cc6f83b98bf6ca496842ef.bindTooltip(
+                `<div>
+                     [우선순위1] 제131함대(지룽항)<br>기사량: 4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_163eb9448f4d8f7f92c054207c33d507 = L.circleMarker(
+                [26.1489, 119.937],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.006, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_163eb9448f4d8f7f92c054207c33d507.bindTooltip(
+                `<div>
+                     [우선순위1] 마주방위지휘부<br>기사량: 3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b6a46324e880795b113bea389dc4e65d = L.circleMarker(
+                [26.1504, 119.933],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.004, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_b6a46324e880795b113bea389dc4e65d.bindTooltip(
+                `<div>
+                     [우선순위1] 마주방위지휘부<br>기사량: 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_950801e7373042b9086e10f9e3134e14 = L.circleMarker(
+                [26.1589, 119.922],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.002, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_950801e7373042b9086e10f9e3134e14.bindTooltip(
+                `<div>
+                     [우선순위1] 마쭈기지지휘부<br>기사량: 1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d8627954f79a0725c37e20170f3cbb5b = L.circleMarker(
+                [26.1642, 119.959],
+                {"bubblingMouseEvents": true, "color": "#C44E52", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C44E52", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.04, "stroke": true, "weight": 0.5}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_d8627954f79a0725c37e20170f3cbb5b.bindTooltip(
+                `<div>
+                     [우선순위1] 마주방위지휘부<br>기사량: 20
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_ff608747a4411386504d5b9ffe724127 = L.circle(
+                [22.3461, 120.6098],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": "6 4", "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.12, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12000.0, "stroke": true, "weight": 2}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_ff608747a4411386504d5b9ffe724127.bindTooltip(
+                `<div>
+                     [우선순위2] 임시ROI #1<br>중심: 22.3461N, 120.6098E<br>이벤트: 22건  기사량: 176
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c6ef50d81363588151fcf9710837b075 = L.circleMarker(
+                [22.3461, 120.6098],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_c6ef50d81363588151fcf9710837b075.bindTooltip(
+                `<div>
+                     임시ROI #1 중심
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_383022130b4dfd89171badd9b10609d8 = L.circle(
+                [26.0817, 119.274],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": "6 4", "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.12, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12000.0, "stroke": true, "weight": 2}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_383022130b4dfd89171badd9b10609d8.bindTooltip(
+                `<div>
+                     [우선순위2] 임시ROI #3<br>중심: 26.0817N, 119.274E<br>이벤트: 11건  기사량: 93
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7c1755bc927f1f0b87ce56b4eb1b8250 = L.circleMarker(
+                [26.0817, 119.274],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_7c1755bc927f1f0b87ce56b4eb1b8250.bindTooltip(
+                `<div>
+                     임시ROI #3 중심
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_21e16525e858662eb3a5b0a0bd354eb3 = L.circle(
+                [23.7445, 121.466],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": "6 4", "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.12, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12000.0, "stroke": true, "weight": 2}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_21e16525e858662eb3a5b0a0bd354eb3.bindTooltip(
+                `<div>
+                     [우선순위2] 임시ROI #2<br>중심: 23.7445N, 121.466E<br>이벤트: 15건  기사량: 90
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1ba03730154cd5c7b195e36ab78f2d07 = L.circleMarker(
+                [23.7445, 121.466],
+                {"bubblingMouseEvents": true, "color": "#55A868", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#55A868", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_64e7a1bcc344653d0df942c637c4fa16);
+        
+    
+            circle_marker_1ba03730154cd5c7b195e36ab78f2d07.bindTooltip(
+                `<div>
+                     임시ROI #2 중심
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>

@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>양안관계 위성 관측 마스터 리스트 2013–2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+:root {
+  --bg:       #080a0f;
+  --s1:       #0e1118;
+  --s2:       #151a24;
+  --s3:       #1c2233;
+  --border:   #222840;
+  --border2:  #2d3554;
+  --blue:     #5b9cf6;
+  --teal:     #2dd4bf;
+  --amber:    #fbbf24;
+  --red:      #f87171;
+  --purple:   #c084fc;
+  --green:    #4ade80;
+  --tp:       #dde2f0;
+  --ts:       #6b7394;
+  --tm:       #3d4566;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--tp);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* ── 배경 노이즈 ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(91,156,246,.06) 0%, transparent 70%),
+    linear-gradient(rgba(91,156,246,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91,156,246,.025) 1px, transparent 1px);
+  background-size: 100% 100%, 48px 48px, 48px 48px;
+  pointer-events: none; z-index: 0;
+}
+
+.wrap { position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:56px 24px 100px; }
+
+/* ── 헤더 ── */
+.hdr { margin-bottom:52px; }
+.hdr-eyebrow {
+  font-family:'IBM Plex Mono', monospace;
+  font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+  color: var(--blue); margin-bottom:14px;
+  display:flex; align-items:center; gap:10px;
+}
+.hdr-eyebrow::before {
+  content:'';
+  display:inline-block; width:5px; height:5px; border-radius:50%;
+  background:var(--blue); animation: blink 2.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+.hdr h1 {
+  font-size:32px; font-weight:700; line-height:1.25; margin-bottom:10px;
+  background: linear-gradient(120deg, #dde2f0 30%, #4a5580 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hdr-desc { color:var(--ts); font-size:13px; }
+
+/* ── 통계 카드 ── */
+.stats { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:40px; }
+.stat {
+  background:var(--s1); border:1px solid var(--border);
+  border-radius:10px; padding:14px 20px; flex:1; min-width:110px; text-align:center;
+}
+.stat-n { font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:500; color:var(--blue); }
+.stat-l { font-size:11px; color:var(--tm); margin-top:3px; }
+
+/* ── 심플 목록 ── */
+.quick-panel {
+  background:var(--s1); border:1px solid var(--border);
+  border-radius:12px; padding:24px 28px; margin-bottom:44px;
+}
+.panel-label {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  color:var(--tm); letter-spacing:.12em; text-transform:uppercase; margin-bottom:18px;
+}
+.quick-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(290px,1fr)); gap:2px 20px; }
+.qi {
+  display:flex; align-items:baseline; gap:9px;
+  padding:5px 0; border-bottom:1px solid var(--border);
+}
+.qi:last-child { border-bottom:none; }
+.qi-n { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--blue); min-width:22px; }
+.qi-d { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--tm); min-width:84px; }
+.qi-t { font-size:12px; color:var(--tp); }
+
+/* ── 페이즈 구분 ── */
+.phase-bar {
+  display:flex; align-items:center; gap:14px;
+  margin: 44px 0 18px;
+}
+.phase-bar-label {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  color:var(--ts); letter-spacing:.1em; white-space:nowrap;
+}
+.phase-bar-line { flex:1; height:1px; background:var(--border); }
+
+/* ── 사건 카드 ── */
+.ecard {
+  background:var(--s1); border:1px solid var(--border);
+  border-radius:12px; overflow:hidden;
+  margin-bottom:10px; transition:border-color .2s;
+}
+.ecard:hover { border-color:var(--border2); }
+
+.ecard-row { display:flex; align-items:stretch; }
+
+.ecard-idx {
+  font-family:'IBM Plex Mono',monospace; font-size:11px;
+  color:var(--blue); min-width:50px;
+  display:flex; align-items:flex-start; justify-content:center;
+  padding:16px 0;
+  background:rgba(91,156,246,.04);
+  border-right:1px solid var(--border);
+}
+
+.ecard-body { flex:1; padding:15px 20px; }
+
+.ecard-top {
+  display:flex; align-items:flex-start;
+  justify-content:space-between; gap:12px;
+  margin-bottom:9px; flex-wrap:wrap;
+}
+.ecard-name { font-size:14px; font-weight:500; color:var(--tp); line-height:1.4; }
+.ecard-date {
+  font-family:'IBM Plex Mono',monospace; font-size:11px;
+  color:var(--ts); white-space:nowrap; padding-top:2px;
+}
+
+/* 태그 */
+.tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:11px; }
+.tag {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  padding:2px 8px; border-radius:4px; border:1px solid;
+}
+.t-mil  { color:#f87171; border-color:rgba(248,113,113,.35); background:rgba(248,113,113,.05); }
+.t-adiz { color:#fbbf24; border-color:rgba(251,191,36,.35);  background:rgba(251,191,36,.05); }
+.t-gray { color:#c084fc; border-color:rgba(192,132,252,.35); background:rgba(192,132,252,.05); }
+.t-infra{ color:#2dd4bf; border-color:rgba(45,212,191,.35);  background:rgba(45,212,191,.05); }
+.t-geo  { color:#5b9cf6; border-color:rgba(91,156,246,.35);  background:rgba(91,156,246,.05); }
+.t-perm { color:#4ade80; border-color:rgba(74,222,128,.35);  background:rgba(74,222,128,.05); }
+
+/* 그리드 */
+.dgrid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+@media(max-width:600px){ .dgrid { grid-template-columns:1fr; } }
+.full { grid-column:1/-1; }
+
+.dblock {
+  background:var(--s2); border-radius:8px; padding:11px 13px;
+}
+.dblock-label {
+  font-family:'IBM Plex Mono',monospace; font-size:9px;
+  color:var(--tm); letter-spacing:.1em; text-transform:uppercase;
+  margin-bottom:7px;
+}
+
+/* 좌표 */
+.coords { display:flex; flex-direction:column; gap:5px; }
+.coord { display:flex; align-items:baseline; gap:8px; }
+.coord-val { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--teal); }
+.coord-name { font-size:11px; color:var(--ts); }
+
+/* 관측포인트 */
+.obs { list-style:none; display:flex; flex-direction:column; gap:4px; }
+.obs li { font-size:12px; color:var(--ts); padding-left:13px; position:relative; }
+.obs li::before { content:'›'; position:absolute; left:0; color:var(--amber); }
+
+/* 주의 배너 */
+.warn {
+  margin-top:8px; font-size:11px; color:var(--amber);
+  padding:4px 10px;
+  background:rgba(251,191,36,.06);
+  border-left:2px solid var(--amber);
+  border-radius:0 4px 4px 0;
+}
+
+/* 푸터 */
+.footer {
+  margin-top:36px; padding:16px 20px;
+  background:var(--s1); border:1px solid var(--border);
+  border-radius:8px;
+  font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--tm);
+  line-height:1.7;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- 헤더 -->
+<div class="hdr">
+  <div class="hdr-eyebrow">OSINT · GEOINT — 양안관계 위성 관측 마스터 데이터베이스</div>
+  <h1>중국–대만 주요 사건<br>위성 관측 리스트</h1>
+  <div class="hdr-desc">2013.04.01 ~ 2026.05 현재 · 검색·검증 기반 독립 재정리 · 총 21개 사건</div>
+</div>
+
+<!-- 통계 -->
+<div class="stats">
+  <div class="stat"><div class="stat-n">21</div><div class="stat-l">총 사건 수</div></div>
+  <div class="stat"><div class="stat-n">9</div><div class="stat-l">대규모 군사훈련</div></div>
+  <div class="stat"><div class="stat-n">4</div><div class="stat-l">ADIZ·중간선 사건</div></div>
+  <div class="stat"><div class="stat-n">4</div><div class="stat-l">기지·인프라 확장</div></div>
+  <div class="stat"><div class="stat-n">4</div><div class="stat-l">상시 관측 거점</div></div>
+</div>
+
+<!-- 간단 목록 -->
+<div class="quick-panel">
+  <div class="panel-label">▸ 전체 사건 인덱스</div>
+  <div class="quick-grid">
+    <div class="qi"><span class="qi-n">01</span><span class="qi-d">2013.11.23</span><span class="qi-t">동중국해 ADIZ 일방 선포</span></div>
+    <div class="qi"><span class="qi-n">02</span><span class="qi-d">2015.07</span><span class="qi-t">주리허 기지 총통부 복제 훈련 포착</span></div>
+    <div class="qi"><span class="qi-n">03</span><span class="qi-d">2016.07~</span><span class="qi-t">PCA 판결 후 남중국해 인공섬 군사화 가속</span></div>
+    <div class="qi"><span class="qi-n">04</span><span class="qi-d">2017.12~</span><span class="qi-t">H-6K 전략폭격기 섬 포위 비행 상설화</span></div>
+    <div class="qi"><span class="qi-n">05</span><span class="qi-d">2018.04.18</span><span class="qi-t">대만해협 실사격 실전 훈련</span></div>
+    <div class="qi"><span class="qi-n">06</span><span class="qi-d">2019.03.31</span><span class="qi-t">20년 만의 의도적 해협 중간선 침범</span></div>
+    <div class="qi"><span class="qi-n">07</span><span class="qi-d">2020.09.18</span><span class="qi-t">크라크 차관 방문 반발 중간선 대규모 침범</span></div>
+    <div class="qi"><span class="qi-n">08</span><span class="qi-d">2021.03.26</span><span class="qi-t">대만-미 해경 협력 반발 남부 해역 압박</span></div>
+    <div class="qi"><span class="qi-n">09</span><span class="qi-d">2021.10.01</span><span class="qi-t">국경절 역대 최대 ADIZ 침범 149회 출격</span></div>
+    <div class="qi"><span class="qi-n">10</span><span class="qi-d">2021~상시</span><span class="qi-t">룽톈·후이안·장저우 공군기지 대규모 확장</span></div>
+    <div class="qi"><span class="qi-n">11</span><span class="qi-d">2022.08.04</span><span class="qi-t">펠로시 방문 대응 사상 최대 7구역 봉쇄 훈련</span></div>
+    <div class="qi"><span class="qi-n">12</span><span class="qi-d">2023.04.08</span><span class="qi-t">연합이검 훈련 (차이-매카시 회담 반발)</span></div>
+    <div class="qi"><span class="qi-n">13</span><span class="qi-d">2023.08.19</span><span class="qi-t">라이칭더 방미 반발 소규모 봉쇄 훈련</span></div>
+    <div class="qi"><span class="qi-n">14</span><span class="qi-d">2024.02.14</span><span class="qi-t">금문도 어선 충돌 후 해경 봉쇄·진입</span></div>
+    <div class="qi"><span class="qi-n">15</span><span class="qi-d">2024.05.23</span><span class="qi-t">연합이검-2024A (라이칭더 취임 반발)</span></div>
+    <div class="qi"><span class="qi-n">16</span><span class="qi-d">2024.10.14</span><span class="qi-t">연합이검-2024B (국경절 연설 반발)</span></div>
+    <div class="qi"><span class="qi-n">17</span><span class="qi-d">2025.04.01</span><span class="qi-t">해협뇌정-2025A (라이 안보 정책 반발)</span></div>
+    <div class="qi"><span class="qi-n">18</span><span class="qi-d">2025.12.29</span><span class="qi-t">정의사명-2025 역대 최대 봉쇄 훈련</span></div>
+    <div class="qi"><span class="qi-n">19</span><span class="qi-d">2015~상시</span><span class="qi-t">남중국해 수비·미스치프 암초 인공섬 상시 관측</span></div>
+    <div class="qi"><span class="qi-n">20</span><span class="qi-d">2021~상시</span><span class="qi-t">핑탄섬 해경·군사 자산 상시 집결</span></div>
+    <div class="qi"><span class="qi-n">21</span><span class="qi-d">2021~상시</span><span class="qi-t">금문·마쭈 도서 해경 회색지대 작전 상시화</span></div>
+  </div>
+</div>
+
+<!-- ========== PHASE 1 ========== -->
+<div class="phase-bar">
+  <span class="phase-bar-label">PHASE 1 · 초기 긴장 구축기 (2013–2019)</span>
+  <div class="phase-bar-line"></div>
+</div>
+
+<!-- 01 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">01</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">동중국해 방공식별구역(ADIZ) 일방 선포</div>
+        <div class="ecard-date">2013.11.23</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-gray">회색지대</span>
+        <span class="tag t-geo">영토 분쟁</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">25.74, 123.47</span><span class="coord-name">다오위다오(센카쿠) 인근 해상</span></div>
+            <div class="coord"><span class="coord-val">28.00, 121.20</span><span class="coord-name">저장성 연안 조기경보 레이더 기지</span></div>
+            <div class="coord"><span class="coord-val">27.99, 120.85</span><span class="coord-name">원저우 군사 통신 기지</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>신규 장거리 조기경보 레이더 시설 건설 흔적</li>
+            <li>다오위다오 인근 해경·군함 집결 밀도 변화</li>
+            <li>저장성·원저우 연안 감시 인프라 증설 현황</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">02</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">주리허 훈련기지 — 대만 총통부·외교부 복제 모형 훈련 포착</div>
+        <div class="ecard-date">2015.07</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-infra">기지·인프라</span>
+        <span class="tag t-mil">실전 훈련</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">42.26, 112.76</span><span class="coord-name">네이멍구 주리허 기지 (Wikipedia 공식 좌표)</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>총통부·외교부·사법원 복제 건물 신증설 여부</li>
+            <li>도심 모형 구역 내 장갑차·병력 기동 흔적</li>
+            <li>1,200m 모형 활주로 항공기 배치 현황</li>
+            <li>280m 지하 터널 연결 시설 확장 여부</li>
+          </ul>
+        </div>
+      </div>
+      <div class="warn">⚠ Planet Labs·The Diplomat·The War Zone 위성사진으로 직접 확인. CCTV 영상으로도 돌격 훈련 방영됨.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">03</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">남중국해 PCA 중재 판결 후 인공섬 군사화 가속</div>
+        <div class="ecard-date">2016.07~현재</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-geo">영토 분쟁</span>
+        <span class="tag t-infra">기지 건설</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">9.91, 114.50</span><span class="coord-name">미스치프 암초 (인공섬)</span></div>
+            <div class="coord"><span class="coord-val">10.91, 114.08</span><span class="coord-name">수비 암초 (인공섬)</span></div>
+            <div class="coord"><span class="coord-val">16.84, 112.34</span><span class="coord-name">우디 섬 (파라셀 군도 거점)</span></div>
+            <div class="coord"><span class="coord-val">10.37, 114.36</span><span class="coord-name">태평도 (대만 관할)</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>활주로 신설·격납고 증설 공사 진행 여부</li>
+            <li>레이더 돔·통신 시설·방공 시스템 설치 현황</li>
+            <li>군함·보급선 정박 수량 주기적 계측</li>
+            <li>태평도 주변 중국 해경선·어선 집결 여부</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">04</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">H-6K 전략폭격기 '섬 포위 비행' 상설화</div>
+        <div class="ecard-date">2017.12~</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-adiz">ADIZ 침범</span>
+        <span class="tag t-infra">폭격기 기지</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">24.15, 115.76</span><span class="coord-name">싱닝 공군기지 (광둥성) ✓역지오코딩 확인</span></div>
+            <div class="coord"><span class="coord-val">31.40, 117.00</span><span class="coord-name">안칭 폭격기 기지 (안후이성)</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>H-6K 계류 대수 증감 및 출격 패턴 파악</li>
+            <li>장거리 순항미사일 적재 차량 이동 포착</li>
+            <li>급유 차량·지상 지원 장비 집결 여부</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">05</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">대만해협 실사격 실전 훈련 (시진핑 열병식 직후)</div>
+        <div class="ecard-date">2018.04.18</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-mil">실사격 훈련</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">24.81, 118.60</span><span class="coord-name">취안저우 인근 해안 (푸젠성)</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>연안 다연장 로켓포(PHL-03) 진지 구축 흔적</li>
+            <li>대형 상륙함(LST) 해안 집결·도하 준비 태세</li>
+            <li>포격 훈련 후 지형·시설 변화</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 06 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">06</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">20년 만의 의도적 해협 중간선 침범 (젠-11 전투기)</div>
+        <div class="ecard-date">2019.03.31</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-adiz">중간선 침범</span>
+        <span class="tag t-mil">군사 시위</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">25.40, 119.20</span><span class="coord-name">푸톈(莆田) 공군기지 (푸젠성)</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>비상대기 격납고(Alert Hangar) 개방 상태</li>
+            <li>활주로 말단 대기 중인 전투기 포착</li>
+            <li>지상 지원 장비·급유차 배치 증감</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PHASE 2 ========== -->
+<div class="phase-bar">
+  <span class="phase-bar-label">PHASE 2 · 회색지대 전술 본격화 (2020–2021)</span>
+  <div class="phase-bar-line"></div>
+</div>
+
+<!-- 07 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">07</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">크라크 미 국무차관 방문 반발 — 중간선 대규모 침범</div>
+        <div class="ecard-date">2020.09.18~19</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-adiz">중간선 침범</span>
+        <span class="tag t-gray">회색지대</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">25.50, 119.79</span><span class="coord-name">핑탄섬 본섬 (수정 좌표)</span></div>
+            <div class="coord"><span class="coord-val">25.60, 119.85</span><span class="coord-name">핑탄섬 북동부 연안</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>이동식 미사일 발사대(TEL) 전진 배치 여부</li>
+            <li>핑탄섬 해안 방어 시설 활성화 상태</li>
+            <li>해협 중간선 인근 함정 배치 현황</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 08 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">08</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">대만-미국 해경 협력 반발 — 남부 해역 대규모 압박 시위</div>
+        <div class="ecard-date">2021.03.26</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-gray">해경 회색지대</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">24.43, 118.10</span><span class="coord-name">샤먼 해경 부두 (추정)</span></div>
+            <div class="coord"><span class="coord-val">22.80, 120.20</span><span class="coord-name">대만 남서부 해역</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>샤먼 해경 기지 대형 순시선(CCG) 출항·집결</li>
+            <li>대만 남서부 ADIZ 초계 패턴 변화</li>
+            <li>함정 배치 수량 변화 모니터링</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 09 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">09</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">국경절 역대 최대 ADIZ 침범 — 4일간 149회 출격</div>
+        <div class="ecard-date">2021.10.01~04</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-adiz">ADIZ 최대 기록</span>
+        <span class="tag t-mil">심리전</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">25.57, 119.46</span><span class="coord-name">룽톈 공군기지 (푸젠·푸칭) ✓역지오코딩 확인</span></div>
+            <div class="coord"><span class="coord-val">25.02, 118.81</span><span class="coord-name">후이안 공군기지 (푸젠성)</span></div>
+            <div class="coord"><span class="coord-val">24.56, 117.65</span><span class="coord-name">장저우 공군기지 (푸젠성)</span></div>
+            <div class="coord"><span class="coord-val">18.23, 109.51</span><span class="coord-name">하이난 산야 해군기지</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>3개 기지 활주로 전투기 전진 배치 수량</li>
+            <li>급유차·지상 지원 자산 증감 현황</li>
+            <li>H-6 폭격기 계류 위치 및 수량 변화</li>
+            <li>산야 기지 잠수함·수상함 출항 현황</li>
+          </ul>
+        </div>
+      </div>
+      <div class="warn">⚠ Planet Labs 위성사진으로 룽톈·후이안·장저우 3개 기지 직접 촬영·보도 (WION, The Drive). 격납고·활주로 증설 확인.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 10 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">10</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">룽톈·후이안·장저우 공군기지 대규모 확장 (상시)</div>
+        <div class="ecard-date">2021~현재 (상시 관측 대상)</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-infra">기지 확장</span>
+        <span class="tag t-perm">상시 관측</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">25.57, 119.46</span><span class="coord-name">룽톈 공군기지</span></div>
+            <div class="coord"><span class="coord-val">25.02, 118.81</span><span class="coord-name">후이안 공군기지</span></div>
+            <div class="coord"><span class="coord-val">24.56, 117.65</span><span class="coord-name">장저우 공군기지</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>격납고 증설 수량 및 활주로 개보수 현황</li>
+            <li>드론 격납고 신설 여부</li>
+            <li>방공 시스템 설치 및 항공기 배치 수량 주기 계측</li>
+          </ul>
+        </div>
+      </div>
+      <div class="warn">룽톈 역지오코딩 → "Longtien Airbase, Fuqing City, Fujian" 직접 반환. 최우선 상시 관측 대상.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PHASE 3 ========== -->
+<div class="phase-bar">
+  <span class="phase-bar-label">PHASE 3 · 제4차 대만해협 위기 본격화 (2022–2023)</span>
+  <div class="phase-bar-line"></div>
+</div>
+
+<!-- 11 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">11</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">펠로시 방문 대응 — 사상 최대 7구역 봉쇄·실사격 훈련</div>
+        <div class="ecard-date">2022.08.04~10</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-mil">역대 최대 훈련</span>
+        <span class="tag t-mil">탄도미사일 발사</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">25.20, 121.60</span><span class="coord-name">타이베이 북부 해역</span></div>
+            <div class="coord"><span class="coord-val">25.13, 121.74</span><span class="coord-name">지룽 항구 외곽</span></div>
+            <div class="coord"><span class="coord-val">22.61, 120.26</span><span class="coord-name">가오슝 항구 외곽</span></div>
+            <div class="coord"><span class="coord-val">24.47, 121.85</span><span class="coord-name">화롄 동부 해역</span></div>
+            <div class="coord"><span class="coord-val">24.47, 118.08</span><span class="coord-name">샤먼 항구 (중국 측 발진 거점)</span></div>
+            <div class="coord"><span class="coord-val">25.50, 119.79</span><span class="coord-name">핑탄섬 (미사일 발사 추정 거점)</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>7개 훈련구역 내 군함·항공기 배치 밀도</li>
+            <li>랴오닝·산둥 항모전단 기동 경로</li>
+            <li>TEL(이동식 미사일 발사대) 해안 이동 포착</li>
+            <li>탄도미사일 발사 후 지형 변화</li>
+            <li>훈련 전·후 기지 자산 규모 비교</li>
+          </ul>
+        </div>
+      </div>
+      <div class="warn">⚠ 1개월 간 PLA 항공기 440대+ 출격. 탄도미사일 일본 EEZ 낙하 최초 확인. 제4차 대만해협 위기 공식 시작.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 12 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">12</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">연합이검 훈련 — 차이잉원-케빈 매카시 회담 반발</div>
+        <div class="ecard-date">2023.04.08~10</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-mil">포위 훈련</span>
+        <span class="tag t-mil">항모 전개</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">23.50, 122.50</span><span class="coord-name">대만 동부 필리핀해 (산둥함 기동)</span></div>
+            <div class="coord"><span class="coord-val">25.50, 119.79</span><span class="coord-name">핑탄섬 인근 실사격 구역</span></div>
+            <div class="coord"><span class="coord-val">24.00, 120.00</span><span class="coord-name">대만해협 중부 (4방향 포위)</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>산둥함 항모전단 동부 해역 배치</li>
+            <li>J-15 함재기 80회 출격 패턴 및 ADIZ 동부 진입</li>
+            <li>핑탄섬 인근 실사격 후 해상 변화</li>
+            <li>4방향 동시 포위 함정 배치 현황</li>
+          </ul>
+        </div>
+      </div>
+      <div class="warn">산둥함 최초 제1도련선 돌파 훈련. USNI News 직접 확인.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 13 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">13</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">라이칭더 부통령 방미 반발 — 소규모 봉쇄 훈련</div>
+        <div class="ecard-date">2023.08.19</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-mil">봉쇄 훈련</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">24.00, 120.00</span><span class="coord-name">대만해협 중부</span></div>
+            <div class="coord"><span class="coord-val">22.00, 120.00</span><span class="coord-name">대만 남서 해역</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>전투기 42대·함정 8척 배치 현황</li>
+            <li>해협 중간선 침범 항공기 경로</li>
+            <li>PLA 전방 기지 24시간 이내 항공기 집결 속도</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PHASE 4 ========== -->
+<div class="phase-bar">
+  <span class="phase-bar-label">PHASE 4 · 라이칭더 정부 출범 후 압박 강화 (2024–현재)</span>
+  <div class="phase-bar-line"></div>
+</div>
+
+<!-- 14 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">14</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">금문도 어선 충돌 사건 — 중국 해경선 봉쇄·진입 상시화</div>
+        <div class="ecard-date">2024.02.14~</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-gray">해경 회색지대</span>
+        <span class="tag t-geo">도서 분쟁</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">24.43, 118.31</span><span class="coord-name">금문도(진먼다오) 인근 해역</span></div>
+            <div class="coord"><span class="coord-val">24.46, 118.20</span><span class="coord-name">샤먼-금문 접근 수역</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>해경선·어선 금문 2.8해리 접근 포착</li>
+            <li>대만 해경 경비정 대응 배치</li>
+            <li>샤먼-금문 해협 선박 통행 밀도 변화</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 15 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">15</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">연합이검-2024A — 라이칭더 취임 3일 후 반발</div>
+        <div class="ecard-date">2024.05.23~24</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-mil">포위 훈련</span>
+        <span class="tag t-gray">해경 최초 합동</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">22.61, 120.26</span><span class="coord-name">가오슝 항구 외곽 (남부 봉쇄)</span></div>
+            <div class="coord"><span class="coord-val">25.13, 121.74</span><span class="coord-name">지룽 항구 인근 (북부 봉쇄)</span></div>
+            <div class="coord"><span class="coord-val">25.20, 121.60</span><span class="coord-name">타이베이 북부 해역</span></div>
+            <div class="coord"><span class="coord-val">23.50, 122.50</span><span class="coord-name">대만 동부 (CCG 합동 구역)</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>가오슝·지룽 항구 인근 해경·군함 집결</li>
+            <li>항공기 111대·함정 46척 배치 현황</li>
+            <li>중간선 침범 82대 항공기 경로 추적</li>
+            <li>CCG 최초 PLA 합동훈련 참가 확인</li>
+          </ul>
+        </div>
+      </div>
+      <div class="warn">⚠ 중국 국영방송이 가오슝·지룽 항구 봉쇄를 공식 훈련 목표로 발표한 최초 사례. CSIS 확인.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 16 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">16</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">연합이검-2024B — 라이칭더 국경절 연설 반발</div>
+        <div class="ecard-date">2024.10.14</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-mil">봉쇄 훈련</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">24.00, 121.00</span><span class="coord-name">대만 동부 해역</span></div>
+            <div class="coord"><span class="coord-val">24.00, 119.00</span><span class="coord-name">대만 서부 해협</span></div>
+            <div class="coord"><span class="coord-val">22.50, 120.50</span><span class="coord-name">대만 남서 해역</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>역대 최다 항공기 동원 현황 확인</li>
+            <li>'하트형' 포위 경로 기동 패턴 추적</li>
+            <li>대만 전방 해역 함정 배치 밀도</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 17 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">17</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">해협뇌정-2025A — 라이칭더 17개 국가안보 정책 반발</div>
+        <div class="ecard-date">2025.04.01~02</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-mil">봉쇄·정밀타격 훈련</span>
+        <span class="tag t-infra">에너지 표적화</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">23.50, 122.50</span><span class="coord-name">대만 동부 (산둥함 기동)</span></div>
+            <div class="coord"><span class="coord-val">24.00, 119.50</span><span class="coord-name">대만해협 중남부</span></div>
+            <div class="coord"><span class="coord-val">25.00, 125.00</span><span class="coord-name">동중국해 장거리 실사격 구역</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>산둥함 서태평양 기동 경로</li>
+            <li>항공기 76대·함정 13척 배치 현황</li>
+            <li>LNG 터미널·항구 정밀타격 시뮬레이션 구역</li>
+            <li>동중국해 장거리 실사격 탄착 지점</li>
+          </ul>
+        </div>
+      </div>
+      <div class="warn">⚠ 에너지 인프라(LNG 터미널) 타격 시뮬레이션 최초 공식 등장. Global Taiwan Institute 분석.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 18 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">18</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">정의사명-2025 — 역대 최대 규모 7구역 봉쇄 훈련</div>
+        <div class="ecard-date">2025.12.29~30</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-mil">역대 최대 훈련</span>
+        <span class="tag t-mil">로켓 실사격</span>
+        <span class="tag t-mil">영해 침범</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">25.13, 121.74</span><span class="coord-name">지룽 항구 (북부 봉쇄)</span></div>
+            <div class="coord"><span class="coord-val">22.61, 120.26</span><span class="coord-name">가오슝 항구 (남부 봉쇄)</span></div>
+            <div class="coord"><span class="coord-val">25.50, 119.79</span><span class="coord-name">핑탄섬 (로켓 발사 거점)</span></div>
+            <div class="coord"><span class="coord-val">24.00, 121.00</span><span class="coord-name">대만 동부 해역</span></div>
+            <div class="coord"><span class="coord-val">22.00, 121.50</span><span class="coord-name">대만 남동 해역</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>7개 훈련구역 함정·항공기 배치 밀도</li>
+            <li>핑탄섬 PCH-191 로켓 발사 차량 집결</li>
+            <li>로켓 27발 해상 탄착 지점 (북·남 해역)</li>
+            <li>허베이함(Type 075) 상륙강습함 참가 확인</li>
+            <li>훈련구역-대만 영해(12해리) 경계 침범 여부</li>
+          </ul>
+        </div>
+      </div>
+      <div class="warn">⚠ 2022년 이후 최대 규모. 훈련구역이 대만 영해(12해리) 내 최초 진입. 로켓 27발 실사격. 미국 111억불 무기판매 반발. Wikipedia 확인.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 상시 관측 거점 ========== -->
+<div class="phase-bar">
+  <span class="phase-bar-label">PERMANENT · 상시 관측 거점 (연속 모니터링 대상)</span>
+  <div class="phase-bar-line"></div>
+</div>
+
+<!-- 19 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">19</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">남중국해 인공섬 — 수비·미스치프 암초 군사기지 상시 관측</div>
+        <div class="ecard-date">2015~현재 (상시)</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-perm">상시 관측</span>
+        <span class="tag t-geo">영토 분쟁</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">9.91, 114.50</span><span class="coord-name">미스치프 암초</span></div>
+            <div class="coord"><span class="coord-val">10.91, 114.08</span><span class="coord-name">수비 암초</span></div>
+            <div class="coord"><span class="coord-val">10.37, 114.36</span><span class="coord-name">태평도 (대만 관할)</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>활주로·격납고·레이더 시설 지속 확장 모니터링</li>
+            <li>항공기·함정 정박 수량 정기 계측</li>
+            <li>태평도 주변 중국 해경선·어선 집결 여부</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 20 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">20</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">핑탄섬 — 대만 최근접 전방 군사·해경 자산 집결 거점</div>
+        <div class="ecard-date">2021~현재 (상시)</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-perm">상시 관측</span>
+        <span class="tag t-gray">전방 거점</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">25.50, 119.79</span><span class="coord-name">핑탄섬 본섬</span></div>
+            <div class="coord"><span class="coord-val">25.60, 119.85</span><span class="coord-name">핑탄섬 북동부 연안</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>해경·군함 집결 수량 상시 모니터링</li>
+            <li>TEL(이동식 미사일 발사대) 해안 배치 여부</li>
+            <li>훈련 직전·직후 자산 이동 패턴 비교</li>
+            <li>부두·창고 시설 증설 현황</li>
+          </ul>
+        </div>
+      </div>
+      <div class="warn">정의사명-2025에서 PCH-191 로켓 27발 실제 발사 거점 확인. 최우선 상시 관측 포인트.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 21 -->
+<div class="ecard">
+  <div class="ecard-row">
+    <div class="ecard-idx">21</div>
+    <div class="ecard-body">
+      <div class="ecard-top">
+        <div class="ecard-name">금문·마쭈 도서 — 중국 해경 회색지대 작전 상시화</div>
+        <div class="ecard-date">2024.02~현재 (상시)</div>
+      </div>
+      <div class="tags">
+        <span class="tag t-perm">상시 관측</span>
+        <span class="tag t-gray">해경 회색지대</span>
+      </div>
+      <div class="dgrid">
+        <div class="dblock">
+          <div class="dblock-label">주요 지역 및 좌표</div>
+          <div class="coords">
+            <div class="coord"><span class="coord-val">24.43, 118.31</span><span class="coord-name">금문도 인근 해역</span></div>
+            <div class="coord"><span class="coord-val">26.16, 119.93</span><span class="coord-name">마쭈 열도 인근 해역</span></div>
+            <div class="coord"><span class="coord-val">24.97, 119.55</span><span class="coord-name">우추(烏坵) 섬 인근 해역</span></div>
+          </div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-label">위성 관측 포인트</div>
+          <ul class="obs">
+            <li>중국 해경선 각 도서 3~5해리 접근 빈도</li>
+            <li>대만 해경 경비정 상시 대응 배치 현황</li>
+            <li>도서 주변 어선·순시선 혼합 운용 패턴</li>
+            <li>신규 항구·접안 시설 건설 여부</li>
+          </ul>
+        </div>
+      </div>
+      <div class="warn">금문도 어선 충돌(2024.02) 이후 회색지대 작전이 3개 도서 동시 전개로 확대. 연합이검-2024A에서 CCG 최초 PLA 합동훈련 참가.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 푸터 -->
+<div class="footer">
+  DATA SOURCES<br>
+  CSIS ChinaPower · Global Taiwan Institute · FPRI · USNI News · The Diplomat · The War Zone<br>
+  Wikipedia (Joint Sword 2023/2024, Strait Thunder 2025A, Justice Mission 2025, Zhurihe Training Base)<br>
+  Planet Labs (via WION / The Drive) · ROC Ministry of National Defense · Al Jazeera · CNN · Fox News
+</div>
+
+</div>
+</body>
+</html>

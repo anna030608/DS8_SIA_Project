@@ -1,0 +1,11 @@
+spike_detection:
+  mention_percentile: 95        # NumMentions 상위 5%
+  ma_windows: [7, 14, 30]       # 이동평균 기간
+
+priority_score:
+  weights:
+    num_mentions: 0.6
+    goldstein: 0.1
+    avg_tone: 0.3
+
+  avg_tone_threshold: -3        # 이하일 때만 가중치 적용

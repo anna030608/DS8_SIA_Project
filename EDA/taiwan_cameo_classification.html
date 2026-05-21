@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>양안관계 사건 CAMEO 코드 분류표</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+:root {
+  --bg: #080a0f;
+  --s1: #0e1118;
+  --s2: #151a24;
+  --s3: #1c2233;
+  --border: #222840;
+  --border2: #2d3554;
+  --blue: #5b9cf6;
+  --teal: #2dd4bf;
+  --amber: #fbbf24;
+  --red: #f87171;
+  --purple: #c084fc;
+  --green: #4ade80;
+  --tp: #dde2f0;
+  --ts: #6b7394;
+  --tm: #3d4566;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--tp);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13px;
+  line-height: 1.65;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(91,156,246,.05) 0%, transparent 70%),
+    linear-gradient(rgba(91,156,246,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91,156,246,.02) 1px, transparent 1px);
+  background-size: 100% 100%, 48px 48px, 48px 48px;
+  pointer-events: none; z-index: 0;
+}
+
+.wrap { position:relative; z-index:1; max-width:1100px; margin:0 auto; padding:52px 24px 100px; }
+
+/* 헤더 */
+.hdr { margin-bottom: 44px; }
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.eyebrow::before {
+  content: '';
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--blue); animation: blink 2.5s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+h1 {
+  font-size: 28px; font-weight: 700; line-height: 1.3; margin-bottom: 8px;
+  background: linear-gradient(120deg, #dde2f0 30%, #4a5580 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hdr-desc { color: var(--ts); font-size: 12px; }
+
+/* CAMEO 가이드 */
+.guide {
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px 24px; margin-bottom: 36px;
+}
+.guide-title {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  color: var(--tm); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px;
+}
+.guide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+.guide-item {
+  background: var(--s2); border-radius: 8px; padding: 8px 11px;
+}
+.guide-code {
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px;
+  font-weight: 500; color: var(--amber); margin-bottom: 3px;
+}
+.guide-name { font-size: 12px; color: var(--tp); margin-bottom: 2px; }
+.guide-desc { font-size: 11px; color: var(--ts); }
+
+/* Goldstein 범례 */
+.goldstein-bar {
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px 24px; margin-bottom: 36px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.gs-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--tm); letter-spacing: .1em; text-transform: uppercase; }
+.gs-track {
+  flex: 1; min-width: 200px; height: 10px; border-radius: 5px;
+  background: linear-gradient(to right, #f87171, #fbbf24, #3d4566, #4ade80);
+  position: relative;
+}
+.gs-ticks { display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ts); margin-top: 4px; flex: 1; min-width: 200px; }
+
+/* 섹션 구분 */
+.phase-bar {
+  display: flex; align-items: center; gap: 12px; margin: 40px 0 16px;
+}
+.phase-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ts); letter-spacing: .1em; white-space: nowrap; }
+.phase-line { flex: 1; height: 1px; background: var(--border); }
+
+/* 사건 카드 */
+.ecard {
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden; margin-bottom: 10px;
+  transition: border-color .2s;
+}
+.ecard:hover { border-color: var(--border2); }
+
+.ecard-top {
+  display: flex; align-items: stretch; min-height: 56px;
+}
+
+.ecard-num {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  color: var(--blue); min-width: 46px;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 14px 0;
+  background: rgba(91,156,246,.04);
+  border-right: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.ecard-head {
+  flex: 1; padding: 12px 16px;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.ecard-name { font-size: 13px; font-weight: 500; color: var(--tp); line-height: 1.4; }
+.ecard-date { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ts); white-space: nowrap; padding-top: 2px; }
+
+/* CAMEO 정보 그리드 */
+.cameo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 0 16px 14px;
+}
+@media(max-width:700px){ .cameo-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:400px){ .cameo-grid { grid-template-columns: 1fr; } }
+
+.cblock {
+  background: var(--s2); border-radius: 8px; padding: 9px 11px;
+}
+.cblock-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+  color: var(--tm); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 5px;
+}
+.cblock-val {
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500;
+}
+.cblock-sub { font-size: 11px; color: var(--ts); margin-top: 2px; line-height: 1.4; }
+
+/* 색상 코딩 */
+.v-chn { color: #f87171; }   /* 중국 */
+.v-twn { color: #60a5fa; }   /* 대만 */
+.v-usa { color: #4ade80; }   /* 미국 */
+.v-mul { color: #c084fc; }   /* 복수 */
+.v-sea { color: #2dd4bf; }   /* 해상 */
+
+/* Goldstein 점수 색상 */
+.gs-neg-hi  { color: #f87171; }   /* -6 이하 */
+.gs-neg-mid { color: #fbbf24; }   /* -3 ~ -6 */
+.gs-neg-low { color: #fb923c; }   /* 0 ~ -3 */
+
+/* 경고 */
+.warn {
+  margin: 0 16px 12px; font-size: 11px; color: var(--amber);
+  padding: 4px 10px;
+  background: rgba(251,191,36,.06);
+  border-left: 2px solid var(--amber);
+  border-radius: 0 4px 4px 0;
+}
+
+/* 통계 */
+.stats { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+.stat {
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 18px; flex: 1; min-width: 100px; text-align: center;
+}
+.stat-n { font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 500; color: var(--blue); }
+.stat-l { font-size: 11px; color: var(--tm); margin-top: 2px; }
+
+/* 푸터 */
+.footer {
+  margin-top: 36px; padding: 14px 20px;
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--tm); line-height: 1.7;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- 헤더 -->
+<div class="hdr">
+  <div class="eyebrow">OSINT · CAMEO 코드 분류 — 양안관계 주요 사건</div>
+  <h1>21개 사건 CAMEO 코드 분류표</h1>
+  <div class="hdr-desc">2013.04 ~ 2026.05 · Actor1 / Actor2 / EventCode / GoldsteinScale 기준 독립 분류</div>
+</div>
+
+<!-- 통계 -->
+<div class="stats">
+  <div class="stat"><div class="stat-n">21</div><div class="stat-l">총 사건</div></div>
+  <div class="stat"><div class="stat-n">15</div><div class="stat-l">190번대 코드 (무력)</div></div>
+  <div class="stat"><div class="stat-n">4</div><div class="stat-l">150번대 코드 (시위)</div></div>
+  <div class="stat"><div class="stat-n">2</div><div class="stat-l">170번대 코드 (제재)</div></div>
+  <div class="stat"><div class="stat-n">-6.5</div><div class="stat-l">평균 Goldstein</div></div>
+</div>
+
+<!-- CAMEO 코드 가이드 -->
+<div class="guide">
+  <div class="guide-title">▸ 이번 분류에서 사용된 CAMEO EventCode 목록</div>
+  <div class="guide-grid">
+    <div class="guide-item">
+      <div class="guide-code">150</div>
+      <div class="guide-name">무력 시위 (일반)</div>
+      <div class="guide-desc">군사적 압박·경고 행동</div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-code">154</div>
+      <div class="guide-name">군비 강화 시위</div>
+      <div class="guide-desc">기지 증설·군사 자산 전진 배치</div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-code">155</div>
+      <div class="guide-name">군사훈련 실시</div>
+      <div class="guide-desc">실사격·봉쇄 등 훈련 행위</div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-code">172</div>
+      <div class="guide-name">영공·영해 침범</div>
+      <div class="guide-desc">ADIZ·중간선·영해 무단 진입</div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-code">190</div>
+      <div class="guide-name">무력 사용 (일반)</div>
+      <div class="guide-desc">물리적 충돌·실사격 행위</div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-code">192</div>
+      <div class="guide-name">재산 훼손·봉쇄</div>
+      <div class="guide-desc">항구·항로 봉쇄 시뮬레이션</div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-code">193</div>
+      <div class="guide-name">인원·물자 억류</div>
+      <div class="guide-desc">해경 검문·나포 행위</div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-code">195</div>
+      <div class="guide-name">미사일·포격 공격</div>
+      <div class="guide-desc">실제 미사일·로켓 발사</div>
+    </div>
+  </div>
+</div>
+
+<!-- Goldstein 범례 -->
+<div class="goldstein-bar">
+  <span class="gs-label">Goldstein Scale</span>
+  <div style="flex:1; min-width:200px;">
+    <div class="gs-track"></div>
+    <div class="gs-ticks"><span>-10 (최고 갈등)</span><span>-5</span><span>0</span><span>+5</span><span>+10 (최고 협력)</span></div>
+  </div>
+</div>
+
+<!-- ===== PHASE 1 ===== -->
+<div class="phase-bar">
+  <span class="phase-label">PHASE 1 · 초기 긴장 구축기 (2013–2019)</span>
+  <div class="phase-line"></div>
+</div>
+
+<!-- 01 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">01</div>
+    <div class="ecard-head">
+      <div class="ecard-name">동중국해 ADIZ 일방 선포</div>
+      <div class="ecard-date">2013.11.23</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">중국 정부 / PLA</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-mul">TWN + JPN + USA</div>
+      <div class="cblock-sub">복수 대상 (다자 위협)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">150</div>
+      <div class="cblock-sub">무력 시위 (일반)<br>+ 172 영공 통제 선포</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-5.0</div>
+      <div class="cblock-sub">군사적 압박·위협 수준</div>
+    </div>
+  </div>
+  <div class="warn">CAMEO 특성: Actor2가 단일 국가가 아닌 다자(대만·일본·미국 동시 겨냥). GDELT에서는 CHN→TWN / CHN→JPN 복수 행으로 분리 수집될 수 있음.</div>
+</div>
+
+<!-- 02 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">02</div>
+    <div class="ecard-head">
+      <div class="ecard-name">주리허 기지 — 총통부 복제 모형 훈련 포착</div>
+      <div class="ecard-date">2015.07</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA 지상군</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 정부 (모의 표적)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">155</div>
+      <div class="cblock-sub">군사훈련 실시<br>(도심 침투·점령 훈련)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-4.0</div>
+      <div class="cblock-sub">훈련 목적 명시적 위협</div>
+    </div>
+  </div>
+  <div class="warn">CAMEO 특성: 내륙 훈련이라 ActionGeo_Type=1(국가 수준) 가능성 높음 — 좌표 정밀도 낮을 수 있어 필터링 시 주의. 위성사진으로는 직접 확인됨.</div>
+</div>
+
+<!-- 03 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">03</div>
+    <div class="ecard-head">
+      <div class="ecard-name">PCA 판결 후 남중국해 인공섬 군사화 가속</div>
+      <div class="ecard-date">2016.07~현재</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">중국 정부 / PLA Navy</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-mul">TWN + PHL + INT</div>
+      <div class="cblock-sub">대만·필리핀·국제사회</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">154</div>
+      <div class="cblock-sub">군비 강화 시위<br>(기지 건설·군사화)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-5.0</div>
+      <div class="cblock-sub">지속적 군사력 증강</div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">04</div>
+    <div class="ecard-head">
+      <div class="ecard-name">H-6K 전략폭격기 섬 포위 비행 상설화</div>
+      <div class="ecard-date">2017.12~</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA 공군 (PLAAF)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 (+ 일본 ADIZ 포함)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">150 / 172</div>
+      <div class="cblock-sub">무력 시위 + 영공 침범<br>(포위 비행 경로)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-5.0</div>
+      <div class="cblock-sub">핵 탑재 가능 폭격기 위협</div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">05</div>
+    <div class="ecard-head">
+      <div class="ecard-name">대만해협 실사격 실전 훈련</div>
+      <div class="ecard-date">2018.04.18</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA (해군·지상군)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 (직접 겨냥)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">155 / 195</div>
+      <div class="cblock-sub">군사훈련 + 실사격<br>(로켓포·상륙 훈련)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-7.0</div>
+      <div class="cblock-sub">실탄 사용 훈련 (고위협)</div>
+    </div>
+  </div>
+</div>
+
+<!-- 06 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">06</div>
+    <div class="ecard-head">
+      <div class="ecard-name">20년 만의 의도적 해협 중간선 침범</div>
+      <div class="ecard-date">2019.03.31</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA 공군 (젠-11)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 공군 (응수 대응)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">172</div>
+      <div class="cblock-sub">영공·영해 침범<br>(중간선 의도적 돌파)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-5.5</div>
+      <div class="cblock-sub">20년 만의 규범 파기</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PHASE 2 ===== -->
+<div class="phase-bar">
+  <span class="phase-label">PHASE 2 · 회색지대 전술 본격화 (2020–2021)</span>
+  <div class="phase-line"></div>
+</div>
+
+<!-- 07 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">07</div>
+    <div class="ecard-head">
+      <div class="ecard-name">크라크 차관 방문 반발 — 중간선 대규모 침범</div>
+      <div class="ecard-date">2020.09.18~19</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA 공군 + 해군</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 (+ 미국 항의 포함)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">172 / 150</div>
+      <div class="cblock-sub">영공 침범 + 무력 시위<br>(대규모 중간선 돌파)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-5.5</div>
+      <div class="cblock-sub">미-대만 관계 반발 성격</div>
+    </div>
+  </div>
+</div>
+
+<!-- 08 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">08</div>
+    <div class="ecard-head">
+      <div class="ecard-name">대만-미 해경 협력 반발 — 남부 해역 압박 시위</div>
+      <div class="ecard-date">2021.03.26</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA 공군 + 중국 해경(CCG)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 (남부 해역 압박)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">150 / 172</div>
+      <div class="cblock-sub">무력 시위 + 영해 진입<br>(해경 회색지대 전술)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-4.5</div>
+      <div class="cblock-sub">해경 참여로 회색지대 성격</div>
+    </div>
+  </div>
+  <div class="warn">CAMEO 특성: 해경(CCG)의 행위는 군사 코드(PLA)와 달리 회색지대로 분류됨. GDELT에서 Actor1이 CHN + CCG 혼재 가능.</div>
+</div>
+
+<!-- 09 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">09</div>
+    <div class="ecard-head">
+      <div class="ecard-name">국경절 역대 최대 ADIZ 침범 — 149회 출격</div>
+      <div class="ecard-date">2021.10.01~04</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA 공군 (PLAAF)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 (ADIZ 전체)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">172 / 150</div>
+      <div class="cblock-sub">영공 침범 + 심리전<br>(역대 최대 규모)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-5.5</div>
+      <div class="cblock-sub">반복·대규모 압박 성격</div>
+    </div>
+  </div>
+  <div class="warn">CAMEO 특성: 4일간 연속 사건으로 GDELT에서 날짜별로 분리 수집. 단일 스파이크가 아닌 연속 스파이크로 탐지될 수 있음.</div>
+</div>
+
+<!-- 10 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">10</div>
+    <div class="ecard-head">
+      <div class="ecard-name">룽톈·후이안·장저우 공군기지 대규모 확장 (상시)</div>
+      <div class="ecard-date">2021~현재</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA / 중국 정부</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 (장기 위협 구축)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">154</div>
+      <div class="cblock-sub">군비 강화 시위<br>(인프라·전력 증강)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-mid">-3.5</div>
+      <div class="cblock-sub">장기 능력 구축 (저강도)</div>
+    </div>
+  </div>
+  <div class="warn">CAMEO 특성: 인프라 건설 자체는 뉴스 보도량이 적어 GDELT 수집 건수가 적을 수 있음. 위성사진 직접 관측이 주 탐지 수단.</div>
+</div>
+
+<!-- ===== PHASE 3 ===== -->
+<div class="phase-bar">
+  <span class="phase-label">PHASE 3 · 제4차 대만해협 위기 (2022–2023)</span>
+  <div class="phase-line"></div>
+</div>
+
+<!-- 11 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">11</div>
+    <div class="ecard-head">
+      <div class="ecard-name">펠로시 방문 대응 — 사상 최대 7구역 봉쇄 훈련</div>
+      <div class="ecard-date">2022.08.04~10</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA 동부전구 (전군종)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-mul">TWN + USA</div>
+      <div class="cblock-sub">대만 + 미국 (펠로시 방문 반발)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">195 / 192</div>
+      <div class="cblock-sub">미사일 발사 + 항로 봉쇄<br>(탄도미사일 일본 EEZ 낙하)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-9.0</div>
+      <div class="cblock-sub">실탄 미사일 발사 최고 위협</div>
+    </div>
+  </div>
+  <div class="warn">CAMEO 특성: 사건 규모로 인해 수백~수천 건 GDELT 행 생성. 미사일 발사(195)·봉쇄(192)·항공기 침범(172) 복수 코드가 동시 수집됨. 가장 강력한 스파이크 발생 사건.</div>
+</div>
+
+<!-- 12 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">12</div>
+    <div class="ecard-head">
+      <div class="ecard-name">연합이검 훈련 — 차이-매카시 회담 반발</div>
+      <div class="ecard-date">2023.04.08~10</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA 동부전구</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-mul">TWN + USA</div>
+      <div class="cblock-sub">대만 + 미국 (회담 반발)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">155 / 192</div>
+      <div class="cblock-sub">군사훈련 + 봉쇄 시뮬<br>(항모 전개·4방향 포위)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-7.5</div>
+      <div class="cblock-sub">항모 포함 전면 포위 훈련</div>
+    </div>
+  </div>
+</div>
+
+<!-- 13 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">13</div>
+    <div class="ecard-head">
+      <div class="ecard-name">라이칭더 부통령 방미 반발 — 소규모 봉쇄 훈련</div>
+      <div class="ecard-date">2023.08.19</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA 동부전구</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 (라이칭더 개인 겨냥)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">155 / 172</div>
+      <div class="cblock-sub">군사훈련 + 중간선 침범<br>(소규모 봉쇄)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-6.0</div>
+      <div class="cblock-sub">이전 훈련 대비 규모 축소</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PHASE 4 ===== -->
+<div class="phase-bar">
+  <span class="phase-label">PHASE 4 · 라이칭더 정부 출범 후 압박 강화 (2024–현재)</span>
+  <div class="phase-line"></div>
+</div>
+
+<!-- 14 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">14</div>
+    <div class="ecard-head">
+      <div class="ecard-name">금문도 어선 충돌 — 해경선 봉쇄·진입 상시화</div>
+      <div class="ecard-date">2024.02.14~</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">중국 해경(CCG) 주도</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 해경 / 금문도 당국</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">193 / 172</div>
+      <div class="cblock-sub">나포·검문(193) + 영해 진입<br>(어선·관광선 검문 등)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-5.0</div>
+      <div class="cblock-sub">법집행 위장 회색지대</div>
+    </div>
+  </div>
+  <div class="warn">CAMEO 특성: CCG는 군(PLA)이 아닌 법집행기관으로 분류. GDELT Actor1에서 CHN_GOV 또는 CHN_LEA(법집행)로 수집될 수 있음. 군사훈련 코드(155)보다 낮은 강도로 분류될 수 있으나 실질적 위협은 높음.</div>
+</div>
+
+<!-- 15 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">15</div>
+    <div class="ecard-head">
+      <div class="ecard-name">연합이검-2024A — 라이칭더 취임 반발</div>
+      <div class="ecard-date">2024.05.23~24</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA 동부전구 + CCG</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 (라이칭더 정부)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">155 / 192</div>
+      <div class="cblock-sub">군사훈련 + 항구 봉쇄<br>(CCG 최초 합동 참가)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-8.0</div>
+      <div class="cblock-sub">PLA+CCG 합동으로 위협 격상</div>
+    </div>
+  </div>
+</div>
+
+<!-- 16 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">16</div>
+    <div class="ecard-head">
+      <div class="ecard-name">연합이검-2024B — 국경절 연설 반발</div>
+      <div class="ecard-date">2024.10.14</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA 동부전구</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 (라이칭더 연설 반발)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">155 / 192</div>
+      <div class="cblock-sub">군사훈련 + 봉쇄 훈련<br>("하트형" 포위 기동)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-7.5</div>
+      <div class="cblock-sub">역대 최다 항공기 동원</div>
+    </div>
+  </div>
+</div>
+
+<!-- 17 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">17</div>
+    <div class="ecard-head">
+      <div class="ecard-name">해협뇌정-2025A — 라이칭더 국가안보 정책 반발</div>
+      <div class="ecard-date">2025.04.01~02</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA 동부전구 + CCG</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-mul">TWN + USA</div>
+      <div class="cblock-sub">대만 + 미국 (무기 판매 연계)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">195 / 192</div>
+      <div class="cblock-sub">장거리 실사격 + 봉쇄<br>(LNG 표적 정밀타격 시뮬)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-8.5</div>
+      <div class="cblock-sub">에너지 인프라 표적화 최초</div>
+    </div>
+  </div>
+</div>
+
+<!-- 18 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">18</div>
+    <div class="ecard-head">
+      <div class="ecard-name">정의사명-2025 — 역대 최대 봉쇄 훈련</div>
+      <div class="ecard-date">2025.12.29~30</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA 동부전구 + CCG 전군종</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-mul">TWN + USA + INT</div>
+      <div class="cblock-sub">대만 + 미국 + 국제 개입 억제</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">195 / 192</div>
+      <div class="cblock-sub">로켓 실사격(195) + 영해 봉쇄<br>(영해 내 훈련구역 최초 설정)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-9.5</div>
+      <div class="cblock-sub">역대 최고 위협 강도</div>
+    </div>
+  </div>
+  <div class="warn">CAMEO 특성: 이 사건이 프로젝트 기간(~2026.05) 중 Goldstein 최저점 예상. GDELT 스파이크 탐지 결과와 교차 검증 최우선 대상.</div>
+</div>
+
+<!-- ===== 상시 관측 거점 ===== -->
+<div class="phase-bar">
+  <span class="phase-label">PERMANENT · 상시 관측 거점</span>
+  <div class="phase-line"></div>
+</div>
+
+<!-- 19 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">19</div>
+    <div class="ecard-head">
+      <div class="ecard-name">남중국해 인공섬 — 수비·미스치프 암초 상시 관측</div>
+      <div class="ecard-date">2015~현재 (상시)</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA Navy + 중국 정부</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-mul">TWN + PHL + INT</div>
+      <div class="cblock-sub">대만·필리핀·국제사회</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">154</div>
+      <div class="cblock-sub">군비 강화 (지속적 건설)<br>+ 172 해역 통제</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-mid">-3.5</div>
+      <div class="cblock-sub">장기 능력 구축 (저강도)</div>
+    </div>
+  </div>
+</div>
+
+<!-- 20 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">20</div>
+    <div class="ecard-head">
+      <div class="ecard-name">핑탄섬 — 전방 군사·해경 자산 상시 집결</div>
+      <div class="ecard-date">2021~현재 (상시)</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">PLA + CCG 혼합</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 (최근접 전방 위협)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">154 / 150</div>
+      <div class="cblock-sub">군비 강화 + 무력 시위<br>(상시 전진 배치)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-mid">-4.0</div>
+      <div class="cblock-sub">상시 배치 (잠재 위협)</div>
+    </div>
+  </div>
+</div>
+
+<!-- 21 -->
+<div class="ecard">
+  <div class="ecard-top">
+    <div class="ecard-num">21</div>
+    <div class="ecard-head">
+      <div class="ecard-name">금문·마쭈 도서 — 해경 회색지대 작전 상시화</div>
+      <div class="ecard-date">2024.02~현재 (상시)</div>
+    </div>
+  </div>
+  <div class="cameo-grid">
+    <div class="cblock">
+      <div class="cblock-label">Actor1 (행위 주체)</div>
+      <div class="cblock-val v-chn">CHN</div>
+      <div class="cblock-sub">중국 해경(CCG) 주도</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">Actor2 (대상)</div>
+      <div class="cblock-val v-twn">TWN</div>
+      <div class="cblock-sub">대만 해경 / 도서 주민</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">EventCode</div>
+      <div class="cblock-val" style="color:var(--amber)">193 / 172</div>
+      <div class="cblock-sub">나포·검문 + 영해 진입<br>(법집행 위장 회색지대)</div>
+    </div>
+    <div class="cblock">
+      <div class="cblock-label">GoldsteinScale</div>
+      <div class="cblock-val gs-neg-hi">-5.0</div>
+      <div class="cblock-sub">법집행 프레임 회색지대</div>
+    </div>
+  </div>
+  <div class="warn">CAMEO 특성: CCG 행위는 군사 코드가 아닌 법집행(LEA) 코드로 수집. EventCode가 190번대가 아닌 170번대로 분류될 수 있어 초기 군사 필터링에서 누락될 위험 있음 — 필터 설계 시 주의 필요.</div>
+</div>
+
+<!-- 푸터 -->
+<div class="footer">
+  CAMEO CODE REFERENCE: Conflict and Mediation Event Observations (CAMEO) Codebook v1.1b3<br>
+  Goldstein Scale 출처: Goldstein (1992), "A Conflict-Cooperation Scale for WEIS Events Data"<br>
+  GDELT 수집 특성 메모: 동일 사건이 복수 EventCode로 중복 수집될 수 있음. IsRootEvent=1 필터 필수.<br>
+  분류 기준: 각 사건의 주요 행위(Primary Action) 기준. 복수 코드 병기 시 앞이 주 코드.
+</div>
+
+</div>
+</body>
+</html>
