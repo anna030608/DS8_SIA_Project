@@ -124,6 +124,16 @@ def get_alert_level(score):
     else:
         return 'LOW', '#ffd700'
 
+# sensor_type 한글 변환
+def sensor_label(sensor_type):
+    mapping = {
+        'OPT_HR': 'EO 고해상도',
+        'OPT_MR': 'EO 중해상도',
+        'OPT_SM': 'EO 소형',
+        'SAR': 'SAR'
+    }
+    return mapping.get(sensor_type, sensor_type)
+
 def estimate_swath(sensor_type, detailed_purpose, altitude):
     try:
         altitude = float(altitude) if altitude and str(altitude) != 'nan' else 500
@@ -138,35 +148,22 @@ def estimate_swath(sensor_type, detailed_purpose, altitude):
         elif 'SYNTHETIC APERTURE' in purpose:
             fov = 5
         else:
-            # Radar Imaging, Radar Imaging (SAR)
             fov = 4
-
-    else:  # EO
+    elif sensor_type == 'OPT_HR':
+        fov = 1.5
+    elif sensor_type == 'OPT_MR':
+        fov = 8.0
+    elif sensor_type == 'OPT_SM':
         if 'VIDEO' in purpose:
-            # Video Imaging, Optical Imaging (video), Optical/Video
             fov = 5
         elif 'HYPERSPECTRAL' in purpose:
-            # Hyperspectral Imaging, Optical/Hyperspectral
             fov = 8
         elif 'MULTISPECTRAL' in purpose:
-            # Multispectral Imaging
             fov = 12
-        elif 'INFRARED' in purpose:
-            # Infrared Imaging, Optical/Infrared, Optical Imaging/Infrared
-            fov = 15
-        elif 'SUBSURFACE' in purpose:
-            # Subsurface Imaging - 광각 센서
-            fov = 20
         else:
-            # Optical Imaging 기본 - 고도 기반 구분
-            if altitude < 500:
-                fov = 1.0   # 초고해상도 (500km 미만)
-            elif altitude < 600:
-                fov = 1.5   # 고해상도 (500~600km)
-            elif altitude < 700:
-                fov = 8.0   # 중해상도 (600~700km)
-            else:
-                fov = 12.0  # 저해상도 (700km 이상)
+            fov = 15
+    else:
+        fov = 5
 
     swath_km = round(2 * altitude * math.tan(math.radians(fov / 2)), 1)
     return swath_km
@@ -543,7 +540,9 @@ with right_col:
                     if len(sat_detail) > 0:
                         row = sat_detail.iloc[0]
                         sensor_type = row['sensor_type'] if pd.notna(row['sensor_type']) else 'EO'
-                        altitude = round(float(row['APOAPSIS'])) if pd.notna(row['APOAPSIS']) else 500
+                        altitude = round(float(row['APOAPSIS'])) if pd.notna(row.get('APOAPSIS', None)) else (
+                            round(float(row['altitude_km'])) if pd.notna(row.get('altitude_km', None)) else 500
+                        )
                         country = row['COUNTRY_CODE'] if pd.notna(row['COUNTRY_CODE']) else 'N/A'
                         detailed_purpose = row['Detailed Purpose'] if pd.notna(row['Detailed Purpose']) else None
                     else:
@@ -566,7 +565,7 @@ with right_col:
                         '<div style="display:flex;gap:8px;margin-bottom:6px;">'
                         '<span style="background:rgba(74,158,255,0.2);border:1px solid #4a9eff;'
                         'border-radius:3px;padding:1px 6px;font-size:10px;color:#4a9eff;">'
-                        + str(sensor_type) + '</span>'
+                        + sensor_label(sensor_type) + '</span>'
                         '<span style="background:rgba(255,255,255,0.1);'
                         'border-radius:3px;padding:1px 6px;font-size:10px;color:#aaa;">'
                         + str(country) + '</span>'
