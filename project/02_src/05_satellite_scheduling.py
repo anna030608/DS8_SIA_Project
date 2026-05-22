@@ -92,5 +92,5 @@ for idx, event in df_events.iterrows():
 print(f"\n근접 궤도 탐지: {len(results)}건")
 
 df_results = pd.DataFrame(results)
-df_results.to_csv("01_data/processed/satellite_passes.csv", index=False)
+df_results.to_csv("project/01_data/processed/satellite_passes.csv", index=False)
 print("저장 완료: satellite_passes.csv")
