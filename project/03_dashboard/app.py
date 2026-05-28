@@ -24,6 +24,7 @@ from components.ai_panel import render_ai
 
 # ── Dash 앱 초기화 ────────────────────────────────────────
 app = dash.Dash(__name__, assets_folder='assets', suppress_callback_exceptions=True)
+server = app.server
 app.title = "양안관계 OSINT-GEOINT 의사결정 지원 시스템"
 app.layout = create_layout()
 

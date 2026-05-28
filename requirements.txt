@@ -1,7 +1,9 @@
-streamlit
+dash
+dash-leaflet
 pandas
-folium
-streamlit-folium
+plotly
+requests
+gunicorn
 plotly
 PyYAML
 numpy
