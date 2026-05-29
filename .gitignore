@@ -1,0 +1,31 @@
+# --- 보안 필수 (절대 금지) ---
+google_key.json
+*.json
+EDA/raw/12_spacetrack.ipynb
+
+# --- 환경 설정 및 가상환경 ---
+.venv/
+env/
+venv/
+.env
+
+# --- 파이썬 관련 캐시 ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# *.csv 줄 삭제
+*.xlsx
+data/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- 운영체제/툴 관련 ---
+.DS_Store
+.vscode/
+.idea/
+
+# --- EDA 폴더 산출물 ---
+EDA/*.csv
+EDA/*.html

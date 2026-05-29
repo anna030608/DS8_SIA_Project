@@ -9,3 +9,7 @@ PyYAML
 numpy
 scikit-learn
 geopy
+python-dotenv
+google-generativeai
+beautifulsoup4
+python-dotenv

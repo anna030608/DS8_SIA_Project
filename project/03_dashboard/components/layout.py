@@ -14,6 +14,7 @@ def create_layout():
         dcc.Store(id='date-range', data={
             'start': str(DATE_MIN), 'end': str(DATE_MAX)
         }),
+        dcc.Store(id='report-data', data=None),
 
         # ── 타이틀 바 ─────────────────────────────────────
         html.Div([
