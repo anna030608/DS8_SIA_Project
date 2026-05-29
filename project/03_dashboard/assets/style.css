@@ -1,0 +1,108 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background-color: #0a0e1a; color: white; font-family: sans-serif; }
+
+button {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #aaa;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+button:hover { background: rgba(255,255,255,0.1); color: white; }
+
+.DateInput_input { background: #111827 !important; color: white !important; font-size: 12px !important; }
+.DateRangePickerInput { background: #111827 !important; border-color: rgba(255,255,255,0.1) !important; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+::-webkit-scrollbar-thumb { background: rgba(255,140,0,0.4); border-radius: 2px; }
+
+/* 날짜 피커 스타일 */
+.DateInput_input {
+    background-color: #1a2035 !important;
+    color: white !important;
+    font-size: 12px !important;
+    border: none !important;
+}
+.DateRangePickerInput {
+    background-color: #1a2035 !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+    border-radius: 4px !important;
+}
+.DateRangePickerInput_arrow { color: #aaa !important; }
+.DayPicker { background-color: #1a2035 !important; }
+.CalendarDay__default {
+    background-color: #1a2035 !important;
+    color: white !important;
+    border-color: rgba(255,255,255,0.05) !important;
+}
+.CalendarDay__selected {
+    background-color: #ff8c00 !important;
+    border-color: #ff8c00 !important;
+}
+.CalendarDay__selected_span {
+    background-color: rgba(255,140,0,0.3) !important;
+    border-color: rgba(255,140,0,0.2) !important;
+}
+.CalendarDay__hovered_span { background-color: rgba(255,140,0,0.2) !important; }
+.CalendarMonth { background-color: #1a2035 !important; }
+.CalendarMonth_caption { color: white !important; }
+.DayPickerNavigation_button { border-color: rgba(255,255,255,0.2) !important; }
+.DayPickerNavigation_svg__horizontal { fill: white !important; }
+.DayPicker_weekHeader_li small { color: #aaa !important; }
+
+/* 슬라이더 정렬 */
+.rc-slider { margin: 0 !important; padding: 5px 0 !important; }
+.rc-slider { margin-top: 26px !important; }
+
+/* 슬라이더 색상 */
+.rc-slider-track { background-color: #a855f7 !important; }
+.rc-slider-rail { background-color: rgba(255,255,255,0.15) !important; }
+.rc-slider-handle {
+    border-color: #a855f7 !important;
+    background-color: #a855f7 !important;
+}
+.rc-slider-handle:hover,
+.rc-slider-handle:active {
+    border-color: #c084fc !important;
+    background-color: #c084fc !important;
+    box-shadow: 0 0 6px #a855f7 !important;
+}
+
+/* 슬라이더 툴팁 */
+.rc-slider-tooltip {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+.rc-slider-tooltip-inner {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    color: #a855f7 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    padding: 0 !important;
+    min-width: 0 !important;
+    width: auto !important;
+}
+.rc-slider-tooltip-arrow { display: none !important; }
+
+/* Dash DataTable hover */
+.dash-spreadsheet td.dash-cell:hover,
+.dash-spreadsheet tr:hover td.dash-cell {
+    background-color: inherit !important;
+    color: inherit !important;
+}
+.dash-spreadsheet tr:hover td.dash-cell:first-child {
+    border-left: 3px solid white !important;
+}
+/* 테이블 hover 시 전체 행 글씨 어둡게 + bold */
+.dash-spreadsheet tr:hover td.dash-cell div {
+    color: #111 !important;
+    font-weight: 700 !important;
+}

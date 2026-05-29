@@ -6,7 +6,11 @@ from geopy.distance import geodesic
 from shapely.geometry import Point, LineString
 import geopy.distance
 
+<<<<<<< HEAD
 config_path = os.path.join(os.path.dirname(__file__), '..', 'config.yaml')
+=======
+config_path = os.path.join(os.path.dirname(__file__), '..', '..', 'config.yaml')
+>>>>>>> origin/dashboard
 with open(config_path, encoding="utf-8") as f:
     config = yaml.safe_load(f)
 

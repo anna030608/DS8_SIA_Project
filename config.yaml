@@ -1,0 +1,30 @@
+spike_detection:
+  mention_percentile: 95        # NumMentions 상위 5%
+  ma_windows: [7, 14, 30]       # 이동평균 기간
+
+priority_score:
+  weights:
+    num_mentions: 0.25
+    goldstein: 0
+    avg_tone: 0
+    geo_distance: 0.75
+
+  avg_tone_threshold: -100       # 이하일 때만 가중치 적용
+
+  # 대만 해협 중간선
+  taiwan_strait:
+    line_start: [27.0, 122.0]
+    line_end: [23.0, 118.0]
+
+  # 거리 구간별 점수
+  geo_distance_bins:
+    - max_km: 22.2
+      score: 1.0
+    - max_km: 88.9
+      score: 0.75
+    - max_km: 177.8
+      score: 0.5
+    - max_km: 355.6
+      score: 0.25
+    - max_km: 99999
+      score: 0.1
