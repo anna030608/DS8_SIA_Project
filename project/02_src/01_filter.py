@@ -5,7 +5,7 @@ import yaml
 with open("config.yaml", encoding="utf-8") as f:
     config = yaml.safe_load(f)
 
-df = pd.read_csv("../01_data/raw/gdelt_raw.csv")
+df = pd.read_csv("project/01_data/raw/gdelt_raw.csv")
 df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
 
 # ── 1. NumMentions 상위 5% 필터 ──────────────────────────
@@ -21,8 +21,8 @@ for window in config['spike_detection']['ma_windows']:
 
 # 3개 이동평균 모두 상회하는 날짜 추출
 daily['above_all_ma'] = (
-    (daily['DailyMentions'] > daily['MA_7']) &
-    (daily['DailyMentions'] > daily['MA_14']) &
+    (daily['DailyMentions'] > daily['MA_7']) |
+    (daily['DailyMentions'] > daily['MA_14']) |
     (daily['DailyMentions'] > daily['MA_30'])
 )
 valid_dates = daily[daily['above_all_ma']]['SQLDATE']

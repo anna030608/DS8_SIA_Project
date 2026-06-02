@@ -88,7 +88,7 @@ def create_layout():
                            style={'fontSize': '12px', 'color': '#aaa', 'fontWeight': 'bold',
                                   'marginRight': '8px', 'whiteSpace': 'nowrap', 'lineHeight': '28px'}),
                 html.Div([
-                    dcc.Slider(id='score-slider', min=0, max=1, step=0.05, value=0.3,
+                    dcc.Slider(id='score-slider', min=0, max=1, step=0.05, value=0.15,
                                marks=None, tooltip=None)
                 ], style={'flex': 1, 'minWidth': '200px'}),
                 html.Span(id='score-display',
