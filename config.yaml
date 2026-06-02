@@ -4,10 +4,10 @@ spike_detection:
 
 priority_score:
   weights:
-    num_mentions: 0.8
+    num_mentions: 0.5
     goldstein: 0.0
-    avg_tone: 0.2
-    geo_distance: 0.0
+    avg_tone: 0.1
+    geo_distance: 0.4
 
   avg_tone_threshold: -3       # 이하일 때만 가중치 적용
 
