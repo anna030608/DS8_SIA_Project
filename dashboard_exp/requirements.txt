@@ -1,0 +1,11 @@
+dash
+dash-leaflet
+pandas
+plotly
+requests
+gunicorn
+plotly
+PyYAML
+numpy
+scikit-learn
+geopy

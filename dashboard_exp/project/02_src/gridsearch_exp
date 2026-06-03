@@ -1,0 +1,213 @@
+import pandas as pd
+import numpy as np
+import yaml
+import os
+from itertools import product
+from datetime import timedelta
+
+config_path = os.path.join(os.path.dirname(__file__), '..', '..', 'config.yaml')
+with open(config_path, encoding="utf-8") as f:
+    config = yaml.safe_load(f)
+
+# ── 이벤트 리스트 (문제 3개 제외) ────────────────────────
+KNOWN_CRISES = [
+    ('2025-12-29', '2025-12-30', '중국 대만 주변 포위형 군사활동',   '매우 높음'),
+    ('2025-04-01', '2025-04-02', 'Strait Thunder-2025A',            '매우 높음'),
+    ('2025-02-27', '2025-02-27', '대만 해안 실사격 훈련',            '매우 높음'),
+    ('2024-10-14', '2024-10-14', 'Joint Sword-2024B',               '매우 높음'),
+    ('2024-05-23', '2024-05-24', 'Joint Sword-2024A',               '매우 높음'),
+    ('2024-01-13', '2024-01-13', '라이칭더 총통 당선',                '높음'),
+    ('2023-08-12', '2023-08-18', '라이칭더 미국 경유 방문',           '높음'),
+    ('2023-04-05', '2023-04-10', 'Shandong 작전·Joint Sword',       '매우 높음'),
+    ('2022-08-31', '2022-08-31', '금문도 드론 격추',                 '높음'),
+    ('2022-08-04', '2022-08-10', '대만 포위 실사격 훈련',            '매우 높음'),
+    ('2022-08-02', '2022-08-03', 'Pelosi 대만 방문',                '매우 높음'),
+    ('2021-10-01', '2021-10-04', '역대 최대 ADIZ 진입',             '매우 높음'),
+    ('2021-01-19', '2021-01-19', '대만 군사 방어 훈련',              '높음'),
+    ('2020-12-31', '2020-12-31', '미국 대만해협 통과',               '중간~높음'),
+    ('2020-09-17', '2020-09-19', '미국 국무차관 대만 방문',           '높음'),
+    ('2018-04-18', '2018-04-18', '대만해협 실사격 훈련',             '높음'),
+]
+
+IMPORTANCE_WEIGHT = {'매우 높음': 3, '높음': 2, '중간~높음': 1}
+
+
+def get_crisis_dates(data_start, data_end, buffer_days):
+    crisis_dates = {}
+    for start, end, name, importance in KNOWN_CRISES:
+        s = pd.to_datetime(start).date() - timedelta(days=buffer_days)
+        e = pd.to_datetime(end).date()   + timedelta(days=buffer_days)
+        for i in range((e - s).days + 1):
+            d = s + timedelta(days=i)
+            if not (data_start <= d <= data_end):
+                continue
+            if d not in crisis_dates:
+                crisis_dates[d] = (name, importance)
+            else:
+                if IMPORTANCE_WEIGHT.get(importance, 0) > IMPORTANCE_WEIGHT.get(crisis_dates[d][1], 0):
+                    crisis_dates[d] = (name, importance)
+    return crisis_dates
+
+
+def evaluate(df_scores, crisis_dates, threshold):
+    predicted = set(df_scores[df_scores['priority_score'] >= threshold]['SQLDATE'].dt.date)
+    actual    = set(crisis_dates.keys())
+    tp = len(predicted & actual)
+    fp = len(predicted - actual)
+    fn = len(actual - predicted)
+    precision = tp / (tp + fp) if (tp + fp) > 0 else 0
+    recall    = tp / (tp + fn) if (tp + fn) > 0 else 0
+    f1        = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
+    return precision, recall, f1, tp, fp, fn
+
+
+def compute_score(df_raw, w_mentions, w_goldstein, w_tone, w_geo, w_zscore=0):
+    df = df_raw.copy()
+
+    def minmax(s):
+        return (s - s.min()) / (s.max() - s.min() + 1e-9)
+
+    _med = df['NumMentions'].median()
+    _iqr = df['NumMentions'].quantile(0.75) - df['NumMentions'].quantile(0.25)
+    df['s_mentions']  = np.clip((df['NumMentions'] - _med) / (_iqr + 1e-9), 0, 1)
+    df['s_goldstein'] = minmax(df['GoldsteinScale'] * -1)
+    df['s_tone']      = np.where(df['AvgTone'] < -3, minmax(df['AvgTone'].abs()), 0)
+
+    if w_zscore > 0 and 'score_zscore' in df.columns:
+        df['priority_score'] = (
+            df['s_mentions']    * w_mentions  +
+            df['s_goldstein']   * w_goldstein +
+            df['s_tone']        * w_tone      +
+            df['score_geo']     * w_geo       +
+            df['score_zscore']  * w_zscore
+        )
+    else:
+        df['priority_score'] = (
+            df['s_mentions']  * w_mentions  +
+            df['s_goldstein'] * w_goldstein +
+            df['s_tone']      * w_tone      +
+            df['score_geo']   * w_geo
+        )
+    return df
+
+
+def grid_search(df_raw, crisis_dates, use_zscore=False):
+    step = 0.1
+    weights = np.arange(0, 1 + step, step).round(1)
+    best = {'f1': 0, 'w': None, 'p': 0, 'r': 0, 'thr': 0.3}
+    results = []
+
+    if use_zscore:
+        combos = [(wm, wg, wt, wgeo, wz)
+                  for wm, wg, wt, wgeo, wz in product(weights, repeat=5)
+                  if round(wm + wg + wt + wgeo + wz, 1) == 1.0]
+    else:
+        combos = [(wm, wg, wt, wgeo, 0)
+                  for wm, wg, wt, wgeo in product(weights, repeat=4)
+                  if round(wm + wg + wt + wgeo, 1) == 1.0]
+
+    for combo in combos:
+        wm, wg, wt, wgeo, wz = combo
+        df_scored = compute_score(df_raw, wm, wg, wt, wgeo, wz)
+        best_f1 = best_p = best_r = 0
+        best_thr = 0.3
+        for thr in np.arange(0.1, 1.0, 0.05).round(2):
+            p, r, f1, _, _, _ = evaluate(df_scored, crisis_dates, thr)
+            if f1 > best_f1:
+                best_f1, best_p, best_r, best_thr = f1, p, r, thr
+        results.append({
+            'w_mentions': wm, 'w_goldstein': wg, 'w_tone': wt,
+            'w_geo': wgeo, 'w_zscore': wz,
+            'f1': best_f1, 'precision': best_p,
+            'recall': best_r, 'best_threshold': best_thr
+        })
+        if best_f1 > best['f1']:
+            best = {'f1': best_f1, 'w': combo,
+                    'p': best_p, 'r': best_r, 'thr': best_thr}
+
+    return best, pd.DataFrame(results)
+
+
+def run_experiment(df, buffer_days, use_zscore):
+    data_start = df['SQLDATE'].min().date()
+    data_end   = df['SQLDATE'].max().date()
+    crisis_dates = get_crisis_dates(data_start, data_end, buffer_days)
+
+    zscore_label = 'zscore포함' if use_zscore else 'zscore미포함'
+    label = f"버퍼±{buffer_days}일 / {zscore_label}"
+    print(f"\n{'='*60}")
+    print(f"실험: {label}")
+    print(f"유효 위기 날짜: {len(crisis_dates)}일")
+    print(f"{'='*60}")
+
+    best, df_results = grid_search(df, crisis_dates, use_zscore)
+    wm, wg, wt, wgeo, wz = best['w']
+
+    print(f"최적 가중치: mentions={wm} / goldstein={wg} / tone={wt} / geo={wgeo} / zscore={wz}")
+    print(f"Precision: {best['p']:.3f} | Recall: {best['r']:.3f} | F1: {best['f1']:.3f} | Threshold: {best['thr']}")
+
+    print(f"\nF1 상위 5개 조합:")
+    top5 = df_results.nlargest(5, 'f1')
+    print(top5[['w_mentions','w_goldstein','w_tone','w_geo','w_zscore',
+                'precision','recall','f1','best_threshold']].to_string(index=False))
+
+    return {
+        'label': label,
+        'buffer': buffer_days,
+        'zscore': use_zscore,
+        'best_w': best['w'],
+        'precision': best['p'],
+        'recall': best['r'],
+        'f1': best['f1'],
+        'threshold': best['thr'],
+        'df_results': df_results
+    }
+
+
+def main():
+    df = pd.read_csv("project/01_data/processed/final_priority_geo.csv")
+    df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
+
+    # Z-Score 컬럼 추가 (없으면 계산)
+    if 'score_zscore' not in df.columns:
+        daily_mentions = df.groupby('SQLDATE')['NumMentions'].sum()
+        daily_mean = daily_mentions.mean()
+        daily_std  = daily_mentions.std()
+        daily_zscore = ((daily_mentions - daily_mean) / (daily_std + 1e-9)).clip(lower=0)
+        daily_zscore_norm = daily_zscore / (daily_zscore.max() + 1e-9)
+        df['score_zscore'] = df['SQLDATE'].map(daily_zscore_norm).fillna(0)
+
+    print(f"데이터: {len(df)}행 | 이벤트 리스트: {len(KNOWN_CRISES)}개")
+
+    # ── 6가지 실험 실행 ───────────────────────────────────
+    experiments = []
+    for buffer in [1, 2, 3]:
+        for use_zscore in [False, True]:
+            result = run_experiment(df, buffer, use_zscore)
+            experiments.append(result)
+
+    # ── 전체 비교 요약 ────────────────────────────────────
+    print(f"\n{'='*60}")
+    print("전체 실험 비교 요약")
+    print(f"{'='*60}")
+    print(f"{'실험':<30} {'Precision':>10} {'Recall':>8} {'F1':>8} {'Threshold':>10} {'최적 가중치'}")
+    print('-' * 90)
+    for r in experiments:
+        wm, wg, wt, wgeo, wz = r['best_w']
+        w_str = f"m={wm}/g={wg}/t={wt}/geo={wgeo}/z={wz}"
+        print(f"{r['label']:<30} {r['precision']:>10.3f} {r['recall']:>8.3f} {r['f1']:>8.3f} {r['threshold']:>10.2f}  {w_str}")
+
+    # ── 결과 저장 ─────────────────────────────────────────
+    all_results = []
+    for r in experiments:
+        r['df_results']['buffer'] = r['buffer']
+        r['df_results']['use_zscore'] = r['zscore']
+        all_results.append(r['df_results'])
+    pd.concat(all_results).to_csv(
+        "project/01_data/processed/gridsearch_exp_results.csv", index=False
+    )
+    print(f"\n결과 저장: project/01_data/processed/gridsearch_exp_results.csv")
+
+
+if __name__ == '__main__':
+    main()
