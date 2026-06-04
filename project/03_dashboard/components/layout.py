@@ -155,3 +155,17 @@ def create_layout():
         })
 
     ], style={'backgroundColor': '#0a0e1a', 'fontFamily': 'sans-serif', 'minHeight': '100vh'})
+
+        #  ── Footer ─────────────────────────────────────
+        html.Div(
+            "본 사이트는 SIA와 모두의 연구소의 협력을 통한 교육과정에서 제작된 결과물입니다.",
+            style={
+                'textAlign': 'center',
+                'fontSize': '11px',
+                'color': '#444',
+                'padding': '12px',
+                'borderTop': '1px solid rgba(255, 255, 255, 0.05)',
+                'backgroundColor': '#0a0e1a',
+            }
+        ),
+], style={'backgroundColor': '#0a0e1a', 'fontFamily': 'sans-serif', 'minHeight': '100vh'})
