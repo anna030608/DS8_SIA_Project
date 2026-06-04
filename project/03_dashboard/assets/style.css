@@ -106,3 +106,8 @@ button:hover { background: rgba(255,255,255,0.1); color: white; }
     color: #111 !important;
     font-weight: 700 !important;
 }
+
+/* Loading 컴포넌트 배경 제거 */
+._dash-loading {
+    background-color: transparent !important;
+}
