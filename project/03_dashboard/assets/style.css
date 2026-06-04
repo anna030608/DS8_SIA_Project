@@ -121,3 +121,10 @@ button:hover { background: rgba(255,255,255,0.1); color: white; }
 .dash-range-slider-input {
     display: none !important;
 }
+
+/* 슬라이더 컨테이너 overflow 숨김 */
+.custom-slider input[type="number"] {
+    position: absolute !important;
+    left: -9999px !important;
+    visibility: hidden !important;
+}
