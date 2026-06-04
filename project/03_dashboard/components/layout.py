@@ -168,4 +168,4 @@ def create_layout():
                 'backgroundColor': '#0a0e1a',
             }
         ),
-], style={'backgroundColor': '#0a0e1a', 'fontFamily': 'sans-serif', 'minHeight': '100vh'})
+    ], style={'backgroundColor': '#0a0e1a', 'fontFamily': 'sans-serif', 'minHeight': '100vh'})
