@@ -117,14 +117,12 @@ button:hover { background: rgba(255,255,255,0.1); color: white; }
     scroll-behavior: smooth;
 }
 
-/* 슬라이더 자동 생성 입력창 숨김 */
-.dash-range-slider-input {
-    display: none !important;
-}
-
-/* 슬라이더 컨테이너 overflow 숨김 */
-.custom-slider input[type="number"] {
+/* 슬라이더 숫자 입력창 숨김 */
+input.dash-range-slider-input {
     position: absolute !important;
     left: -9999px !important;
-    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
