@@ -499,3 +499,58 @@ def generate_ai_report(n_clicks, selected_event, selected_satellite, cloud_data)
 
 if __name__ == '__main__':
     app.run(debug=True, port=8050, dev_tools_ui=False)
+
+@app.callback(
+    Output('chat-history', 'data'),
+    Output('chat-input', 'value'),
+    Input('btn-chat-send', 'n_clicks'),
+    Input({'type': 'suggested-question', 'index': dash.ALL}, 'n_clicks'),
+    Input('btn-chat-reset', 'n_clicks'),
+    State('chat-input', 'value'),
+    State('chat-history', 'data'),
+    State('selected-event', 'data'),
+    State('selected-satellite', 'data'),
+    State('cloud-data', 'data'),
+    prevent_initial_call=True
+)
+def handle_chat(send_clicks, suggested_clicks, reset_clicks,
+                input_value, chat_history, selected_event,
+                selected_satellite, cloud_data):
+    from dash import ctx
+    if not ctx.triggered_id:
+        return dash.no_update, dash.no_update
+ 
+    chat_history = chat_history or []
+ 
+    # 대화 초기화
+    if ctx.triggered_id == 'btn-chat-reset':
+        return [], ''
+ 
+    # 추천 질문 클릭
+    question = None
+    if isinstance(ctx.triggered_id, dict) and ctx.triggered_id.get('type') == 'suggested-question':
+        if ctx.triggered[0]['value']:
+            idx = ctx.triggered_id['index']
+            question = SUGGESTED_QUESTIONS[idx]
+ 
+    # 전송 버튼 또는 직접 입력
+    elif ctx.triggered_id == 'btn-chat-send':
+        if not input_value or not input_value.strip():
+            return dash.no_update, dash.no_update
+        question = input_value.strip()
+ 
+    if not question:
+        return dash.no_update, dash.no_update
+ 
+    # 사용자 메시지 추가
+    chat_history.append({'role': 'user', 'content': question})
+ 
+    # Gemini 호출
+    answer, success = generate_response(
+        question, selected_event, selected_satellite, cloud_data, chat_history
+    )
+ 
+    # AI 답변 추가
+    chat_history.append({'role': 'assistant', 'content': answer})
+ 
+    return chat_history, ''
