@@ -111,3 +111,8 @@ button:hover { background: rgba(255,255,255,0.1); color: white; }
 ._dash-loading {
     background-color: transparent !important;
 }
+
+/* 채팅 영역 스크롤 자동 이동 */
+#chat-messages {
+    scroll-behavior: smooth;
+}
