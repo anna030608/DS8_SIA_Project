@@ -92,6 +92,10 @@ def create_layout():
                     dcc.Slider(id='score-slider', min=0, max=1, step=0.05, value=0.4,
                                marks=None, tooltip=None)
                 ], style={'flex': 1, 'minWidth': '200px'}),
+                html.Span(id='score-display',
+                  style={'fontSize': '12px', 'color': '#a855f7', 'fontWeight': '300',
+                         'marginLeft': '8px', 'whiteSpace': 'nowrap', 'lineHeight': '28px',
+                         'backgroundColor': 'transparent'}),
             ], style={'display': 'flex', 'alignItems': 'center', 'flex': 1, 'height': '32px'}),
 
         ], style={
