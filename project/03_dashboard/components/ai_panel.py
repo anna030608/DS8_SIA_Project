@@ -157,6 +157,7 @@ def _render_message(msg):
                 for line in lines:
                     raw = line.strip()
                     if not raw:
+                        rendered.append(html.Div(style={'height': '8px'}))
                         continue
                     if re.match(r'^(##|###|\d+\.)\s', raw):
                         clean = re.sub(r'^(##|###|\d+\.)\s*', '', raw).replace('**', '')
