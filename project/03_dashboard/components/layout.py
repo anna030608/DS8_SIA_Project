@@ -94,8 +94,7 @@ def create_layout():
                 ], style={'flex': 1, 'minWidth': '200px'}),
                 html.Span(id='score-display',
                   style={'fontSize': '12px', 'color': '#a855f7', 'fontWeight': '300',
-                         'marginLeft': '8px', 'whiteSpace': 'nowrap', 'lineHeight': '28px',
-                         'backgroundColor': 'transparent'}),
+                       'marginLeft': '8px', 'whiteSpace': 'nowrap', 'lineHeight': '28px'},
             ], style={'display': 'flex', 'alignItems': 'center', 'flex': 1, 'height': '32px'}),
 
         ], style={
