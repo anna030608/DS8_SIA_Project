@@ -84,26 +84,20 @@ def create_layout():
             ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px', 'height': '32px'}),
 
             # Priority Score 최솟값
+        html.Div([
+            html.Label("Priority Score 최솟값",
+                       style={'fontSize': '12px', 'color': '#aaa', 'fontWeight': 'bold',
+                              'marginRight': '8px', 'whiteSpace': 'nowrap', 'lineHeight': '28px'}),
             html.Div([
-                html.Label("Priority Score 최솟값",
-                           style={'fontSize': '12px', 'color': '#aaa', 'fontWeight': 'bold',
-                                  'marginRight': '8px', 'whiteSpace': 'nowrap', 'lineHeight': '28px'}),
-                html.Div([
-                    dcc.Slider(id='score-slider', min=0, max=1, step=0.05, value=0.4,
-                               marks=None, tooltip=None)
-                ], style={'flex': 1, 'minWidth': '200px'}),
-                html.Span(id='score-display',
-                  style={'fontSize': '12px', 'color': '#a855f7', 'fontWeight': '300',
-                       'marginLeft': '8px', 'whiteSpace': 'nowrap', 'lineHeight': '28px'},
-            ], style={'display': 'flex', 'alignItems': 'center', 'flex': 1, 'height': '32px'}),
-
-        ], style={
-            'display': 'flex', 'alignItems': 'center', 'flexWrap': 'nowrap',
-            'padding': '0 20px', 'backgroundColor': '#111827',
-            'borderBottom': '1px solid rgba(255,255,255,0.05)',
-            'position': 'sticky', 'top': '48px', 'zIndex': 999,
-            'overflowX': 'auto', 'height': '48px'
-        }),
+                dcc.Slider(id='score-slider', min=0, max=1, step=0.05, value=0.4,
+                           marks=None, tooltip=None,
+                           className='custom-slider')
+            ], style={'flex': 1, 'minWidth': '200px', 'overflow': 'hidden'}),
+            html.Span(id='score-display',
+                      style={'fontSize': '12px', 'color': '#a855f7', 'fontWeight': '300',
+                             'marginLeft': '8px', 'whiteSpace': 'nowrap', 'lineHeight': '28px'}),
+        ], style={'display': 'flex', 'alignItems': 'center', 'flex': 1, 'height': '32px',
+                  'overflow': 'hidden'}),
 
         # ── 지도 + 사이드 패널 ────────────────────────────
         html.Div([
