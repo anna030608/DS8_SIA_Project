@@ -15,6 +15,7 @@ def create_layout():
             'start': str(DATE_MIN), 'end': str(DATE_MAX)
         }),
         dcc.Store(id='report-data', data=None),
+        dcc.Store(id='chat-history', data=[]),
 
         # ── 타이틀 바 ─────────────────────────────────────
         html.Div([
