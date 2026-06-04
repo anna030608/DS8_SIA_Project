@@ -92,11 +92,6 @@ button:hover { background: rgba(255,255,255,0.1); color: white; }
 }
 .rc-slider-tooltip-arrow { display: none !important; }
 
-/* 슬라이더 숫자 입력창 숨김 */
-.dash-range-slider-input {
-    display: none !important;
-}
-
 /* Dash DataTable hover */
 .dash-spreadsheet td.dash-cell:hover,
 .dash-spreadsheet tr:hover td.dash-cell {
@@ -120,4 +115,9 @@ button:hover { background: rgba(255,255,255,0.1); color: white; }
 /* 채팅 영역 스크롤 자동 이동 */
 #chat-messages {
     scroll-behavior: smooth;
+}
+
+/* 슬라이더 자동 생성 입력창 숨김 */
+.dash-range-slider-input {
+    display: none !important;
 }
