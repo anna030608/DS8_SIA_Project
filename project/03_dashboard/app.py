@@ -20,7 +20,7 @@ from components.layout import create_layout
 from components.feed_panel import render_feed
 from components.map_panel import render_markers, render_overlay
 from components.satellite_panel import render_satellite
-from components.ai_panel import render_ai, generate_report
+from components.ai_panel import render_ai, generate_response, SUGGESTED_QUESTIONS
 
 # ── Dash 앱 초기화 ────────────────────────────────────────
 app = dash.Dash(__name__, assets_folder='assets', suppress_callback_exceptions=True)
@@ -191,16 +191,17 @@ def go_to_satellite_panel(n_clicks):
     Input('score-slider', 'value'),
     Input('cloud-data', 'data'),
     Input('report-data', 'data'),
+    Input('chat-history', 'data'),
 )
 
 def update_panel(active_panel, selected_event, selected_satellite,
-                 date_range, geo_levels, score_min, cloud_data, report_data):    
+                 date_range, geo_levels, score_min, cloud_data, report_data, chat_history):
     if active_panel == 'feed':
         return render_feed(selected_event, date_range, geo_levels, score_min)
     elif active_panel == 'satellite':
         return render_satellite(selected_event, selected_satellite, cloud_data)
     elif active_panel == 'ai':
-        return render_ai(selected_event, selected_satellite, cloud_data, report_data)
+        return render_ai(selected_event, selected_satellite, cloud_data, chat_history)
     return []
 
 
