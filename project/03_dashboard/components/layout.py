@@ -160,7 +160,7 @@ def create_layout():
             style={
                 'textAlign': 'center',
                 'fontSize': '11px',
-                'color': '#444',
+                'color': 'white',
                 'padding': '12px',
                 'borderTop': '1px solid rgba(255,255,255,0.05)',
                 'backgroundColor': '#0a0e1a',
