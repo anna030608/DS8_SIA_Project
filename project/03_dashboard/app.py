@@ -66,7 +66,6 @@ def update_date_range(n_3m, n_6m, n_1y, n_all, input_start, input_end):
 
     return {'start': str(start), 'end': str(end)}, "", str(start), str(end)
 
-
 # ── 콜백: Score 슬라이더 표시 ─────────────────────────────
 @app.callback(
     Output('score-display', 'children'),
