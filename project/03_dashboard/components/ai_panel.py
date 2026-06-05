@@ -154,40 +154,40 @@ def _render_message(msg):
         # AI 답변 마크다운 처리
         lines = msg['content'].split('\n')
         rendered = []
-                for line in lines:
-                    raw = line.strip()
-                    if not raw:
-                        rendered.append(html.Div(style={'height': '8px'}))
-                        continue
-                    if re.match(r'^(##|###|\d+\.)\s', raw):
-                        clean = re.sub(r'^(##|###|\d+\.)\s*', '', raw).replace('**', '')
-                        rendered.append(html.Div(clean, style={
-                            'color': '#a855f7', 'fontWeight': 'bold',
-                            'fontSize': '12px',
-                            'marginTop': '12px', 'marginBottom': '6px',
-                            'borderLeft': '3px solid #a855f7',
-                            'paddingLeft': '8px', 'paddingBottom': '2px'
-                        }))
-                    elif raw.startswith('- ') or raw.startswith('* '):
-                        clean = re.sub(r'\*\*(.*?)\*\*', r'\1', raw[2:])
-                        label, _, value = clean.partition(':')
-                        if value:
-                            rendered.append(html.Div([
-                                html.Span(label + ': ', style={'color': '#aaa', 'fontWeight': '500'}),
-                                html.Span(value.strip(), style={'color': 'white'})
-                            ], style={'fontSize': '11px', 'lineHeight': '2.0',
-                                      'marginBottom': '4px', 'paddingLeft': '8px'}))
-                        else:
-                            rendered.append(html.Div(f"• {clean}", style={
-                                'color': '#ddd', 'fontSize': '11px',
-                                'lineHeight': '2.0', 'marginBottom': '4px', 'paddingLeft': '8px'
-                            }))
-                    else:
-                        clean = re.sub(r'\*\*(.*?)\*\*', r'\1', raw)
-                        rendered.append(html.Div(clean, style={
-                            'color': '#ddd', 'fontSize': '11px',
-                            'lineHeight': '2.0', 'marginBottom': '4px'
-                        }))
+        for line in lines:
+            raw = line.strip()
+            if not raw:
+                rendered.append(html.Div(style={'height': '8px'}))
+                continue
+            if re.match(r'^(##|###|\d+\.)\s', raw):
+                clean = re.sub(r'^(##|###|\d+\.)\s*', '', raw).replace('**', '')
+                rendered.append(html.Div(clean, style={
+                    'color': '#a855f7', 'fontWeight': 'bold',
+                    'fontSize': '12px',
+                    'marginTop': '12px', 'marginBottom': '6px',
+                    'borderLeft': '3px solid #a855f7',
+                    'paddingLeft': '8px', 'paddingBottom': '2px'
+                }))
+            elif raw.startswith('- ') or raw.startswith('* '):
+                clean = re.sub(r'\*\*(.*?)\*\*', r'\1', raw[2:])
+                label, _, value = clean.partition(':')
+                if value:
+                    rendered.append(html.Div([
+                        html.Span(label + ': ', style={'color': '#aaa', 'fontWeight': '500'}),
+                        html.Span(value.strip(), style={'color': 'white'})
+                    ], style={'fontSize': '11px', 'lineHeight': '2.0',
+                                'marginBottom': '4px', 'paddingLeft': '8px'}))
+                else:
+                    rendered.append(html.Div(f"• {clean}", style={
+                        'color': '#ddd', 'fontSize': '11px',
+                        'lineHeight': '2.0', 'marginBottom': '4px', 'paddingLeft': '8px'
+                    }))
+            else:
+                clean = re.sub(r'\*\*(.*?)\*\*', r'\1', raw)
+                rendered.append(html.Div(clean, style={
+                    'color': '#ddd', 'fontSize': '11px',
+                    'lineHeight': '2.0', 'marginBottom': '4px'
+                }))
 
         return html.Div([
             html.Div("🤖 AI", style={'fontSize': '10px', 'color': '#a855f7',
