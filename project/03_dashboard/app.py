@@ -20,7 +20,7 @@ from components.layout import create_layout
 from components.feed_panel import render_feed
 from components.map_panel import render_markers, render_overlay
 from components.satellite_panel import render_satellite
-from components.ai_panel import render_ai, generate_report
+from components.ai_panel import render_ai, generate_response, SUGGESTED_QUESTIONS
 
 # ── Dash 앱 초기화 ────────────────────────────────────────
 app = dash.Dash(__name__, assets_folder='assets', suppress_callback_exceptions=True)
@@ -65,7 +65,6 @@ def update_date_range(n_3m, n_6m, n_1y, n_all, input_start, input_end):
         start, end = DATE_MIN, DATE_MAX
 
     return {'start': str(start), 'end': str(end)}, "", str(start), str(end)
-
 
 # ── 콜백: Score 슬라이더 표시 ─────────────────────────────
 @app.callback(
@@ -191,16 +190,17 @@ def go_to_satellite_panel(n_clicks):
     Input('score-slider', 'value'),
     Input('cloud-data', 'data'),
     Input('report-data', 'data'),
+    Input('chat-history', 'data'),
 )
 
 def update_panel(active_panel, selected_event, selected_satellite,
-                 date_range, geo_levels, score_min, cloud_data, report_data):    
+                 date_range, geo_levels, score_min, cloud_data, report_data, chat_history):
     if active_panel == 'feed':
         return render_feed(selected_event, date_range, geo_levels, score_min)
     elif active_panel == 'satellite':
         return render_satellite(selected_event, selected_satellite, cloud_data)
     elif active_panel == 'ai':
-        return render_ai(selected_event, selected_satellite, cloud_data, report_data)
+        return render_ai(selected_event, selected_satellite, cloud_data, chat_history)
     return []
 
 
@@ -498,3 +498,58 @@ def generate_ai_report(n_clicks, selected_event, selected_satellite, cloud_data)
 
 if __name__ == '__main__':
     app.run(debug=True, port=8050, dev_tools_ui=False)
+
+@app.callback(
+    Output('chat-history', 'data'),
+    Output('chat-input', 'value'),
+    Input('btn-chat-send', 'n_clicks'),
+    Input({'type': 'suggested-question', 'index': dash.ALL}, 'n_clicks'),
+    Input('btn-chat-reset', 'n_clicks'),
+    State('chat-input', 'value'),
+    State('chat-history', 'data'),
+    State('selected-event', 'data'),
+    State('selected-satellite', 'data'),
+    State('cloud-data', 'data'),
+    prevent_initial_call=True
+)
+def handle_chat(send_clicks, suggested_clicks, reset_clicks,
+                input_value, chat_history, selected_event,
+                selected_satellite, cloud_data):
+    from dash import ctx
+    if not ctx.triggered_id:
+        return dash.no_update, dash.no_update
+ 
+    chat_history = chat_history or []
+ 
+    # 대화 초기화
+    if ctx.triggered_id == 'btn-chat-reset':
+        return [], ''
+ 
+    # 추천 질문 클릭
+    question = None
+    if isinstance(ctx.triggered_id, dict) and ctx.triggered_id.get('type') == 'suggested-question':
+        if ctx.triggered[0]['value']:
+            idx = ctx.triggered_id['index']
+            question = SUGGESTED_QUESTIONS[idx]
+ 
+    # 전송 버튼 또는 직접 입력
+    elif ctx.triggered_id == 'btn-chat-send':
+        if not input_value or not input_value.strip():
+            return dash.no_update, dash.no_update
+        question = input_value.strip()
+ 
+    if not question:
+        return dash.no_update, dash.no_update
+ 
+    # 사용자 메시지 추가
+    chat_history.append({'role': 'user', 'content': question})
+ 
+    # Gemini 호출
+    answer, success = generate_response(
+        question, selected_event, selected_satellite, cloud_data, chat_history
+    )
+ 
+    # AI 답변 추가
+    chat_history.append({'role': 'assistant', 'content': answer})
+ 
+    return chat_history, ''
