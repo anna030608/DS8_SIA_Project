@@ -20,7 +20,8 @@ from components.layout import create_layout
 from components.feed_panel import render_feed
 from components.map_panel import render_markers, render_overlay
 from components.satellite_panel import render_satellite
-from components.ai_panel import render_ai, generate_response, SUGGESTED_QUESTIONS
+from components.ai_panel import render_ai, generate_response, generate_report, SUGGESTED_QUESTIONS
+
 
 # ── Dash 앱 초기화 ────────────────────────────────────────
 app = dash.Dash(__name__, assets_folder='assets', suppress_callback_exceptions=True)
@@ -200,7 +201,7 @@ def update_panel(active_panel, selected_event, selected_satellite,
     elif active_panel == 'satellite':
         return render_satellite(selected_event, selected_satellite, cloud_data)
     elif active_panel == 'ai':
-        return render_ai(selected_event, selected_satellite, cloud_data, chat_history)
+        return render_ai(selected_event, selected_satellite, cloud_data, chat_history, report_data)
     return []
 
 
@@ -313,7 +314,10 @@ def _event_data(row):
         'lon': row['ActionGeo_Long'],
         'score': row['priority_score'],
         'event_code': str(int(row['EventCode'])),
-        'num_mentions': int(row['NumMentions'])
+        'num_mentions': int(row['NumMentions']),
+        'quad_class': int(row['QuadClass']) if 'QuadClass' in row else 0,
+        'actor1': row.get('Actor1Name', ''),
+        'actor2': row.get('Actor2Name', ''),
     }
 
 
@@ -481,14 +485,13 @@ def _render_event_table(start_date, end_date, geo_levels, score_min):
 # ── 콜백: 보고서 생성 ─────────────────────────────
 @app.callback(
     Output('report-data', 'data'),
-    Input('btn-generate-report', 'n_clicks'),
-    State('selected-event', 'data'),
+    Input('selected-event', 'data'),
     State('selected-satellite', 'data'),
     State('cloud-data', 'data'),
     prevent_initial_call=True
 )
-def generate_ai_report(n_clicks, selected_event, selected_satellite, cloud_data):
-    if not n_clicks or not selected_event:
+def generate_ai_report(selected_event, selected_satellite, cloud_data):
+    if not selected_event:
         return dash.no_update
     text, error, crawled = generate_report(selected_event, selected_satellite, cloud_data)
     if error:
