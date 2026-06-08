@@ -23,7 +23,6 @@ SUGGESTED_QUESTIONS = [
     "이 위성 말고 다른 촬영 옵션은?",
 ]
 
-
 def _build_context(selected_event, selected_satellite, cloud_data):
     """이벤트 + 위성 정보 + CSIS 분석을 텍스트로 정리"""
     if not selected_event:
@@ -43,14 +42,23 @@ def _build_context(selected_event, selected_satellite, cloud_data):
 - 기사 수: {selected_event['num_mentions']}건
 """
 
-    # 위성 정보 추가
+    # ── 이 사건의 위성 통과 후보 추리기 ──────────────────
+    event_passes = df_passes[
+        (df_passes['SQLDATE'].dt.strftime('%Y-%m-%d') == selected_event['date']) &
+        (df_passes['event_lat'] == selected_event['lat']) &
+        (df_passes['event_lon'] == selected_event['lon'])
+    ].sort_values('min_dist_km')
+
+    # 사용할 위성 결정: 분석관이 골랐으면 그것, 아니면 가장 가까운 것
+    sat_name = None
     if selected_satellite:
-        passes = df_passes[
-            (df_passes['SQLDATE'].dt.strftime('%Y-%m-%d') == selected_event['date']) &
-            (df_passes['event_lat'] == selected_event['lat']) &
-            (df_passes['event_lon'] == selected_event['lon']) &
-            (df_passes['satellite_name'] == selected_satellite)
-        ]
+        sat_name = selected_satellite
+    elif len(event_passes) > 0:
+        sat_name = event_passes.iloc[0]['satellite_name']   # 가장 가까운 위성
+
+    # ── 위성 정보 추가 ──────────────────────────────────
+    if sat_name:
+        passes = event_passes[event_passes['satellite_name'] == sat_name]
         if len(passes) > 0:
             sat_row = passes.iloc[0]
             sat_detail = df_sat_info[df_sat_info['NORAD_CAT_ID'] == int(sat_row['norad_id'])]
@@ -63,9 +71,10 @@ def _build_context(selected_event, selected_satellite, cloud_data):
                 swath   = estimate_swath(s_type, purpose, alt)
                 cloud_cover = cloud_data['cloud_cover'] if cloud_data else None
                 rec_text, _ = get_sensor_recommendation(cloud_cover, s_type)
+                auto_note = "" if selected_satellite else " (가장 가까운 위성 자동 선택)"
                 context += f"""
-[선택된 위성 정보]
-- 위성명: {selected_satellite}
+[촬영 위성 정보{auto_note}]
+- 위성명: {sat_name}
 - NORAD ID: {int(sat_row['norad_id'])}
 - 국가: {country}
 - 센서: {sensor_label(s_type)}
@@ -75,6 +84,13 @@ def _build_context(selected_event, selected_satellite, cloud_data):
 - 구름량: {cloud_cover}%
 - 센서 추천: {rec_text}
 """
+
+    # ── 그 외 위성 후보 목록 ("다른 촬영 옵션" 질문 대비) ──
+    others = event_passes[event_passes['satellite_name'] != sat_name]
+    if len(others) > 0:
+        context += "\n[그 외 근접 위성 후보]\n"
+        for _, r in others.head(5).iterrows():
+            context += f"- {r['satellite_name']} (최근접 {r['min_dist_km']:.1f}km)\n"
 
     # ── CSIS 분석 추가 (블록 1) ──────────────────────────
     try:
