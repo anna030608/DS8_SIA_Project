@@ -163,7 +163,7 @@ def generate_report(selected_event, selected_satellite, cloud_data):
     for attempt in range(3):
         try:
             response = client.models.generate_content(
-                model='gemini-2.5-flash', contents=prompt
+                model='gemini-2.0-flash', contents=prompt
             )
             return response.text, None, []
         except Exception as e:
@@ -217,7 +217,7 @@ def generate_response(question, selected_event, selected_satellite, cloud_data, 
     for attempt in range(3):
         try:
             response = client.models.generate_content(
-                model='gemini-2.5-flash', contents=prompt
+                model='gemini-2.0-flash', contents=prompt
             )
             return response.text, True
         except Exception as e:
