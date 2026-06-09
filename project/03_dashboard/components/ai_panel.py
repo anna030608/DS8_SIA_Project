@@ -27,11 +27,11 @@ def _build_context(selected_event, selected_satellite, cloud_data):
     """이벤트 + 위성 정보 + CSIS 분석을 텍스트로 정리"""
     if not selected_event:
         return ""
-
+ 
     code = selected_event.get('event_code', '')
     title, desc = CAMEO_DESC.get(code, (f'이벤트 {code}', '분류되지 않은 이벤트'))
     alert, _ = get_alert_level(selected_event['score'])
-
+ 
     context = f"""
 [현재 선택된 이벤트 정보]
 - 날짜: {selected_event['date']}
@@ -41,21 +41,21 @@ def _build_context(selected_event, selected_satellite, cloud_data):
 - Priority Score: {selected_event['score']:.3f} ({alert})
 - 기사 수: {selected_event['num_mentions']}건
 """
-
+ 
     # ── 이 사건의 위성 통과 후보 추리기 ──────────────────
     event_passes = df_passes[
         (df_passes['SQLDATE'].dt.strftime('%Y-%m-%d') == selected_event['date']) &
         (df_passes['event_lat'] == selected_event['lat']) &
         (df_passes['event_lon'] == selected_event['lon'])
     ].sort_values('min_dist_km')
-
+ 
     # 사용할 위성 결정: 분석관이 골랐으면 그것, 아니면 가장 가까운 것
     sat_name = None
     if selected_satellite:
         sat_name = selected_satellite
     elif len(event_passes) > 0:
-        sat_name = event_passes.iloc[0]['satellite_name']   # 가장 가까운 위성
-
+        sat_name = event_passes.iloc[0]['satellite_name']
+ 
     # ── 위성 정보 추가 ──────────────────────────────────
     if sat_name:
         passes = event_passes[event_passes['satellite_name'] == sat_name]
@@ -84,14 +84,19 @@ def _build_context(selected_event, selected_satellite, cloud_data):
 - 구름량: {cloud_cover}%
 - 센서 추천: {rec_text}
 """
-
+ 
     # ── 그 외 위성 후보 목록 ("다른 촬영 옵션" 질문 대비) ──
     others = event_passes[event_passes['satellite_name'] != sat_name]
     if len(others) > 0:
         context += "\n[그 외 근접 위성 후보]\n"
         for _, r in others.head(5).iterrows():
             context += f"- {r['satellite_name']} (최근접 {r['min_dist_km']:.1f}km)\n"
-
+    else:
+        # 후보가 없을 때 "없음"을 명시 → AI가 위성을 지어내지 않도록
+        context += ("\n[그 외 근접 위성 후보] 없음. "
+                    f"이 사건에 탐지된 근접 위성은 총 {len(event_passes)}개이며, "
+                    "위에 명시된 위성 외 다른 촬영 옵션은 데이터에 없음.\n")
+ 
     # ── CSIS 분석 추가 (블록 1) ──────────────────────────
     try:
         from components.csis_rag import search_csis
@@ -112,7 +117,7 @@ def _build_context(selected_event, selected_satellite, cloud_data):
             context += f"- {h['title']} ({h['time_note']})\n  {h['excerpt']}\n"
     except Exception as e:
         context += f"\n[CSIS 분석 조회 실패: {e}]\n"
-
+ 
     return context
 
 
@@ -174,23 +179,27 @@ def _build_prompt(question, context, chat_history):
     for msg in chat_history[-6:]:
         role = "분석관" if msg['role'] == 'user' else "AI"
         history_text += f"{role}: {msg['content']}\n"
-
+ 
     return f"""당신은 양안관계 전문 군사 정보 분석 AI입니다.
 분석관의 의사결정을 돕기 위해 정확하고 간결하게 답변하세요.
-
+ 
 {context}
-
+ 
 [대화 기록]
 {history_text}
-
+ 
 [분석관 질문]
 {question}
-
+ 
 답변 지침:
 - 한국어로 답변
 - 군사적/정치적 맥락을 포함
-- CSIS 분석이 제공된 경우 그 내용을 근거로 인용하고, "분석을 찾지 못함"이면 솔직히 없다고 명시할 것 (지어내지 말 것)
-- 근거 없는 추측 금지
+- 위성 관련 질문에는 context의 '근접 위성' 정보(촬영 위성 정보 + 그 외 근접 위성 후보)만 사용할 것.
+  데이터에 없는 위성(Capella, ICEYE 등 상업 위성 이름 포함)을 절대 지어내지 말 것.
+  '그 외 근접 위성 후보'가 '없음'이면 "이 사건에 탐지된 근접 위성은 OO 하나뿐이며, 다른 촬영 옵션은 데이터에 없습니다"라고 솔직히 답할 것.
+- 위성 관련 질문에는 CSIS 분석을 끌어오지 말 것 (위성 가용성과 무관함).
+- CSIS 분석이 제공된 경우 그 내용을 근거로 인용하고, "분석을 찾지 못함"이면 솔직히 없다고 명시할 것 (지어내지 말 것).
+- 근거 없는 추측 금지. context에 있는 데이터만으로 답할 것.
 - 300자 이내로 핵심만 답변
 - 불필요한 배경 설명 생략
 """
