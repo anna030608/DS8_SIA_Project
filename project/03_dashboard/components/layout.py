@@ -132,7 +132,7 @@ def create_layout():
                 children=[html.Div(id='panel-content')],
                 style={
                     'position': 'absolute', 'top': 0, 'right': 0, 'bottom': 0,
-                    'width': '300px', 'backgroundColor': 'rgba(10,14,26,0.95)',
+                    'width': '370px', 'backgroundColor': 'rgba(10,14,26,0.95)',
                     'borderLeft': '1px solid rgba(255,255,255,0.1)',
                     'overflowY': 'auto', 'padding': '12px', 'zIndex': 500
                 }
