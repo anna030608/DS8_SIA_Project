@@ -223,7 +223,7 @@ def fetch_cloud_data(selected_satellite, selected_event):
     return {'cloud_cover': cloud}
 
 
-# ── 콜백: 위성 클릭 → 궤도 표시 ─────────────────────────
+# ── 콜백: 위성 선택 → 궤도 표시 ─────────────────────────
 @app.callback(
     Output('selected-satellite', 'data'),
     Output('orbit-layer', 'children'),
@@ -234,24 +234,46 @@ def fetch_cloud_data(selected_satellite, selected_event):
 def select_satellite(n_clicks, selected_event):
     from dash import ctx
 
+    # ── 이벤트가 바뀐 경우: 가장 가까운 위성 자동 선택 ──
     if ctx.triggered_id == 'selected-event':
         if not selected_event:
             return None, []
-        return None, [dl.CircleMarker(
-            center=[selected_event['lat'], selected_event['lon']],
-            radius=15, color='#ff2d2d', fillColor='#ff2d2d', fillOpacity=0.3
-        )]
+        nearest = _nearest_satellite(selected_event)
+        if nearest is None:
+            # 근접 위성이 없으면 이벤트 위치만 표시
+            return None, [dl.CircleMarker(
+                center=[selected_event['lat'], selected_event['lon']],
+                radius=15, color='#ff2d2d', fillColor='#ff2d2d', fillOpacity=0.3
+            )]
+        return nearest, _build_orbit_layers(selected_event, nearest)
 
+    # ── 위성을 직접 클릭한 경우: 그 위성으로 변경 ──
     if not ctx.triggered[0]['value'] or not selected_event:
         return dash.no_update, dash.no_update
 
-    sat_name   = ctx.triggered_id['name']
-    event_date = selected_event['date']
-    event_lat  = selected_event['lat']
-    event_lon  = selected_event['lon']
+    sat_name = ctx.triggered_id['name']
+    return sat_name, _build_orbit_layers(selected_event, sat_name)
+
+
+# ── 헬퍼: 그 사건의 가장 가까운 위성 이름 ──────────────────
+def _nearest_satellite(selected_event):
+    passes = df_passes[
+        (df_passes['SQLDATE'].dt.strftime('%Y-%m-%d') == selected_event['date']) &
+        (df_passes['event_lat'] == selected_event['lat']) &
+        (df_passes['event_lon'] == selected_event['lon'])
+    ].sort_values('min_dist_km')
+    if len(passes) == 0:
+        return None
+    return passes.iloc[0]['satellite_name']
+
+
+# ── 헬퍼: 이벤트 + 위성 궤도 레이어 생성 ──────────────────
+def _build_orbit_layers(selected_event, sat_name):
+    event_lat = selected_event['lat']
+    event_lon = selected_event['lon']
 
     passes = df_passes[
-        (df_passes['SQLDATE'].dt.strftime('%Y-%m-%d') == event_date) &
+        (df_passes['SQLDATE'].dt.strftime('%Y-%m-%d') == selected_event['date']) &
         (df_passes['event_lat'] == event_lat) &
         (df_passes['event_lon'] == event_lon) &
         (df_passes['satellite_name'] == sat_name)
@@ -284,7 +306,7 @@ def select_satellite(n_clicks, selected_event):
         except:
             pass
 
-    return sat_name, orbit_layers
+    return orbit_layers
 
 
 # ── 콜백: 하단 탭 ────────────────────────────────────────
