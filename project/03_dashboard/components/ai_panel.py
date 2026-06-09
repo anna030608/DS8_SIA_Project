@@ -336,21 +336,23 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
     )
 
     # 후속 추천 질문 (보고서 뒤, 1개)
-    suggested = [
-        html.Div("💡 추가 질문", style={'fontSize': '11px', 'color': '#aaa', 'marginBottom': '6px'}),
-        *[html.Button(
-            q, id={'type': 'suggested-question', 'index': i}, n_clicks=0,
-            style={
-                'display': 'block', 'width': '100%',
-                'padding': '7px 10px', 'marginBottom': '4px',
-                'backgroundColor': 'rgba(168,85,247,0.08)',
-                'border': '1px solid rgba(168,85,247,0.25)',
-                'borderRadius': '4px', 'color': '#c084fc',
-                'fontSize': '11px', 'cursor': 'pointer', 'textAlign': 'left',
-            }
-        ) for i, q in enumerate(SUGGESTED_QUESTIONS)],
-        html.Div(style={'marginBottom': '8px'})
-    ]
+    suggested = []
+    if not chat_history:
+        suggested = [
+            html.Div("💡 추가 질문", style={'fontSize': '11px', 'color': '#aaa', 'marginBottom': '6px'}),
+            *[html.Button(
+                q, id={'type': 'suggested-question', 'index': i}, n_clicks=0,
+                style={
+                    'display': 'block', 'width': '100%',
+                    'padding': '7px 10px', 'marginBottom': '4px',
+                    'backgroundColor': 'rgba(168,85,247,0.08)',
+                    'border': '1px solid rgba(168,85,247,0.25)',
+                    'borderRadius': '4px', 'color': '#c084fc',
+                    'fontSize': '11px', 'cursor': 'pointer', 'textAlign': 'left',
+                }
+            ) for i, q in enumerate(SUGGESTED_QUESTIONS)],
+            html.Div(style={'marginBottom': '8px'})
+        ]
 
     # 입력창
     input_area = html.Div([
