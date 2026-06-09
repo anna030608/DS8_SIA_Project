@@ -288,7 +288,7 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
     header = html.Div("💬 AI 분석 챗봇",
                       style={'fontSize': '12px', 'color': '#aaa', 'fontWeight': 'bold',
                              'marginBottom': '12px', 'textTransform': 'uppercase'})
-
+ 
     if not selected_event:
         return [
             header,
@@ -296,11 +296,11 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
                      style={'color': '#666', 'fontSize': '12px',
                             'textAlign': 'center', 'padding': '40px 20px'})
         ]
-
+ 
     code = selected_event.get('event_code', '')
     title, _ = CAMEO_DESC.get(code, (f'이벤트 {code}', ''))
     alert, color = get_alert_level(selected_event['score'])
-
+ 
     # 이벤트 요약 카드
     event_card = html.Div([
         html.Div(f"⚠ {alert} ALERT",
@@ -314,7 +314,7 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
         'backgroundColor': f'{color}15',
         'padding': '10px 12px', 'borderRadius': '4px', 'marginBottom': '12px'
     })
-
+ 
     # ── 보고서 영역 (자동 생성) ──────────────────────────
     if report_data and report_data.get('error'):
         report_block = html.Div(f"보고서 생성 오류: {report_data['error']}",
@@ -334,7 +334,7 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
         report_block = html.Div("보고서를 생성하는 중입니다...",
                                 style={'color': '#666', 'fontSize': '11px',
                                        'textAlign': 'center', 'padding': '20px 0'})
-
+ 
     # 채팅 히스토리 (추가 질문/답변)
     chat_messages = [_render_message(m) for m in (chat_history or [])]
     chat_area = html.Div(
@@ -343,30 +343,15 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
         style={'maxHeight': '250px', 'overflowY': 'auto',
                'marginBottom': '8px'} if chat_messages else {'display': 'none'}
     )
-
-    # 후속 추천 질문 (보고서 뒤, 1개)
-    suggested = []
-    if not chat_history:
-        suggested = [
-            html.Div("💡 추가 질문", style={'fontSize': '11px', 'color': '#aaa', 'marginBottom': '6px'}),
-            *[html.Button(
-                q, id={'type': 'suggested-question', 'index': i}, n_clicks=0,
-                style={
-                    'display': 'block', 'width': '100%',
-                    'padding': '7px 10px', 'marginBottom': '4px',
-                    'backgroundColor': 'rgba(168,85,247,0.08)',
-                    'border': '1px solid rgba(168,85,247,0.25)',
-                    'borderRadius': '4px', 'color': '#c084fc',
-                    'fontSize': '11px', 'cursor': 'pointer', 'textAlign': 'left',
-                }
-            ) for i, q in enumerate(SUGGESTED_QUESTIONS)],
-            html.Div(style={'marginBottom': '8px'})
-        ]
-
+ 
+    # 안내 한 줄 (추천 질문 대신)
+    ask_hint = html.Div("💡 보고서에 대해 궁금한 점을 입력하세요",
+                        style={'fontSize': '11px', 'color': '#aaa', 'marginBottom': '6px'})
+ 
     # 입력창
     input_area = html.Div([
         dcc.Input(
-            id='chat-input', type='text', placeholder='추가 질문을 입력하세요...',
+            id='chat-input', type='text', placeholder='궁금한 점을 입력하세요...',
             debounce=False, n_submit=0,
             style={
                 'flex': 1, 'backgroundColor': '#1a2035', 'color': 'white',
@@ -384,11 +369,11 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
             }
         ),
     ], style={'display': 'flex', 'marginBottom': '4px'})
-
+ 
     reset_btn = html.Button(
         "🔄 대화 초기화", id='btn-chat-reset', n_clicks=0,
         style={'fontSize': '10px', 'color': '#555', 'backgroundColor': 'transparent',
                'border': 'none', 'cursor': 'pointer', 'padding': '2px 0'}
     )
-
-    return [header, event_card, report_block, chat_area, *suggested, input_area, reset_btn]
+ 
+    return [header, event_card, report_block, chat_area, ask_hint, input_area, reset_btn]
