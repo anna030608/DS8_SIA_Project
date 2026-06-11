@@ -5,6 +5,34 @@ from datetime import date
 df = pd.read_csv("project/01_data/processed/final_priority_geo.csv")
 df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
 
+# ── 신뢰도 등급 병합 ─────────────────────────────────────
+import os
+ 
+_REL_PATH = "project/01_data/processed/event_reliability.csv"
+if os.path.exists(_REL_PATH):
+    _rel = pd.read_csv(_REL_PATH)
+    # event_key가 GLOBALEVENTID 문자열이므로 숫자로 변환해 병합
+    _rel['_gid'] = pd.to_numeric(_rel['event_key'], errors='coerce')
+    _rel_small = _rel[['_gid', 'grade', 'verdict', 'reason']].dropna(subset=['_gid'])
+    _rel_small['_gid'] = _rel_small['_gid'].astype('int64')
+ 
+    df = df.merge(
+        _rel_small.rename(columns={
+            '_gid': 'GLOBALEVENTID',
+            'grade': 'reliability_grade',
+            'verdict': 'reliability_verdict',
+            'reason': 'reliability_reason',
+        }),
+        on='GLOBALEVENTID', how='left'
+    )
+    # 매칭 안 된 사건은 UNVERIFIED
+    df['reliability_grade'] = df['reliability_grade'].fillna('UNVERIFIED')
+else:
+    # 신뢰도 파일이 없으면 전부 UNVERIFIED (대시보드가 깨지지 않게)
+    df['reliability_grade'] = 'UNVERIFIED'
+    df['reliability_verdict'] = '-'
+    df['reliability_reason'] = ''
+
 df_spike = pd.read_csv("project/01_data/processed/spike_events.csv")
 df_spike['SQLDATE'] = pd.to_datetime(df_spike['SQLDATE'])
 
