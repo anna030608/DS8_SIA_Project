@@ -340,6 +340,8 @@ def _event_data(row):
         'quad_class': int(row['QuadClass']) if 'QuadClass' in row else 0,
         'actor1': row.get('Actor1Name', ''),
         'actor2': row.get('Actor2Name', ''),
+        'reliability': row.get('reliability_grade', 'UNVERIFIED'),
+        'reliability_reason': row.get('reliability_reason', ''),
     }
 
 

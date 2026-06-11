@@ -23,15 +23,16 @@ SUGGESTED_QUESTIONS = [
     "이 위성 말고 다른 촬영 옵션은?",
 ]
 
+
 def _build_context(selected_event, selected_satellite, cloud_data):
     """이벤트 + 위성 정보 + CSIS 분석을 텍스트로 정리"""
     if not selected_event:
         return ""
- 
+
     code = selected_event.get('event_code', '')
     title, desc = CAMEO_DESC.get(code, (f'이벤트 {code}', '분류되지 않은 이벤트'))
     alert, _ = get_alert_level(selected_event['score'])
- 
+
     context = f"""
 [현재 선택된 이벤트 정보]
 - 날짜: {selected_event['date']}
@@ -41,21 +42,31 @@ def _build_context(selected_event, selected_satellite, cloud_data):
 - Priority Score: {selected_event['score']:.3f} ({alert})
 - 기사 수: {selected_event['num_mentions']}건
 """
- 
+
+    # 신뢰도 등급 (있으면 context에 명시 → AI가 보고서에서 언급 가능)
+    grade = selected_event.get('reliability', 'UNVERIFIED')
+    grade_note = {
+        'HIGH': '출처 기사가 사건 유형과 일치 (검증됨)',
+        'MEDIUM': '출처 부분 검증 (복원본 또는 부분 일치)',
+        'LOW': '출처 기사가 분류된 사건 유형과 불일치 (신뢰도 낮음, 해석 주의)',
+        'UNVERIFIED': '원본 기사 확보 실패로 검증 불가',
+    }.get(grade, '검증 정보 없음')
+    context += f"- 출처 신뢰도: {grade} ({grade_note})\n"
+
     # ── 이 사건의 위성 통과 후보 추리기 ──────────────────
     event_passes = df_passes[
         (df_passes['SQLDATE'].dt.strftime('%Y-%m-%d') == selected_event['date']) &
         (df_passes['event_lat'] == selected_event['lat']) &
         (df_passes['event_lon'] == selected_event['lon'])
     ].sort_values('min_dist_km')
- 
+
     # 사용할 위성 결정: 분석관이 골랐으면 그것, 아니면 가장 가까운 것
     sat_name = None
     if selected_satellite:
         sat_name = selected_satellite
     elif len(event_passes) > 0:
         sat_name = event_passes.iloc[0]['satellite_name']
- 
+
     # ── 위성 정보 추가 ──────────────────────────────────
     if sat_name:
         passes = event_passes[event_passes['satellite_name'] == sat_name]
@@ -84,7 +95,7 @@ def _build_context(selected_event, selected_satellite, cloud_data):
 - 구름량: {cloud_cover}%
 - 센서 추천: {rec_text}
 """
- 
+
     # ── 그 외 위성 후보 목록 ("다른 촬영 옵션" 질문 대비) ──
     others = event_passes[event_passes['satellite_name'] != sat_name]
     if len(others) > 0:
@@ -92,11 +103,10 @@ def _build_context(selected_event, selected_satellite, cloud_data):
         for _, r in others.head(5).iterrows():
             context += f"- {r['satellite_name']} (최근접 {r['min_dist_km']:.1f}km)\n"
     else:
-        # 후보가 없을 때 "없음"을 명시 → AI가 위성을 지어내지 않도록
         context += ("\n[그 외 근접 위성 후보] 없음. "
                     f"이 사건에 탐지된 근접 위성은 총 {len(event_passes)}개이며, "
                     "위에 명시된 위성 외 다른 촬영 옵션은 데이터에 없음.\n")
- 
+
     # ── CSIS 분석 추가 (블록 1) ──────────────────────────
     try:
         from components.csis_rag import search_csis
@@ -117,39 +127,41 @@ def _build_context(selected_event, selected_satellite, cloud_data):
             context += f"- {h['title']} ({h['time_note']})\n  {h['excerpt']}\n"
     except Exception as e:
         context += f"\n[CSIS 분석 조회 실패: {e}]\n"
- 
+
     return context
 
 
 def _build_report_prompt(context):
     return f"""당신은 양안관계 전문 군사 정보 분석 AI입니다.
 아래 제공된 데이터만 근거로, 분석관의 위성 촬영 판단을 돕는 보고서를 작성하세요.
- 
+
 {context}
- 
+
 [작성 원칙]
 - 한국어. 아래 4개 섹션을 '## 제목' 형식으로 구분.
 - 각 섹션 2~4문장. context에 있는 구체적 수치·사실을 반드시 인용할 것.
 - context에 없는 정보(다른 위성 이름, 가상의 분석 등)는 절대 지어내지 말 것.
 - 정보가 없으면 "해당 정보 없음"이라고 솔직히 밝힐 것.
- 
+- '출처 신뢰도'가 LOW이면, 보고서 서두에 이 사건의 출처 신뢰도가 낮아
+  해석에 주의가 필요함을 한 문장으로 명시할 것.
+
 ## 사건 개요
 날짜·좌표·이벤트 유형(CAMEO 코드와 의미)을 명시하고, 기사 수가 시사하는
 주목도를 한 문장으로 평가.
- 
+
 ## 전략적 의미
 'CSIS 분석' 섹션을 근거로 작성:
 - "직접 분석"이면 그 글 내용을 인용해 이 사건의 함의를 설명.
 - "일반 맥락"이면 "직접 분석은 없으나 유사 유형으로는…"이라고 전제하고 참고 설명.
 - "찾지 못함"이면 "이 사건에 대한 직접적인 CSIS 분석은 없음"이라고 명시하고,
   사건 유형(CAMEO) 수준의 일반적 함의만 1~2문장으로 짧게 덧붙일 것. 길게 추측하지 말 것.
- 
+
 ## 촬영 우선순위
 Priority Score 수치와 등급을 밝히고, 점수 구성요소(mentions/goldstein/tone/geo) 중
 무엇이 이 점수를 높였는지 context 값을 근거로 구체적으로 설명.
- 
+
 ## 위성 촬영 권고
-context의 '촬영 위성 정보'를 근거로 그 위성의 적합성(최근접 거리·센서·구름량)을 설명.
+context의 '촬영 위성 정보'를 근거로 그 위성의 적합성(거리·센서·구름량)을 설명.
 '자동 선택'으로 표시됐으면 "가장 근접한 위성 기준"임을 밝힐 것(분석관이 직접 고른 게 아님).
 구름량이 높으면 광학(EO)의 한계를, 낮으면 적합함을 언급. context에 없는 위성은 언급 금지.
 """
@@ -185,18 +197,18 @@ def _build_prompt(question, context, chat_history):
     for msg in chat_history[-6:]:
         role = "분석관" if msg['role'] == 'user' else "AI"
         history_text += f"{role}: {msg['content']}\n"
- 
+
     return f"""당신은 양안관계 전문 군사 정보 분석 AI입니다.
 분석관의 의사결정을 돕기 위해 정확하고 간결하게 답변하세요.
- 
+
 {context}
- 
+
 [대화 기록]
 {history_text}
- 
+
 [분석관 질문]
 {question}
- 
+
 답변 지침:
 - 한국어로 답변
 - 군사적/정치적 맥락을 포함
@@ -234,7 +246,7 @@ def generate_response(question, selected_event, selected_satellite, cloud_data, 
 
 
 def _render_markdown(text):
-    """간단 마크다운 → Dash 컴포넌트 (## 제목, - 항목, 일반 텍스트)"""
+    """간단 마크다운 → Dash 컴포넌트"""
     rendered = []
     for line in text.split('\n'):
         raw = line.strip()
@@ -262,6 +274,34 @@ def _render_markdown(text):
                 'lineHeight': '2.0', 'marginBottom': '4px'
             }))
     return rendered
+
+
+def _reliability_badge(grade, reason=""):
+    """신뢰도 등급 → 색상 배지. LOW는 경고 강조."""
+    style_map = {
+        "HIGH":       ("#22c55e", "출처 검증됨 — 기사와 사건 유형 일치"),
+        "MEDIUM":     ("#eab308", "부분 검증 — 복원된 출처 또는 부분 일치"),
+        "LOW":        ("#ff2d2d", "⚠ 출처 불일치 — 기사가 분류된 사건 유형과 다름"),
+        "UNVERIFIED": ("#888888", "검증 불가 — 원본 기사 확보 실패"),
+    }
+    color, desc = style_map.get(grade, ("#888888", "검증 정보 없음"))
+    children = [
+        html.Span(f"신뢰도: {grade}",
+                  style={'color': color, 'fontWeight': 'bold', 'fontSize': '11px'}),
+        html.Div(desc, style={'color': '#aaa', 'fontSize': '10px', 'marginTop': '2px'}),
+    ]
+    if grade == "LOW" and reason:
+        children.append(
+            html.Div(f"판정 근거: {reason}",
+                     style={'color': '#ff8c8c', 'fontSize': '10px',
+                            'marginTop': '2px', 'fontStyle': 'italic'})
+        )
+    return html.Div(children, style={
+        'borderLeft': f'3px solid {color}',
+        'backgroundColor': f'{color}15',
+        'padding': '6px 10px', 'borderRadius': '4px',
+        'marginBottom': '12px',
+    })
 
 
 def _render_message(msg):
@@ -294,7 +334,7 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
     header = html.Div("💬 AI 분석 챗봇",
                       style={'fontSize': '12px', 'color': '#aaa', 'fontWeight': 'bold',
                              'marginBottom': '12px', 'textTransform': 'uppercase'})
- 
+
     if not selected_event:
         return [
             header,
@@ -302,11 +342,11 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
                      style={'color': '#666', 'fontSize': '12px',
                             'textAlign': 'center', 'padding': '40px 20px'})
         ]
- 
+
     code = selected_event.get('event_code', '')
     title, _ = CAMEO_DESC.get(code, (f'이벤트 {code}', ''))
     alert, color = get_alert_level(selected_event['score'])
- 
+
     # 이벤트 요약 카드
     event_card = html.Div([
         html.Div(f"⚠ {alert} ALERT",
@@ -320,7 +360,13 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
         'backgroundColor': f'{color}15',
         'padding': '10px 12px', 'borderRadius': '4px', 'marginBottom': '12px'
     })
- 
+
+    # 신뢰도 배지
+    reliability_badge = _reliability_badge(
+        selected_event.get('reliability', 'UNVERIFIED'),
+        selected_event.get('reliability_reason', '')
+    )
+
     # ── 보고서 영역 (자동 생성) ──────────────────────────
     if report_data and report_data.get('error'):
         report_block = html.Div(f"보고서 생성 오류: {report_data['error']}",
@@ -340,7 +386,7 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
         report_block = html.Div("보고서를 생성하는 중입니다...",
                                 style={'color': '#666', 'fontSize': '11px',
                                        'textAlign': 'center', 'padding': '20px 0'})
- 
+
     # 채팅 히스토리 (추가 질문/답변)
     chat_messages = [_render_message(m) for m in (chat_history or [])]
     chat_area = html.Div(
@@ -349,11 +395,11 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
         style={'maxHeight': '250px', 'overflowY': 'auto',
                'marginBottom': '8px'} if chat_messages else {'display': 'none'}
     )
- 
-    # 안내 한 줄 (추천 질문 대신)
+
+    # 안내 한 줄
     ask_hint = html.Div("💡 보고서에 대해 궁금한 점을 입력하세요",
                         style={'fontSize': '11px', 'color': '#aaa', 'marginBottom': '6px'})
- 
+
     # 입력창
     input_area = html.Div([
         dcc.Input(
@@ -375,11 +421,12 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
             }
         ),
     ], style={'display': 'flex', 'marginBottom': '4px'})
- 
+
     reset_btn = html.Button(
         "🔄 대화 초기화", id='btn-chat-reset', n_clicks=0,
         style={'fontSize': '10px', 'color': '#555', 'backgroundColor': 'transparent',
                'border': 'none', 'cursor': 'pointer', 'padding': '2px 0'}
     )
- 
-    return [header, event_card, report_block, chat_area, ask_hint, input_area, reset_btn]
+
+    return [header, event_card, reliability_badge, report_block,
+            chat_area, ask_hint, input_area, reset_btn]
