@@ -3,6 +3,14 @@ import pandas as pd
 from components.data_loader import df, df_passes
 from components.helpers import CAMEO_DESC, get_alert_level
 
+# 소스신뢰도 색상 (표·AI패널과 통일)
+_GRADE_COLOR = {
+    'HIGH':       '#22c55e',
+    'MEDIUM':     '#eab308',
+    'LOW':        '#ff2d2d',
+    'UNVERIFIED': '#888888',
+}
+
 
 def render_feed(selected_event, date_range, geo_levels, score_min):
     dff = df.copy()
@@ -19,6 +27,10 @@ def render_feed(selected_event, date_range, geo_levels, score_min):
         code = str(int(row['EventCode']))
         alert, color = get_alert_level(row['priority_score'])
         title, desc = CAMEO_DESC.get(code, (f'이벤트 {code}', '분류되지 않은 이벤트'))
+
+        # 소스신뢰도 등급 + 색상
+        grade = row.get('reliability_grade', 'UNVERIFIED')
+        grade_color = _GRADE_COLOR.get(grade, '#888888')
 
         is_selected = (
             selected_event and
@@ -47,8 +59,15 @@ def render_feed(selected_event, date_range, geo_levels, score_min):
                 html.Span(f"📍 ({row['ActionGeo_Lat']:.2f}, {row['ActionGeo_Long']:.2f})",
                           style={'color': '#555', 'fontSize': '10px', 'marginRight': '8px'}),
                 html.A("🔗 원문 보기", href=row['SOURCEURL'], target='_blank',
-                       style={'fontSize': '11px', 'color': '#4a9eff'})
-            ])
+                       style={'fontSize': '11px', 'color': '#4a9eff', 'marginRight': '8px'}),
+                # 소스신뢰도 배지 (원문 보기 옆)
+                html.Span(f"신뢰도: {grade}",
+                          style={'fontSize': '10px', 'color': grade_color,
+                                 'fontWeight': '500',
+                                 'border': f'1px solid {grade_color}55',
+                                 'backgroundColor': f'{grade_color}15',
+                                 'borderRadius': '3px', 'padding': '1px 6px'})
+            ], style={'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap'})
         ]
 
         feed_items.append(html.Div([

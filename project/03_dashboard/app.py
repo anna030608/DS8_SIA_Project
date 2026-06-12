@@ -421,6 +421,13 @@ def _render_timeseries(start_date, end_date):
     ])
 
 
+# ──────────────────────────────────────────────────────────────────
+# app.py 의 _render_event_table 교체본 (v3)
+#   변경사항:
+#     ① 'geo_level' 표시명: 신뢰도 → 지리신뢰도
+#     ② 'reliability_grade' → '소스신뢰도' 컬럼 추가 (LOW는 빨강 강조)
+#     (z-score '이상도' 컬럼은 유지)
+# ──────────────────────────────────────────────────────────────────
 def _render_event_table(start_date, end_date, geo_levels, score_min):
     dff = df.copy()
     dff = dff[dff['SQLDATE'].dt.date >= pd.to_datetime(start_date).date()]
@@ -437,21 +444,38 @@ def _render_event_table(start_date, end_date, geo_levels, score_min):
 
     cols = ['날짜', '이벤트', 'NumMentions', 'GoldsteinScale', 'AvgTone', 'priority_score', 'geo_level']
     rename_map = {'NumMentions': '기사수', 'GoldsteinScale': 'Goldstein',
-                  'priority_score': 'Score', 'geo_level': '신뢰도'}
+                  'priority_score': 'Score', 'geo_level': '지리신뢰도'}  # 변경①
     table_cols = [
-        {'name': '날짜',      'id': '날짜'},
-        {'name': '이벤트',    'id': '이벤트'},
-        {'name': '기사수',    'id': '기사수'},
-        {'name': 'Goldstein', 'id': 'Goldstein', 'type': 'numeric', 'format': {'specifier': '.2f'}},
-        {'name': 'AvgTone',   'id': 'AvgTone',   'type': 'numeric', 'format': {'specifier': '.2f'}},
-        {'name': 'Score',     'id': 'Score',      'type': 'numeric', 'format': {'specifier': '.3f'}},
-        {'name': '신뢰도',    'id': '신뢰도'},
+        {'name': '날짜',        'id': '날짜'},
+        {'name': '이벤트',      'id': '이벤트'},
+        {'name': '기사수',      'id': '기사수'},
+        {'name': 'Goldstein',   'id': 'Goldstein', 'type': 'numeric', 'format': {'specifier': '.2f'}},
+        {'name': 'AvgTone',     'id': 'AvgTone',   'type': 'numeric', 'format': {'specifier': '.2f'}},
+        {'name': 'Score',       'id': 'Score',      'type': 'numeric', 'format': {'specifier': '.3f'}},
+        {'name': '지리신뢰도',  'id': '지리신뢰도'},  # 변경①
     ]
+
+    # 지리점수 컬럼
+    insert_at = 5
     if 'score_geo' in dff.columns:
-        cols.insert(5, 'score_geo')
+        cols.insert(insert_at, 'score_geo')
         rename_map['score_geo'] = '지리점수'
-        table_cols.insert(5, {'name': '지리점수', 'id': '지리점수',
-                               'type': 'numeric', 'format': {'specifier': '.2f'}})
+        table_cols.insert(insert_at, {'name': '지리점수', 'id': '지리점수',
+                                      'type': 'numeric', 'format': {'specifier': '.2f'}})
+        insert_at += 1
+
+    # 이상도(z-score) 컬럼
+    if 'score_zscore' in dff.columns:
+        cols.insert(insert_at, 'score_zscore')
+        rename_map['score_zscore'] = '이상도'
+        table_cols.insert(insert_at, {'name': '이상도', 'id': '이상도',
+                                      'type': 'numeric', 'format': {'specifier': '.2f'}})
+
+    # 소스신뢰도 컬럼 추가 (변경②) — 맨 끝(지리신뢰도 다음)
+    if 'reliability_grade' in dff.columns:
+        cols.append('reliability_grade')
+        rename_map['reliability_grade'] = '소스신뢰도'
+        table_cols.append({'name': '소스신뢰도', 'id': '소스신뢰도'})
 
     return html.Div([
         dash_table.DataTable(
@@ -465,7 +489,7 @@ def _render_event_table(start_date, end_date, geo_levels, score_min):
                 'borderBottom': '1px solid rgba(255,255,255,0.15)',
             },
             style_cell={
-                'backgroundColor': 'transparent',  # #0a0e1a → transparent 로 변경
+                'backgroundColor': 'transparent',
                 'color': 'white',
                 'fontSize': '12px',
                 'borderTop': 'none',
@@ -475,7 +499,6 @@ def _render_event_table(start_date, end_date, geo_levels, score_min):
                 'padding': '8px 12px', 'textAlign': 'left',
             },
             style_data_conditional=[
-                # 배경: 피드 카드와 동일한 투명도
                 {'if': {'filter_query': '{Score} >= 0.7'},
                  'backgroundColor': 'rgba(255,45,45,0.08)',
                  'borderLeft': '3px solid #ff2d2d'},
@@ -485,23 +508,30 @@ def _render_event_table(start_date, end_date, geo_levels, score_min):
                 {'if': {'filter_query': '{Score} < 0.5'},
                 'backgroundColor': 'rgba(255,215,0,0.03)',
                 'borderLeft': '3px solid #ffd700'},
-                # Score 컬럼 컬러
                 {'if': {'column_id': 'Score', 'filter_query': '{Score} >= 0.7'},
                  'color': '#ff2d2d', 'fontWeight': '500'},
                 {'if': {'column_id': 'Score', 'filter_query': '{Score} >= 0.5 && {Score} < 0.7'},
                  'color': '#ff8c00', 'fontWeight': '500'},
                 {'if': {'column_id': 'Score', 'filter_query': '{Score} < 0.5'},
                  'color': '#ffd700', 'fontWeight': '500'},
-                # Level1 신뢰도 강조
-                {'if': {'column_id': '신뢰도', 'filter_query': '{신뢰도} = "Level1"'},
+                # 지리신뢰도 Level1 강조
+                {'if': {'column_id': '지리신뢰도', 'filter_query': '{지리신뢰도} = "Level1"'},
                  'color': '#4a9eff'},
-                 # 기존 코드 마지막에 추가
+                # 소스신뢰도 색상 (HIGH 초록 / MEDIUM 노랑 / LOW 빨강 / UNVERIFIED 회색)
+                {'if': {'column_id': '소스신뢰도', 'filter_query': '{소스신뢰도} = "HIGH"'},
+                 'color': '#22c55e', 'fontWeight': '500'},
+                {'if': {'column_id': '소스신뢰도', 'filter_query': '{소스신뢰도} = "MEDIUM"'},
+                 'color': '#eab308'},
+                {'if': {'column_id': '소스신뢰도', 'filter_query': '{소스신뢰도} = "LOW"'},
+                 'color': '#ff2d2d', 'fontWeight': '500'},
+                {'if': {'column_id': '소스신뢰도', 'filter_query': '{소스신뢰도} = "UNVERIFIED"'},
+                 'color': '#888888'},
                 {'if': {'state': 'active'},
                 'backgroundColor': 'rgba(168,85,247,0.2)',
                 'border': '1px solid rgba(168,85,247,0.5)'},
             ],
             style_as_list_view=True,
-            cell_selectable=False, 
+            cell_selectable=False,
             sort_action='native', page_size=50
         )
     ], style={'padding': '8px 16px'})
