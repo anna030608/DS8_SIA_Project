@@ -61,7 +61,7 @@ def render_feed(selected_event, date_range, geo_levels, score_min):
                 html.A("🔗 원문 보기", href=row['SOURCEURL'], target='_blank',
                        style={'fontSize': '11px', 'color': '#4a9eff', 'marginRight': '8px'}),
                 # 소스신뢰도 배지 (원문 보기 옆)
-                html.Span(f"신뢰도: {grade}",
+                html.Span(f"{grade}",
                           style={'fontSize': '10px', 'color': grade_color,
                                  'fontWeight': '500',
                                  'border': f'1px solid {grade_color}55',
