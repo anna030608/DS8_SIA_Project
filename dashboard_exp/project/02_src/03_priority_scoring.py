@@ -27,7 +27,7 @@ _med = df['NumMentions'].median()
 _iqr = df['NumMentions'].quantile(0.75) - df['NumMentions'].quantile(0.25)
 df['score_mentions'] = np.clip((df['NumMentions'] - _med) / (_iqr + 1e-9), 0, 1)
 
-df['score_goldstein'] = minmax(df['GoldsteinScale'].abs())
+df['score_goldstein'] = minmax(df['GoldsteinScale']* -1)
 
 # AvgTone: -3 이하일 때만 반영
 df['score_tone'] = np.where(

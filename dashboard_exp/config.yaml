@@ -5,13 +5,14 @@ spike_detection:
 
 priority_score:
   weights:
+    geo_distance: 0.45
     num_mentions: 0.35
     goldstein: 0.05
     avg_tone: 0.05
-    geo_distance: 0.45
     zscore: 0.10
-  avg_tone_threshold: -3      # 이하일 때만 가중치 적용
-
+  avg_tone_threshold: -3
+  geo_level2_penalty: 0.5  # 추가
+  
   # 대만 해협 중간선
   taiwan_strait:
     line_start: [27.0, 122.0]

@@ -1,0 +1,144 @@
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import pandas as pd
+import numpy as np
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
+KNOWN_CRISES = [
+    ('2025-12-29', '2025-12-30', '중국 대만 주변 포위형 군사활동',   '매우 높음'),
+    ('2025-04-01', '2025-04-02', 'Strait Thunder-2025A',            '매우 높음'),
+    ('2025-02-27', '2025-02-27', '대만 해안 실사격 훈련',            '매우 높음'),
+    ('2024-10-14', '2024-10-14', 'Joint Sword-2024B',               '매우 높음'),
+    ('2024-05-23', '2024-05-24', 'Joint Sword-2024A',               '매우 높음'),
+    ('2024-01-13', '2024-01-13', '라이칭더 총통 당선',                '높음'),
+    ('2023-08-12', '2023-08-18', '라이칭더 미국 경유 방문',           '높음'),
+    ('2023-04-05', '2023-04-10', 'Shandong 작전·Joint Sword',       '매우 높음'),
+    ('2022-08-31', '2022-08-31', '금문도 드론 격추',                 '높음'),
+    ('2022-08-04', '2022-08-10', '대만 포위 실사격 훈련',            '매우 높음'),
+    ('2022-08-02', '2022-08-03', 'Pelosi 대만 방문',                '매우 높음'),
+    ('2022-07-30', '2022-07-30', 'Pelosi 방문 직전 군사훈련',        '매우 높음'),
+    ('2021-10-01', '2021-10-04', '역대 최대 ADIZ 진입',             '매우 높음'),
+    ('2021-01-19', '2021-01-19', '대만 군사 방어 훈련',              '높음'),
+    ('2020-12-31', '2020-12-31', '미국 대만해협 통과',               '중간~높음'),
+    ('2020-09-17', '2020-09-19', '미국 국무차관 대만 방문',           '높음'),
+    ('2018-04-18', '2018-04-18', '대만해협 실사격 훈련',             '높음'),
+]
+
+# TP 날짜 (앞서 확인한 결과)
+TP_DATES = {
+    '2018-04-18', '2018-04-19',
+    '2020-09-18', '2020-09-19',
+    '2020-12-31', '2021-01-01',
+    '2021-01-19',
+    '2021-10-02', '2021-10-03',
+    '2022-08-02', '2022-08-03', '2022-08-04', '2022-08-05',
+    '2022-08-06', '2022-08-07', '2022-08-08', '2022-08-10',
+    '2022-08-31', '2022-09-01',
+    '2023-04-05', '2023-04-06', '2023-04-08', '2023-04-09',
+    '2023-04-10', '2023-04-11',
+    '2024-05-23', '2024-05-25',
+    '2025-02-27',
+    '2025-04-01',
+    '2025-12-30',
+}
+
+# 이벤트별 TP 여부 판단 (기간 내 TP 날짜가 하나라도 있으면 TP)
+BUFFER = 1
+def is_tp(start, end):
+    s = pd.Timestamp(start) - pd.Timedelta(days=BUFFER)
+    e = pd.Timestamp(end)   + pd.Timedelta(days=BUFFER)
+    cur = s
+    while cur <= e:
+        if cur.strftime('%Y-%m-%d') in TP_DATES:
+            return True
+        cur += pd.Timedelta(days=1)
+    return False
+
+# x 좌표: 이벤트 시작일 기준
+def date_to_x(date_str):
+    dt = pd.Timestamp(date_str)
+    return dt.year + (dt.month - 1) / 12 + (dt.day - 1) / 365
+
+fig, ax = plt.subplots(figsize=(18, 7))
+fig.patch.set_facecolor('#0D1B2A')
+ax.set_facecolor('#0D1B2A')
+
+ax.set_xlim(2017.5, 2026.5)
+ax.set_ylim(-2.8, 1.2)
+
+# 중앙 타임라인
+ax.axhline(y=0, color='#8BAFC7', linewidth=2, alpha=0.6, zorder=1)
+
+# 연도 눈금
+for yr in range(2018, 2027):
+    ax.axvline(x=yr, color='#1A2E42', linewidth=0.8, alpha=0.5, zorder=1)
+    ax.text(yr, 0.15, str(yr), color='#8BAFC7', fontsize=9,
+            ha='center', va='bottom')
+
+# 이벤트 그리기 — 모두 아래 방향
+depth_levels = [-0.6, -1.1, -1.6, -2.1]  # 겹침 방지용 깊이
+
+# 인접 이벤트 겹침 방지를 위한 x 기록
+used_positions = []
+
+for i, (start, end, label, level) in enumerate(KNOWN_CRISES):
+    x = date_to_x(start)
+    tp = is_tp(start, end)
+
+    # 색상
+    if tp:
+        color = '#00B4D8' if level == '매우 높음' else '#2EC4B6'
+        marker = 'o'
+    else:
+        color = '#E76F51'
+        marker = 'x'
+
+    # 깊이 결정 (인접 항목과 겹치지 않게)
+    depth_idx = i % len(depth_levels)
+    y = depth_levels[depth_idx]
+
+    # 수직선
+    ax.plot([x, x], [0, y], color=color, linewidth=1.5,
+            linestyle='-' if tp else '--', alpha=0.85, zorder=2)
+
+    # 점
+    ax.scatter(x, y, s=70, c=color, marker=marker, zorder=4,
+               linewidths=2 if marker == 'x' else 1)
+
+    # 텍스트
+    ax.text(x, y - 0.13, label, color=color, fontsize=7.5,
+            ha='center', va='top', fontweight='bold' if tp else 'normal',
+            rotation=35, rotation_mode='anchor')
+
+# 범례
+legend_elements = [
+    mpatches.Patch(color='#00B4D8', label='TP — 매우 높음 사건 포착'),
+    mpatches.Patch(color='#2EC4B6', label='TP — 높음/중간 사건 포착'),
+    mpatches.Patch(color='#E76F51', label='FN — 미탐지 사건'),
+]
+ax.legend(handles=legend_elements, loc='upper left',
+          facecolor='#1A2E42', labelcolor='white', fontsize=10,
+          framealpha=0.9)
+
+# 통계
+tp_count = sum(1 for s, e, l, lv in KNOWN_CRISES if is_tp(s, e))
+fn_count = len(KNOWN_CRISES) - tp_count
+ax.text(0.98, 0.97,
+        f'17개 검증 이벤트 중  TP {tp_count}개 포착 / FN {fn_count}개 미탐지',
+        transform=ax.transAxes, color='white', fontsize=10,
+        ha='right', va='top',
+        bbox=dict(boxstyle='round,pad=0.4', facecolor='#1A2E42', alpha=0.9))
+
+ax.set_title('탐지 결과 타임라인 — 17개 검증 이벤트 포착 여부 (threshold=0.45)',
+             color='white', fontsize=13, fontweight='bold', pad=12)
+ax.axis('off')
+
+plt.tight_layout()
+plt.savefig(
+    r"C:\Users\user\DS8_SIA_Project\dashboard_exp\timeline_viz.png",
+    dpi=150, bbox_inches='tight', facecolor='#0D1B2A'
+)
+plt.show()
+print("저장 완료")

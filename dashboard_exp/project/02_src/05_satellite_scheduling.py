@@ -33,7 +33,7 @@ for sat_data in tle_data:
 
 print(f"위성 객체 생성: {len(satellites)}개")
 
-PROXIMITY_KM = 100
+PROXIMITY_KM = 30
 results = []
 
 for idx, event in df_events.iterrows():

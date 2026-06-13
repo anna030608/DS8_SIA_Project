@@ -9,7 +9,7 @@ with open(config_path, encoding="utf-8") as f:
 df = pd.read_csv("project/01_data/raw/gdelt_raw.csv")
 df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
 
-# ── 1. NumMentions 상위 5% 필터 ──────────────────────────
+# ── 1. NumMentions 상위 10% 필터 ──────────────────────────
 percentile_threshold = config['spike_detection']['mention_percentile']
 mention_threshold = df['NumMentions'].quantile(percentile_threshold / 100)
 

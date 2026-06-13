@@ -1,4 +1,11 @@
 import pandas as pd
+import yaml
+import os
+
+# config 로드 추가
+config_path = os.path.join(os.path.dirname(__file__), '..', '..', 'config.yaml')
+with open(config_path, encoding="utf-8") as f:
+    config = yaml.safe_load(f)
 
 df = pd.read_csv("project/01_data/processed/final_priority.csv")
 df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
@@ -14,6 +21,14 @@ BBOX = {
 AMBIGUOUS_COORDS = [
     (39.9289, 116.388),   # 베이징 중심
     (24.0,    119.0),     # 대만 해협 중심
+    (24.0,    121.0),     # 대만 본섬 중심
+    (24.1098, 113.005),   # 광둥성
+    (15.0,    115.0),     # 남중국해
+    (38.8951, -77.0364),  # 워싱턴 D.C.
+    (31.2222, 121.458),   # 상하이
+    (25.0327, 121.275),   # 타오위안
+    (21.4167, 121.5),     # 바시 해협
+    (25.0478, 121.532),   # 타이베이
 ]
 
 def validate_geo(row):
@@ -33,6 +48,20 @@ def validate_geo(row):
     return 'Level1'
 
 df['geo_level'] = df.apply(validate_geo, axis=1)
+
+# Level2 패널티 적용 추가
+penalty_map = {'Level1': 1.0, 'Level2': 0.5, 'Level3': 0.0}
+df['score_geo'] = df['score_geo'] * df['geo_level'].map(penalty_map)
+
+# priority_score 재계산 (F_균형+Z 가중치)
+w = config['priority_score']['weights']
+df['priority_score'] = (
+    df['score_geo']       * w['geo_distance'] +
+    df['score_mentions']  * w['num_mentions'] +
+    df['score_goldstein'] * w['goldstein'] +
+    df['score_tone']      * w['avg_tone'] +
+    df['score_zscore']    * w['zscore']
+)
 
 # ── 결과 요약 ─────────────────────────────────────────────
 print("지리 검증 결과:")

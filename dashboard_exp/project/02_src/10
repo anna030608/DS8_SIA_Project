@@ -1,0 +1,118 @@
+import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
+
+# 한글 폰트 설정
+plt.rcParams['font.family'] = 'Malgun Gothic'  # Windows 기본 한글 폰트
+plt.rcParams['axes.unicode_minus'] = False
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+import numpy as np
+
+df = pd.read_csv(r"C:\Users\user\DS8_SIA_Project\dashboard_exp\project\01_data\processed\gridsearch_exp_results.csv")
+df2 = pd.read_csv(r"C:\Users\user\DS8_SIA_Project\dashboard_exp\project\01_data\processed\filter_weight_results.csv")
+
+fig, axes = plt.subplots(1, 2, figsize=(18, 7))
+fig.patch.set_facecolor('#0D1B2A')
+
+# ── 히트맵: w_geo vs w_mentions, F1 평균 ──────────────────────
+ax1 = axes[0]
+ax1.set_facecolor('#0D1B2A')
+
+pivot = df.groupby(['w_geo', 'w_mentions'])['f1'].mean().unstack(fill_value=0)
+
+im = ax1.imshow(pivot.values, cmap='YlOrRd', aspect='auto',
+                vmin=df['f1'].min(), vmax=df['f1'].max())
+
+ax1.set_xticks(range(len(pivot.columns)))
+ax1.set_xticklabels([f"{v:.1f}" for v in pivot.columns], color='white', fontsize=9)
+ax1.set_yticks(range(len(pivot.index)))
+ax1.set_yticklabels([f"{v:.1f}" for v in pivot.index], color='white', fontsize=9)
+ax1.set_xlabel('w_mentions', color='white', fontsize=11)
+ax1.set_ylabel('w_geo', color='white', fontsize=11)
+ax1.set_title('F1 Heatmap: w_geo × w_mentions\n(3,861개 조합 평균)', 
+               color='white', fontsize=13, fontweight='bold', pad=12)
+
+# 최적점 표시
+best_idx = df['f1'].idxmax()
+best_row = df.loc[best_idx]
+geo_idx = list(pivot.index).index(best_row['w_geo'])
+men_idx = list(pivot.columns).index(best_row['w_mentions'])
+ax1.scatter(men_idx, geo_idx, s=200, c='#00B4D8', marker='*', zorder=5,
+            label=f"최적: geo={best_row['w_geo']}, mentions={best_row['w_mentions']}\nF1={best_row['f1']:.3f}")
+ax1.legend(loc='lower right', facecolor='#1A2E42', labelcolor='white', fontsize=9)
+
+# 컬러바
+cbar = plt.colorbar(im, ax=ax1)
+cbar.set_label('F1 Score', color='white', fontsize=10)
+cbar.ax.yaxis.set_tick_params(color='white')
+plt.setp(cbar.ax.yaxis.get_ticklabels(), color='white')
+
+for spine in ax1.spines.values():
+    spine.set_edgecolor('#1A2E42')
+
+# ── 산점도: 72개 조합 Precision vs Recall ──────────────────────
+ax2 = axes[1]
+ax2.set_facecolor('#0D1B2A')
+
+colors_map = {
+    '90% OR': '#00B4D8',
+    '90% AND': '#F4A261',
+    '95% OR': '#2EC4B6',
+    '95% AND': '#E76F51',
+    '85% OR': '#8BAFC7',
+    '85% AND': '#FFD166',
+}
+
+# F_균형+Z 최적 조합
+best_name = 'F_균형+Z'
+best_f1_row = df2.loc[df2['f1'].idxmax()]
+
+for filter_name, group in df2.groupby('filter'):
+    color = colors_map.get(filter_name, '#FFFFFF')
+    ax2.scatter(group['recall'], group['precision'],
+                c=color, s=80, alpha=0.8, label=filter_name, zorder=3)
+
+# 최적 조합 강조
+best_row2 = df2.loc[df2['f1'].idxmax()]
+ax2.scatter(best_row2['recall'], best_row2['precision'],
+            c='#FFFFFF', s=300, marker='*', zorder=5,
+            label=f"최적(F1={best_row2['f1']:.3f})")
+
+# 현재 선택 강조 (F_균형+Z, 90% OR)
+selected = df2[(df2['filter'] == '90% OR') & (df2['weights'] == 'F_균형+Z')]
+if len(selected) > 0:
+    ax2.scatter(selected['recall'], selected['precision'],
+                c='#F4A261', s=300, marker='*', zorder=6,
+                label=f"선택: F_균형+Z\n(F1={selected['f1'].values[0]:.3f})")
+
+# F1 등고선
+recall_range = np.linspace(0.01, 0.9, 300)
+for f1_val in [0.30, 0.35, 0.38]:
+    prec = f1_val * recall_range / (2 * recall_range - f1_val)
+    mask = (prec > 0) & (prec <= 1)
+    ax2.plot(recall_range[mask], prec[mask], '--', 
+             color='gray', alpha=0.4, linewidth=0.8)
+    idx = len(recall_range[mask]) // 2
+    ax2.text(recall_range[mask][idx], prec[mask][idx] + 0.01,
+             f'F1={f1_val}', color='gray', fontsize=8, alpha=0.7)
+
+ax2.set_xlabel('Recall', color='white', fontsize=11)
+ax2.set_ylabel('Precision', color='white', fontsize=11)
+ax2.set_title('72개 조합 Precision-Recall 분포\n(필터 × 가중치 조합)', 
+               color='white', fontsize=13, fontweight='bold', pad=12)
+ax2.tick_params(colors='white')
+ax2.legend(loc='upper right', facecolor='#1A2E42', labelcolor='white', fontsize=8)
+ax2.set_xlim(0.1, 0.6)
+ax2.set_ylim(0.1, 0.6)
+ax2.grid(True, color='#1A2E42', linewidth=0.5)
+
+for spine in ax2.spines.values():
+    spine.set_edgecolor('#1A2E42')
+
+plt.tight_layout(pad=2.0)
+plt.savefig(r"C:\Users\user\DS8_SIA_Project\dashboard_exp\gridsearch_viz.png",
+            dpi=150, bbox_inches='tight', facecolor='#0D1B2A')
+plt.show()
+print("저장 완료: gridsearch_viz.png")

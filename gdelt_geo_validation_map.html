@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_5ebe1f4683291649a6761b75747ca670 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="
+    position: fixed; 
+    bottom: 50px; left: 50px; width: 260px; height: 160px; 
+    background-color: rgba(20, 24, 33, 0.9);
+    border: 1px solid #3f4756;
+    border-radius: 8px;
+    z-index:9999; 
+    font-size:12px;
+    color: #ffffff;
+    font-family: 'Malgun Gothic', sans-serif;
+    padding: 15px;
+">
+    <b style="font-size:14px; color:#00F5D4;">좌표 신뢰성 검증 기준</b><br><br>
+    <div style="display:flex; align-items:center; margin-bottom:8px;">
+        <div style="width:20px; height:12px; background:#00F5D4; opacity:0.3; border:2px solid #00F5D4; margin-right:10px;"></div>
+        <span><b>양안관계 AOI (BBOX)</b></span>
+    </div>
+    <div style="display:flex; align-items:center; margin-bottom:8px;">
+        <div style="width:12px; height:12px; background:#FF4D4D; border-radius:50%; margin-right:14px; margin-left:4px;"></div>
+        <span><b>Level 2: 모호한 좌표 (국가대표)</b></span>
+    </div>
+    <div style="display:flex; align-items:center;">
+        <div style="width:16px; height:16px; background:#FF4136; border-radius:50%; margin-right:12px; margin-left:2px;"></div>
+        <span><b>Level 3: 관심 영역 밖 좌표</b></span>
+    </div>
+</div>
+    
+            <div class="folium-map" id="map_5ebe1f4683291649a6761b75747ca670" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_5ebe1f4683291649a6761b75747ca670 = L.map(
+                "map_5ebe1f4683291649a6761b75747ca670",
+                {
+                    center: [25.0, 118.5],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_5ebe1f4683291649a6761b75747ca670);
+
+            
+
+        
+    
+            var tile_layer_13006a6d481407b53debc9c9c21d1693 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_13006a6d481407b53debc9c9c21d1693.addTo(map_5ebe1f4683291649a6761b75747ca670);
+        
+    
+            var rectangle_0e4f2b1197872394923be5f0b68ab060 = L.rectangle(
+                [[20.0, 105.0], [45.0, 135.0]],
+                {"bubblingMouseEvents": true, "color": "#00F5D4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00F5D4", "fillOpacity": 0.05, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_5ebe1f4683291649a6761b75747ca670);
+        
+    
+        var popup_64e0ebde6fabd71f3aad6309d2f99375 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3aaa50267d03acb7d3fc990eec96b8bb = $(`<div id="html_3aaa50267d03acb7d3fc990eec96b8bb" style="width: 100.0%; height: 100.0%;">AOI: Taiwan Strait (BBOX)</div>`)[0];
+                popup_64e0ebde6fabd71f3aad6309d2f99375.setContent(html_3aaa50267d03acb7d3fc990eec96b8bb);
+            
+        
+
+        rectangle_0e4f2b1197872394923be5f0b68ab060.bindPopup(popup_64e0ebde6fabd71f3aad6309d2f99375)
+        ;
+
+        
+    
+    
+            rectangle_0e4f2b1197872394923be5f0b68ab060.bindTooltip(
+                `<div>
+                     분석 관심영역 (AOI)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_791992bb92cc1d30bcb2da36bc8cfca2 = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "#FF4D4D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF4D4D", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(map_5ebe1f4683291649a6761b75747ca670);
+        
+    
+        var popup_f38ec1e03d2fc122802a68cf8d752126 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_954e44a04b93aa147e35cde6feb4f3ec = $(`<div id="html_954e44a04b93aa147e35cde6feb4f3ec" style="width: 100.0%; height: 100.0%;">[Level 2 모호 좌표] 베이징 중심</div>`)[0];
+                popup_f38ec1e03d2fc122802a68cf8d752126.setContent(html_954e44a04b93aa147e35cde6feb4f3ec);
+            
+        
+
+        circle_marker_791992bb92cc1d30bcb2da36bc8cfca2.bindPopup(popup_f38ec1e03d2fc122802a68cf8d752126)
+        ;
+
+        
+    
+    
+            circle_marker_791992bb92cc1d30bcb2da36bc8cfca2.bindTooltip(
+                `<div>
+                     베이징 중심
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_51eba819f7835ea614392ddaf28228b7 = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "#FF4D4D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF4D4D", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(map_5ebe1f4683291649a6761b75747ca670);
+        
+    
+        var popup_f167855638e5ca4e9d0fc22cdede742b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_866d895c89f0d41d474e74fabcb2b94b = $(`<div id="html_866d895c89f0d41d474e74fabcb2b94b" style="width: 100.0%; height: 100.0%;">[Level 2 모호 좌표] 대만 해협 중심</div>`)[0];
+                popup_f167855638e5ca4e9d0fc22cdede742b.setContent(html_866d895c89f0d41d474e74fabcb2b94b);
+            
+        
+
+        circle_marker_51eba819f7835ea614392ddaf28228b7.bindPopup(popup_f167855638e5ca4e9d0fc22cdede742b)
+        ;
+
+        
+    
+    
+            circle_marker_51eba819f7835ea614392ddaf28228b7.bindTooltip(
+                `<div>
+                     대만 해협 중심
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c614958016de32e2417f33b9b1b75d07 = L.circleMarker(
+                [24.0, 121.0],
+                {"bubblingMouseEvents": true, "color": "#FF4D4D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF4D4D", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(map_5ebe1f4683291649a6761b75747ca670);
+        
+    
+        var popup_a7a739b5deb80305462319305ffb8629 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e5ccd115b502f3e149b91ae72b9afb8c = $(`<div id="html_e5ccd115b502f3e149b91ae72b9afb8c" style="width: 100.0%; height: 100.0%;">[Level 2 모호 좌표] 대만 본섬 중심</div>`)[0];
+                popup_a7a739b5deb80305462319305ffb8629.setContent(html_e5ccd115b502f3e149b91ae72b9afb8c);
+            
+        
+
+        circle_marker_c614958016de32e2417f33b9b1b75d07.bindPopup(popup_a7a739b5deb80305462319305ffb8629)
+        ;
+
+        
+    
+    
+            circle_marker_c614958016de32e2417f33b9b1b75d07.bindTooltip(
+                `<div>
+                     대만 본섬 중심
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f49f7025932b696ae7bd23e22b7a15f5 = L.circleMarker(
+                [24.1098, 113.005],
+                {"bubblingMouseEvents": true, "color": "#FF4D4D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF4D4D", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(map_5ebe1f4683291649a6761b75747ca670);
+        
+    
+        var popup_15d8175f8d2a90f2f12de0f8997a6312 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_43d085a1b15c8dfdbd17b9b9b82a2642 = $(`<div id="html_43d085a1b15c8dfdbd17b9b9b82a2642" style="width: 100.0%; height: 100.0%;">[Level 2 모호 좌표] 광둥성</div>`)[0];
+                popup_15d8175f8d2a90f2f12de0f8997a6312.setContent(html_43d085a1b15c8dfdbd17b9b9b82a2642);
+            
+        
+
+        circle_marker_f49f7025932b696ae7bd23e22b7a15f5.bindPopup(popup_15d8175f8d2a90f2f12de0f8997a6312)
+        ;
+
+        
+    
+    
+            circle_marker_f49f7025932b696ae7bd23e22b7a15f5.bindTooltip(
+                `<div>
+                     광둥성
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_46f7e78173c14de0f80b9ad62bab02b3 = L.circleMarker(
+                [15.0, 115.0],
+                {"bubblingMouseEvents": true, "color": "#FF4136", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF4136", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(map_5ebe1f4683291649a6761b75747ca670);
+        
+    
+        var popup_ffc67aab8b831d23fc994e2729c090e2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f784091f2021858e88cdd0a71557bf67 = $(`<div id="html_f784091f2021858e88cdd0a71557bf67" style="width: 100.0%; height: 100.0%;">[Level 3 노이즈] 남중국해</div>`)[0];
+                popup_ffc67aab8b831d23fc994e2729c090e2.setContent(html_f784091f2021858e88cdd0a71557bf67);
+            
+        
+
+        circle_marker_46f7e78173c14de0f80b9ad62bab02b3.bindPopup(popup_ffc67aab8b831d23fc994e2729c090e2)
+        ;
+
+        
+    
+    
+            circle_marker_46f7e78173c14de0f80b9ad62bab02b3.bindTooltip(
+                `<div>
+                     남중국해
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5294975d937dc7439c4b6f8c69b32e59 = L.circleMarker(
+                [38.8951, -77.0364],
+                {"bubblingMouseEvents": true, "color": "#FF4136", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF4136", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(map_5ebe1f4683291649a6761b75747ca670);
+        
+    
+        var popup_368e3240ba95d974842968a08da62639 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2e1b96ab4dd47d82192d27cd0114a899 = $(`<div id="html_2e1b96ab4dd47d82192d27cd0114a899" style="width: 100.0%; height: 100.0%;">[Level 3 노이즈] 워싱턴 D.C.</div>`)[0];
+                popup_368e3240ba95d974842968a08da62639.setContent(html_2e1b96ab4dd47d82192d27cd0114a899);
+            
+        
+
+        circle_marker_5294975d937dc7439c4b6f8c69b32e59.bindPopup(popup_368e3240ba95d974842968a08da62639)
+        ;
+
+        
+    
+    
+            circle_marker_5294975d937dc7439c4b6f8c69b32e59.bindTooltip(
+                `<div>
+                     워싱턴 D.C.
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ab423486b75be8450a0fc7a288191d09 = L.circleMarker(
+                [31.2222, 121.458],
+                {"bubblingMouseEvents": true, "color": "#FF4D4D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF4D4D", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(map_5ebe1f4683291649a6761b75747ca670);
+        
+    
+        var popup_3f2ad0a6c0551141249e26e74e4e45f9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fe4ce471079180bfdb2bfa30e69f60ef = $(`<div id="html_fe4ce471079180bfdb2bfa30e69f60ef" style="width: 100.0%; height: 100.0%;">[Level 2 모호 좌표] 상하이</div>`)[0];
+                popup_3f2ad0a6c0551141249e26e74e4e45f9.setContent(html_fe4ce471079180bfdb2bfa30e69f60ef);
+            
+        
+
+        circle_marker_ab423486b75be8450a0fc7a288191d09.bindPopup(popup_3f2ad0a6c0551141249e26e74e4e45f9)
+        ;
+
+        
+    
+    
+            circle_marker_ab423486b75be8450a0fc7a288191d09.bindTooltip(
+                `<div>
+                     상하이
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a4a142c68560f9ede3b9cf7dce6bde20 = L.circleMarker(
+                [25.0327, 121.275],
+                {"bubblingMouseEvents": true, "color": "#FF4D4D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF4D4D", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(map_5ebe1f4683291649a6761b75747ca670);
+        
+    
+        var popup_2c60e93ac5d95e270998615f9128276d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d217168bf365bf41543e7f30b9076ac6 = $(`<div id="html_d217168bf365bf41543e7f30b9076ac6" style="width: 100.0%; height: 100.0%;">[Level 2 모호 좌표] 타오위안</div>`)[0];
+                popup_2c60e93ac5d95e270998615f9128276d.setContent(html_d217168bf365bf41543e7f30b9076ac6);
+            
+        
+
+        circle_marker_a4a142c68560f9ede3b9cf7dce6bde20.bindPopup(popup_2c60e93ac5d95e270998615f9128276d)
+        ;
+
+        
+    
+    
+            circle_marker_a4a142c68560f9ede3b9cf7dce6bde20.bindTooltip(
+                `<div>
+                     타오위안
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b1607fe85639b8400d7e4e2fa8267ee0 = L.circleMarker(
+                [21.4167, 121.5],
+                {"bubblingMouseEvents": true, "color": "#FF4D4D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF4D4D", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(map_5ebe1f4683291649a6761b75747ca670);
+        
+    
+        var popup_c16238f64e587e309543c7d0accc47c6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_43a89473f2e4cf32d7ea2341e75f0e56 = $(`<div id="html_43a89473f2e4cf32d7ea2341e75f0e56" style="width: 100.0%; height: 100.0%;">[Level 2 모호 좌표] 바시 해협</div>`)[0];
+                popup_c16238f64e587e309543c7d0accc47c6.setContent(html_43a89473f2e4cf32d7ea2341e75f0e56);
+            
+        
+
+        circle_marker_b1607fe85639b8400d7e4e2fa8267ee0.bindPopup(popup_c16238f64e587e309543c7d0accc47c6)
+        ;
+
+        
+    
+    
+            circle_marker_b1607fe85639b8400d7e4e2fa8267ee0.bindTooltip(
+                `<div>
+                     바시 해협
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d59a02d68d87db95edf592a1d464ca77 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "#FF4D4D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF4D4D", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(map_5ebe1f4683291649a6761b75747ca670);
+        
+    
+        var popup_00ec8a8fbe2ac9f40e82c2f00603d86d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_53e5c6e42b9392e7a11d45febb6e56ee = $(`<div id="html_53e5c6e42b9392e7a11d45febb6e56ee" style="width: 100.0%; height: 100.0%;">[Level 2 모호 좌표] 타이베이</div>`)[0];
+                popup_00ec8a8fbe2ac9f40e82c2f00603d86d.setContent(html_53e5c6e42b9392e7a11d45febb6e56ee);
+            
+        
+
+        circle_marker_d59a02d68d87db95edf592a1d464ca77.bindPopup(popup_00ec8a8fbe2ac9f40e82c2f00603d86d)
+        ;
+
+        
+    
+    
+            circle_marker_d59a02d68d87db95edf592a1d464ca77.bindTooltip(
+                `<div>
+                     타이베이
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>

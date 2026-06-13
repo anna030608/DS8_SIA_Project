@@ -90,12 +90,14 @@ WEIGHT_SETS = {
     'A_균형형':      {'geo': 0.50, 'mentions': 0.30, 'goldstein': 0.10, 'tone': 0.10, 'zscore': 0.00},
     'B_Z추가':       {'geo': 0.60, 'mentions': 0.25, 'goldstein': 0.05, 'tone': 0.05, 'zscore': 0.05},
     'C_기사량':      {'geo': 0.40, 'mentions': 0.40, 'goldstein': 0.10, 'tone': 0.10, 'zscore': 0.00},
+    'C_zscore':     {'geo': 0.40, 'mentions': 0.00, 'goldstein': 0.10, 'tone': 0.10, 'zscore': 0.40},
     'D_지리+Z':      {'geo': 0.70, 'mentions': 0.15, 'goldstein': 0.05, 'tone': 0.05, 'zscore': 0.05},
     'E_BZ강화':      {'geo': 0.55, 'mentions': 0.25, 'goldstein': 0.05, 'tone': 0.05, 'zscore': 0.10},
     'F_균형+Z':      {'geo': 0.45, 'mentions': 0.35, 'goldstein': 0.05, 'tone': 0.05, 'zscore': 0.10},
     'G_tone강화':    {'geo': 0.50, 'mentions': 0.25, 'goldstein': 0.05, 'tone': 0.15, 'zscore': 0.05},
     'H_gold강화':    {'geo': 0.50, 'mentions': 0.25, 'goldstein': 0.15, 'tone': 0.05, 'zscore': 0.05},
     'I_전균형':      {'geo': 0.40, 'mentions': 0.30, 'goldstein': 0.10, 'tone': 0.10, 'zscore': 0.10},
+    'J_geo+Z':      {'geo': 0.75, 'mentions': 0.00, 'goldstein': 0.00, 'tone': 0.00, 'zscore': 0.25},
 }
 
 # ── Priority Score 계산 ───────────────────────────────────
@@ -169,7 +171,7 @@ for name in WEIGHT_SETS:
     col = f'score_{name}'
     best_f1 = best_p = best_r = 0
     best_thr = best_tp = best_fp = best_fn = 0
-    for thr in np.arange(0.05, 1.0, 0.05).round(2):
+    for thr in np.arange(0.00, 1.0, 0.05).round(2):
         predicted = set(df[df[col] >= thr]['SQLDATE'].dt.date)
         tp = len(predicted & actual)
         fp = len(predicted - actual)

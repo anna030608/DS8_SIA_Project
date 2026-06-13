@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="
+    position: fixed; 
+    bottom: 40px; left: 40px; width: 280px; height: 140px; 
+    background-color: rgba(28, 28, 30, 0.9);
+    border: 1px solid #38383A;
+    border-radius: 12px;
+    z-index:9999; 
+    font-size:13px;
+    color: #FFFFFF;
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    padding: 18px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
+">
+    <b style="font-size:15px; color:#00F5D4; display:block; margin-bottom:12px;">GDELT 데이터 검증 스크리닝</b>
+    <div style="display:flex; align-items:center; margin-bottom:10px;">
+        <div style="width:12px; height:12px; background:#FF3B30; border-radius:50%; margin-right:12px;"></div>
+        <span><b>Level 1</b> : 정상 분석 좌표 (실제 지점)</span>
+    </div>
+    <div style="display:flex; align-items:center;">
+        <div style="width:12px; height:12px; background:#FFCC00; border-radius:50%; margin-right:12px;"></div>
+        <span><b>Level 2</b> : 모호한 좌표 (국가/지역 대표)</span>
+    </div>
+</div>
+    
+            <div class="folium-map" id="map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc = L.map(
+                "map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc",
+                {
+                    center: [28.0, 120.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+
+            
+
+        
+    
+            var tile_layer_1f3e879698b0e11f9c7df9ca6ff5a828 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_1f3e879698b0e11f9c7df9ca6ff5a828.addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            var rectangle_c31d846c12d9071c2c2e90ec2a75cb8c = L.rectangle(
+                [[20.0, 105.0], [45.0, 135.0]],
+                {"bubblingMouseEvents": true, "color": "#00F5D4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00F5D4", "fillOpacity": 0.03, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            rectangle_c31d846c12d9071c2c2e90ec2a75cb8c.bindTooltip(
+                `<div>
+                     양안관계 관심 범위 (BBOX)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c808ea9c90d05a7bf9fb5c6238653788 = L.circleMarker(
+                [24.4367, 118.318],
+                {"bubblingMouseEvents": true, "color": "#FF3B30", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF3B30", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_c808ea9c90d05a7bf9fb5c6238653788.bindTooltip(
+                `<div>
+                     [Level 1] 진먼다오
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f23bf4103f747e6e9b8681ee296bbec9 = L.circleMarker(
+                [23.57, 119.57],
+                {"bubblingMouseEvents": true, "color": "#FF3B30", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF3B30", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_f23bf4103f747e6e9b8681ee296bbec9.bindTooltip(
+                `<div>
+                     [Level 1] 펑후 제도
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2128f66142b19c2b8e9b5189bf70984a = L.circleMarker(
+                [24.2208, 120.581],
+                {"bubblingMouseEvents": true, "color": "#FF3B30", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF3B30", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_2128f66142b19c2b8e9b5189bf70984a.bindTooltip(
+                `<div>
+                     [Level 1] 타이중
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_500675647194062ed96a91c955338bbf = L.circleMarker(
+                [24.4798, 118.082],
+                {"bubblingMouseEvents": true, "color": "#FF3B30", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF3B30", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_500675647194062ed96a91c955338bbf.bindTooltip(
+                `<div>
+                     [Level 1] 진먼다오 인근
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7bd269785fe49b4e564fea9b53be8a85 = L.circleMarker(
+                [25.1466, 121.399],
+                {"bubblingMouseEvents": true, "color": "#FF3B30", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF3B30", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_7bd269785fe49b4e564fea9b53be8a85.bindTooltip(
+                `<div>
+                     [Level 1] 타이베이 근교
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f1c60b83edc40e3b7f7e04092503f541 = L.circleMarker(
+                [22.4956, 120.614],
+                {"bubblingMouseEvents": true, "color": "#FF3B30", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF3B30", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_f1c60b83edc40e3b7f7e04092503f541.bindTooltip(
+                `<div>
+                     [Level 1] 가오슝 인근
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6cc9b779720e9a87f780973159d5419d = L.circleMarker(
+                [32.95, 116.642],
+                {"bubblingMouseEvents": true, "color": "#FF3B30", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF3B30", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_6cc9b779720e9a87f780973159d5419d.bindTooltip(
+                `<div>
+                     [Level 1] 안후이성 화이난
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b6236e54f3bb977a02a36a06533e0168 = L.circleMarker(
+                [28.7925, 117.262],
+                {"bubblingMouseEvents": true, "color": "#FF3B30", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF3B30", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_b6236e54f3bb977a02a36a06533e0168.bindTooltip(
+                `<div>
+                     [Level 1] 장시성 상라오
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_26dff790a30b9bbcf487683133c978d3 = L.circleMarker(
+                [26.545, 117.843],
+                {"bubblingMouseEvents": true, "color": "#FF3B30", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF3B30", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_26dff790a30b9bbcf487683133c978d3.bindTooltip(
+                `<div>
+                     [Level 1] 푸젠성 싼밍
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6c61fd7f441c550c404a10548dfc6934 = L.circleMarker(
+                [22.1094, 120.874],
+                {"bubblingMouseEvents": true, "color": "#FF3B30", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF3B30", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_6c61fd7f441c550c404a10548dfc6934.bindTooltip(
+                `<div>
+                     [Level 1] 핑둥 남단
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3f05882504a77e654d0ec75b37533edc = L.circleMarker(
+                [39.9289, 116.388],
+                {"bubblingMouseEvents": true, "color": "#FFCC00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFCC00", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_3f05882504a77e654d0ec75b37533edc.bindTooltip(
+                `<div>
+                     [Level 2] 베이징 중심
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_84568be010410f418c8d65b06d4472ba = L.circleMarker(
+                [24.0, 119.0],
+                {"bubblingMouseEvents": true, "color": "#FFCC00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFCC00", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_84568be010410f418c8d65b06d4472ba.bindTooltip(
+                `<div>
+                     [Level 2] 대만 해협 중심
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_26538bb5983b20610ddf2ac43c25cd9a = L.circleMarker(
+                [24.0, 121.0],
+                {"bubblingMouseEvents": true, "color": "#FFCC00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFCC00", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_26538bb5983b20610ddf2ac43c25cd9a.bindTooltip(
+                `<div>
+                     [Level 2] 대만 본섬 중심
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_694a40975b730df78e8b4af05d70457f = L.circleMarker(
+                [24.1098, 113.005],
+                {"bubblingMouseEvents": true, "color": "#FFCC00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFCC00", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_694a40975b730df78e8b4af05d70457f.bindTooltip(
+                `<div>
+                     [Level 2] 광둥성
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8c808ad54f3a297d79feb5a943985c32 = L.circleMarker(
+                [15.0, 115.0],
+                {"bubblingMouseEvents": true, "color": "#FFCC00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFCC00", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_8c808ad54f3a297d79feb5a943985c32.bindTooltip(
+                `<div>
+                     [Level 2] 남중국해
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4f2573291036fcd3630d8e9c77f7e896 = L.circleMarker(
+                [31.2222, 121.458],
+                {"bubblingMouseEvents": true, "color": "#FFCC00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFCC00", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_4f2573291036fcd3630d8e9c77f7e896.bindTooltip(
+                `<div>
+                     [Level 2] 상하이
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ceaad764c45a1bf36e4b41f6255a1c28 = L.circleMarker(
+                [25.0327, 121.275],
+                {"bubblingMouseEvents": true, "color": "#FFCC00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFCC00", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_ceaad764c45a1bf36e4b41f6255a1c28.bindTooltip(
+                `<div>
+                     [Level 2] 타오위안
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e2cfa176667f47565087c71d1a92d7e3 = L.circleMarker(
+                [21.4167, 121.5],
+                {"bubblingMouseEvents": true, "color": "#FFCC00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFCC00", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_e2cfa176667f47565087c71d1a92d7e3.bindTooltip(
+                `<div>
+                     [Level 2] 바시 해협
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8ca030c0524fde16405854da177e8529 = L.circleMarker(
+                [25.0478, 121.532],
+                {"bubblingMouseEvents": true, "color": "#FFCC00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFCC00", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_8ca030c0524fde16405854da177e8529.bindTooltip(
+                `<div>
+                     [Level 2] 타이베이
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4d7327039ccd550532b4184192cee6d6 = L.circleMarker(
+                [37.5664, 127.0],
+                {"bubblingMouseEvents": true, "color": "#FFCC00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFCC00", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_4d7327039ccd550532b4184192cee6d6.bindTooltip(
+                `<div>
+                     [Level 2] 서울
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_53cd87437a0fca445a2e877b453d73aa = L.circleMarker(
+                [34.4, 132.45],
+                {"bubblingMouseEvents": true, "color": "#FFCC00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFCC00", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_53cd87437a0fca445a2e877b453d73aa.bindTooltip(
+                `<div>
+                     [Level 2] 히로시마
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_704869ddea29d5db81f5265299710d83 = L.circleMarker(
+                [26.3358, 127.801],
+                {"bubblingMouseEvents": true, "color": "#FFCC00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFCC00", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(map_78ac4d0c9ee61f9bd2f6bbdfd91e3bbc);
+        
+    
+            circle_marker_704869ddea29d5db81f5265299710d83.bindTooltip(
+                `<div>
+                     [Level 2] 오키나와
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>
