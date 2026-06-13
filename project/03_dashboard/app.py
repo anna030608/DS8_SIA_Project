@@ -562,21 +562,30 @@ def _render_event_table(start_date, end_date, geo_levels, score_min):
 )
 def generate_ai_report(active_panel, selected_event, selected_satellite,
                        cloud_data, current_report):
-    # AI 패널이 아닐 땐 생성하지 않음 (위성/피드 전환 시 Gemini 호출 안 함)
+    # AI 패널이 아닐 땐 생성하지 않음
     if active_panel != 'ai':
         return dash.no_update
     if not selected_event:
         return dash.no_update
  
-    # 같은 이벤트의 보고서가 이미 있으면 재생성 안 함 (중복 호출 방지)
-    if current_report and current_report.get('event_key') == selected_event.get('date', '') + str(selected_event.get('lat', '')):
+    # 같은 이벤트 보고서가 이미 있으면 재생성 안 함
+    event_key = str(selected_event.get('date', '')) + str(selected_event.get('lat', ''))
+    if current_report and current_report.get('event_key') == event_key:
         return dash.no_update
  
-    text, error, crawled = generate_report(selected_event, selected_satellite, cloud_data)
-    event_key = selected_event.get('date', '') + str(selected_event.get('lat', ''))
-    if error:
-        return {'error': error, 'event_key': event_key}
-    return {'text': text, 'crawled': crawled, 'event_key': event_key}
+    # 보고서 생성 — 에러를 잡아서 터미널에 출력 (앱 크래시 방지)
+    try:
+        text, error, crawled = generate_report(selected_event, selected_satellite, cloud_data)
+        if error:
+            return {'error': error, 'event_key': event_key}
+        return {'text': text, 'crawled': crawled, 'event_key': event_key}
+    except Exception as e:
+        import traceback
+        print("=" * 60)
+        print(">>> generate_report 에러 발생:")
+        traceback.print_exc()
+        print("=" * 60)
+        return {'error': f'보고서 생성 오류: {e}', 'event_key': event_key}
 
 
 # ── 콜백: 챗봇 ────────────────────────────────────────────

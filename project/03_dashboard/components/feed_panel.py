@@ -22,7 +22,7 @@ def render_feed(selected_event, date_range, geo_levels, score_min, page=0):
     if geo_levels:
         dff = dff[dff['geo_level'].isin(geo_levels)]
     dff = dff[dff['priority_score'] >= score_min]
-    dff = dff.sort_values(['SQLDATE', 'priority_score'], ascending=[False, False]).head(30)
+    dff = dff.sort_values(['SQLDATE', 'priority_score'], ascending=[False, False]).head(15)
 
     # ── 페이지네이션 계산 ────────────────────────────────
     total = len(dff)
