@@ -19,7 +19,7 @@ import os
 from datetime import datetime
 
 # --- config ----------------------------------------------------------
-_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # project/
+_BASE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 INDEX_DIR = os.path.join(_BASE, "01_data", "processed")   # where index.faiss lives
 EMBED_MODEL = "BAAI/bge-m3"
 

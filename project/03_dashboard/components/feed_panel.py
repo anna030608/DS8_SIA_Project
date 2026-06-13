@@ -11,8 +11,10 @@ _GRADE_COLOR = {
     'UNVERIFIED': '#888888',
 }
 
+PAGE_SIZE = 3  # 한 페이지에 보여줄 피드 개수
 
-def render_feed(selected_event, date_range, geo_levels, score_min):
+
+def render_feed(selected_event, date_range, geo_levels, score_min, page=0):
     dff = df.copy()
     if date_range:
         dff = dff[dff['SQLDATE'].dt.date >= pd.to_datetime(date_range['start']).date()]
@@ -20,15 +22,21 @@ def render_feed(selected_event, date_range, geo_levels, score_min):
     if geo_levels:
         dff = dff[dff['geo_level'].isin(geo_levels)]
     dff = dff[dff['priority_score'] >= score_min]
-    dff = dff.sort_values(['SQLDATE', 'priority_score'], ascending=[False, False]).head(15)
+    dff = dff.sort_values(['SQLDATE', 'priority_score'], ascending=[False, False]).head(30)
+
+    # ── 페이지네이션 계산 ────────────────────────────────
+    total = len(dff)
+    total_pages = max(1, (total + PAGE_SIZE - 1) // PAGE_SIZE)
+    page = max(0, min(page, total_pages - 1))  # 범위 보정
+    start = page * PAGE_SIZE
+    page_df = dff.iloc[start:start + PAGE_SIZE]
 
     feed_items = []
-    for _, row in dff.iterrows():
+    for _, row in page_df.iterrows():
         code = str(int(row['EventCode']))
         alert, color = get_alert_level(row['priority_score'])
         title, desc = CAMEO_DESC.get(code, (f'이벤트 {code}', '분류되지 않은 이벤트'))
 
-        # 소스신뢰도 등급 + 색상
         grade = row.get('reliability_grade', 'UNVERIFIED')
         grade_color = _GRADE_COLOR.get(grade, '#888888')
 
@@ -60,7 +68,6 @@ def render_feed(selected_event, date_range, geo_levels, score_min):
                           style={'color': '#555', 'fontSize': '10px', 'marginRight': '8px'}),
                 html.A("🔗 원문 보기", href=row['SOURCEURL'], target='_blank',
                        style={'fontSize': '11px', 'color': '#4a9eff', 'marginRight': '8px'}),
-                # 소스신뢰도 배지 (원문 보기 옆)
                 html.Span(f"{grade}",
                           style={'fontSize': '10px', 'color': grade_color,
                                  'fontWeight': '500',
@@ -104,10 +111,44 @@ def render_feed(selected_event, date_range, geo_levels, score_min):
             ),
         ], style={'marginBottom': '10px'}))
 
+    # 필터 결과 0개
+    if total == 0:
+        feed_items = [html.Div(
+            "조건에 맞는 이벤트가 없습니다. (기간·신뢰도·Score 필터를 확인하세요)",
+            style={'color': '#666', 'fontSize': '12px', 'textAlign': 'center',
+                   'padding': '40px 20px'}
+        )]
+
+    # ── 이전/다음 페이지네이션 컨트롤 ────────────────────
+    prev_disabled = (page <= 0)
+    next_disabled = (page >= total_pages - 1)
+
+    def _nav_btn(label, btn_id, disabled):
+        return html.Button(
+            label, id=btn_id, n_clicks=0, disabled=disabled,
+            style={
+                'padding': '4px 14px', 'fontSize': '12px',
+                'backgroundColor': 'rgba(168,85,247,0.08)' if disabled else 'rgba(168,85,247,0.25)',
+                'border': '1px solid rgba(168,85,247,0.3)',
+                'borderRadius': '4px',
+                'color': '#555' if disabled else '#c084fc',
+                'cursor': 'default' if disabled else 'pointer',
+            }
+        )
+
+    pagination = html.Div([
+        _nav_btn("◀ 이전", 'btn-feed-prev', prev_disabled),
+        html.Span(f"{page + 1} / {total_pages}",
+                  style={'fontSize': '12px', 'color': '#aaa', 'margin': '0 12px'}),
+        _nav_btn("다음 ▶", 'btn-feed-next', next_disabled),
+    ], style={'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center',
+              'marginTop': '8px'}) if total > 0 else html.Div()
+
     return [
         html.Div("📡 실시간 OSINT FEED",
                  style={'fontSize': '12px', 'color': '#aaa', 'fontWeight': 'bold',
                         'marginBottom': '12px', 'textTransform': 'uppercase',
                         'letterSpacing': '1px'}),
-        *feed_items
+        *feed_items,
+        pagination,
     ]

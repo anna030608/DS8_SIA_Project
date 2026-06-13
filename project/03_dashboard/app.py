@@ -180,6 +180,31 @@ def go_to_satellite_panel(n_clicks):
     return 'satellite', _event_data(row)
 
 
+# ── 콜백: 피드 페이지 이동 (이전/다음) ───────────────────
+@app.callback(
+    Output('feed-page', 'data'),
+    Input('btn-feed-prev', 'n_clicks'),
+    Input('btn-feed-next', 'n_clicks'),
+    Input('date-range', 'data'),
+    Input('geo-level', 'value'),
+    Input('score-slider', 'value'),
+    State('feed-page', 'data'),
+    prevent_initial_call=True
+)
+def update_feed_page(prev_clicks, next_clicks, date_range, geo_levels, score_min, current):
+    from dash import ctx
+    trig = ctx.triggered_id
+    current = current or 0
+    # 필터가 바뀌면 1페이지로 리셋
+    if trig in ('date-range', 'geo-level', 'score-slider'):
+        return 0
+    if trig == 'btn-feed-next':
+        return current + 1
+    if trig == 'btn-feed-prev':
+        return max(0, current - 1)
+    return current
+
+
 # ── 콜백: 사이드 패널 콘텐츠 ─────────────────────────────
 @app.callback(
     Output('panel-content', 'children'),
@@ -192,12 +217,13 @@ def go_to_satellite_panel(n_clicks):
     Input('cloud-data', 'data'),
     Input('report-data', 'data'),
     Input('chat-history', 'data'),
+    Input('feed-page', 'data'),
 )
-
 def update_panel(active_panel, selected_event, selected_satellite,
-                 date_range, geo_levels, score_min, cloud_data, report_data, chat_history):
+                 date_range, geo_levels, score_min, cloud_data, report_data, chat_history,
+                 feed_page):
     if active_panel == 'feed':
-        return render_feed(selected_event, date_range, geo_levels, score_min)
+        return render_feed(selected_event, date_range, geo_levels, score_min, feed_page or 0)
     elif active_panel == 'satellite':
         return render_satellite(selected_event, selected_satellite, cloud_data)
     elif active_panel == 'ai':
@@ -240,7 +266,6 @@ def select_satellite(n_clicks, selected_event):
             return None, []
         nearest = _nearest_satellite(selected_event)
         if nearest is None:
-            # 근접 위성이 없으면 이벤트 위치만 표시
             return None, [dl.CircleMarker(
                 center=[selected_event['lat'], selected_event['lon']],
                 radius=15, color='#ff2d2d', fillColor='#ff2d2d', fillOpacity=0.3
@@ -421,13 +446,6 @@ def _render_timeseries(start_date, end_date):
     ])
 
 
-# ──────────────────────────────────────────────────────────────────
-# app.py 의 _render_event_table 교체본 (v3)
-#   변경사항:
-#     ① 'geo_level' 표시명: 신뢰도 → 지리신뢰도
-#     ② 'reliability_grade' → '소스신뢰도' 컬럼 추가 (LOW는 빨강 강조)
-#     (z-score '이상도' 컬럼은 유지)
-# ──────────────────────────────────────────────────────────────────
 def _render_event_table(start_date, end_date, geo_levels, score_min):
     dff = df.copy()
     dff = dff[dff['SQLDATE'].dt.date >= pd.to_datetime(start_date).date()]
@@ -444,7 +462,7 @@ def _render_event_table(start_date, end_date, geo_levels, score_min):
 
     cols = ['날짜', '이벤트', 'NumMentions', 'GoldsteinScale', 'AvgTone', 'priority_score', 'geo_level']
     rename_map = {'NumMentions': '기사수', 'GoldsteinScale': 'Goldstein',
-                  'priority_score': 'Score', 'geo_level': '지리신뢰도'}  # 변경①
+                  'priority_score': 'Score', 'geo_level': '지리신뢰도'}
     table_cols = [
         {'name': '날짜',        'id': '날짜'},
         {'name': '이벤트',      'id': '이벤트'},
@@ -452,10 +470,9 @@ def _render_event_table(start_date, end_date, geo_levels, score_min):
         {'name': 'Goldstein',   'id': 'Goldstein', 'type': 'numeric', 'format': {'specifier': '.2f'}},
         {'name': 'AvgTone',     'id': 'AvgTone',   'type': 'numeric', 'format': {'specifier': '.2f'}},
         {'name': 'Score',       'id': 'Score',      'type': 'numeric', 'format': {'specifier': '.3f'}},
-        {'name': '지리신뢰도',  'id': '지리신뢰도'},  # 변경①
+        {'name': '지리신뢰도',  'id': '지리신뢰도'},
     ]
 
-    # 지리점수 컬럼
     insert_at = 5
     if 'score_geo' in dff.columns:
         cols.insert(insert_at, 'score_geo')
@@ -464,14 +481,12 @@ def _render_event_table(start_date, end_date, geo_levels, score_min):
                                       'type': 'numeric', 'format': {'specifier': '.2f'}})
         insert_at += 1
 
-    # 이상도(z-score) 컬럼
     if 'score_zscore' in dff.columns:
         cols.insert(insert_at, 'score_zscore')
         rename_map['score_zscore'] = '이상도'
         table_cols.insert(insert_at, {'name': '이상도', 'id': '이상도',
                                       'type': 'numeric', 'format': {'specifier': '.2f'}})
 
-    # 소스신뢰도 컬럼 추가 (변경②) — 맨 끝(지리신뢰도 다음)
     if 'reliability_grade' in dff.columns:
         cols.append('reliability_grade')
         rename_map['reliability_grade'] = '소스신뢰도'
@@ -514,10 +529,8 @@ def _render_event_table(start_date, end_date, geo_levels, score_min):
                  'color': '#ff8c00', 'fontWeight': '500'},
                 {'if': {'column_id': 'Score', 'filter_query': '{Score} < 0.5'},
                  'color': '#ffd700', 'fontWeight': '500'},
-                # 지리신뢰도 Level1 강조
                 {'if': {'column_id': '지리신뢰도', 'filter_query': '{지리신뢰도} = "Level1"'},
                  'color': '#4a9eff'},
-                # 소스신뢰도 색상 (HIGH 초록 / MEDIUM 노랑 / LOW 빨강 / UNVERIFIED 회색)
                 {'if': {'column_id': '소스신뢰도', 'filter_query': '{소스신뢰도} = "HIGH"'},
                  'color': '#22c55e', 'fontWeight': '500'},
                 {'if': {'column_id': '소스신뢰도', 'filter_query': '{소스신뢰도} = "MEDIUM"'},
@@ -536,26 +549,37 @@ def _render_event_table(start_date, end_date, geo_levels, score_min):
         )
     ], style={'padding': '8px 16px'})
 
+
 # ── 콜백: 보고서 생성 ─────────────────────────────
 @app.callback(
     Output('report-data', 'data'),
-    Input('selected-event', 'data'),
+    Input('active-panel', 'data'),
+    State('selected-event', 'data'),
     State('selected-satellite', 'data'),
     State('cloud-data', 'data'),
+    State('report-data', 'data'),
     prevent_initial_call=True
 )
-def generate_ai_report(selected_event, selected_satellite, cloud_data):
+def generate_ai_report(active_panel, selected_event, selected_satellite,
+                       cloud_data, current_report):
+    # AI 패널이 아닐 땐 생성하지 않음 (위성/피드 전환 시 Gemini 호출 안 함)
+    if active_panel != 'ai':
+        return dash.no_update
     if not selected_event:
         return dash.no_update
+ 
+    # 같은 이벤트의 보고서가 이미 있으면 재생성 안 함 (중복 호출 방지)
+    if current_report and current_report.get('event_key') == selected_event.get('date', '') + str(selected_event.get('lat', '')):
+        return dash.no_update
+ 
     text, error, crawled = generate_report(selected_event, selected_satellite, cloud_data)
+    event_key = selected_event.get('date', '') + str(selected_event.get('lat', ''))
     if error:
-        return {'error': error}
-    return {'text': text, 'crawled': crawled}
+        return {'error': error, 'event_key': event_key}
+    return {'text': text, 'crawled': crawled, 'event_key': event_key}
 
 
-if __name__ == '__main__':
-    app.run(debug=True, port=8050, dev_tools_ui=False)
-
+# ── 콜백: 챗봇 ────────────────────────────────────────────
 @app.callback(
     Output('chat-history', 'data'),
     Output('chat-input', 'value'),
@@ -575,38 +599,35 @@ def handle_chat(send_clicks, suggested_clicks, reset_clicks,
     from dash import ctx
     if not ctx.triggered_id:
         return dash.no_update, dash.no_update
- 
+
     chat_history = chat_history or []
- 
-    # 대화 초기화
+
     if ctx.triggered_id == 'btn-chat-reset':
         return [], ''
- 
-    # 추천 질문 클릭
+
     question = None
     if isinstance(ctx.triggered_id, dict) and ctx.triggered_id.get('type') == 'suggested-question':
         if ctx.triggered[0]['value']:
             idx = ctx.triggered_id['index']
             question = SUGGESTED_QUESTIONS[idx]
- 
-    # 전송 버튼 또는 직접 입력
     elif ctx.triggered_id == 'btn-chat-send':
         if not input_value or not input_value.strip():
             return dash.no_update, dash.no_update
         question = input_value.strip()
- 
+
     if not question:
         return dash.no_update, dash.no_update
- 
-    # 사용자 메시지 추가
+
     chat_history.append({'role': 'user', 'content': question})
- 
-    # Gemini 호출
+
     answer, success = generate_response(
         question, selected_event, selected_satellite, cloud_data, chat_history
     )
- 
-    # AI 답변 추가
+
     chat_history.append({'role': 'assistant', 'content': answer})
- 
+
     return chat_history, ''
+
+
+if __name__ == '__main__':
+    app.run(debug=True, port=8050, dev_tools_ui=False)

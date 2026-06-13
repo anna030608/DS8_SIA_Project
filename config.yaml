@@ -1,5 +1,5 @@
 spike_detection:
-  mention_percentile: 80        # NumMentions 상위 5%
+  mention_percentile: 90        # NumMentions 상위 5%
   ma_windows: [7, 14, 30]       # 이동평균 기간
 
 priority_score:

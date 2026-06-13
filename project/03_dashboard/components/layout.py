@@ -16,6 +16,7 @@ def create_layout():
         }),
         dcc.Store(id='report-data', data=None),
         dcc.Store(id='chat-history', data=[]),
+        dcc.Store(id='feed-page', data=0), 
 
         # ── 타이틀 바 ─────────────────────────────────────
         html.Div([
