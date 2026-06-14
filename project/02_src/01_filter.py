@@ -8,18 +8,18 @@ with open("config.yaml", encoding="utf-8") as f:
 df = pd.read_csv("project/01_data/raw/gdelt_raw.csv")
 df['SQLDATE'] = pd.to_datetime(df['SQLDATE'])
 
-# ── 1. NumMentions 상위 5% 필터 ──────────────────────────
+# ── 1. NumMentions 필터 ──────────────────────────
 percentile_threshold = config['spike_detection']['mention_percentile']
 mention_threshold = df['NumMentions'].quantile(percentile_threshold / 100)
 
-# ── 2. 이동평균 필터 (7/14/30일 모두 상회) ───────────────
+# ── 2. 이동평균 필터 ───────────────
 daily = df.groupby('SQLDATE')['NumMentions'].sum().reset_index()
 daily.columns = ['SQLDATE', 'DailyMentions']
 
 for window in config['spike_detection']['ma_windows']:
     daily[f'MA_{window}'] = daily['DailyMentions'].rolling(window).mean()
 
-# 3개 이동평균 모두 상회하는 날짜 추출
+# 3개 이동평균 상회하는 날짜 추출
 daily['above_all_ma'] = (
     (daily['DailyMentions'] > daily['MA_7']) |
     (daily['DailyMentions'] > daily['MA_14']) |

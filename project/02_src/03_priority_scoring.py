@@ -21,7 +21,12 @@ geo_bins = config['priority_score']['geo_distance_bins']
 def minmax(series):
     return (series - series.min()) / (series.max() - series.min() + 1e-9)
 
-df['score_mentions'] = minmax(df['NumMentions'])
+# min-max
+# df['score_mentions'] = minmax(df['NumMentions'])
+# IQR
+_med = df['NumMentions'].median()
+_iqr = df['NumMentions'].quantile(0.75) - df['NumMentions'].quantile(0.25)
+df['score_mentions'] = np.clip((df['NumMentions'] - _med) / (_iqr + 1e-9), 0, 1)
 
 # Goldstein: 방향성 반영 (음수=갈등이 높은 점수가 되도록 * -1)
 df['score_goldstein'] = minmax(df['GoldsteinScale'] * -1)
