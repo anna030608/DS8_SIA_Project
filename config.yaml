@@ -11,7 +11,7 @@ priority_score:
     zscore: 0.0          # ← 새 항목, 있는지 확인
   avg_tone_threshold: -3
   geo_level2_penalty: 0.5  # ← 새 항목, 있는지 확인
-  threshold: 0.45
+  threshold: 0.2
 
   # 대만 해협 중간선
   taiwan_strait:

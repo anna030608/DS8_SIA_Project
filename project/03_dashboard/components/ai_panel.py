@@ -53,6 +53,30 @@ def _build_context(selected_event, selected_satellite, cloud_data):
     }.get(grade, '검증 정보 없음')
     context += f"- 출처 신뢰도: {grade} ({grade_note})\n"
 
+    # ── 점수 분해 (AI가 "무엇이 점수를 높였는지" 설명하도록) ──
+    WEIGHTS = {'geo_distance': 0.45, 'num_mentions': 0.35,
+               'zscore': 0.10, 'goldstein': 0.05, 'avg_tone': 0.05}
+    sg  = selected_event.get('score_geo', 0) or 0
+    sm  = selected_event.get('score_mentions', 0) or 0
+    sz  = selected_event.get('score_zscore', 0) or 0
+    sgo = selected_event.get('score_goldstein', 0) or 0
+    st  = selected_event.get('score_tone', 0) or 0
+    contrib = {
+        '위치(geo)':          sg  * 0.75,
+        '기사량(mentions)':    sm  * 0.25,
+        # '급증도(zscore)':      sz  * 0.00,
+        # '갈등강도(goldstein)': sgo * 0.00,
+        # '부정논조(tone)':      st  * 0.00,
+    }
+    ranked = sorted(contrib.items(), key=lambda x: x[1], reverse=True)
+    context += "\n[Priority Score 구성요소 분해 (정규화점수 × 가중치 = 기여도)]\n"
+    context += f"- 위치(geo): {sg:.3f} × 0.45 = {contrib['위치(geo)']:.3f}\n"
+    context += f"- 기사량(mentions): {sm:.3f} × 0.35 = {contrib['기사량(mentions)']:.3f}\n"
+    context += f"- 급증도(zscore): {sz:.3f} × 0.10 = {contrib['급증도(zscore)']:.3f}\n"
+    context += f"- 갈등강도(goldstein): {sgo:.3f} × 0.05 = {contrib['갈등강도(goldstein)']:.3f}\n"
+    context += f"- 부정논조(tone): {st:.3f} × 0.05 = {contrib['부정논조(tone)']:.3f}\n"
+    context += f"- 기여도 순위: {' > '.join(name for name, _ in ranked)}\n"
+
     # ── 이 사건의 위성 통과 후보 추리기 ──────────────────
     event_passes = df_passes[
         (df_passes['SQLDATE'].dt.strftime('%Y-%m-%d') == selected_event['date']) &
@@ -128,6 +152,10 @@ def _build_context(selected_event, selected_satellite, cloud_data):
     except Exception as e:
         context += f"\n[CSIS 분석 조회 실패: {e}]\n"
 
+    print("=== CONTEXT ===")
+    print(context)
+    return context
+
     return context
 
 
@@ -157,8 +185,10 @@ def _build_report_prompt(context):
   사건 유형(CAMEO) 수준의 일반적 함의만 1~2문장으로 짧게 덧붙일 것. 길게 추측하지 말 것.
 
 ## 촬영 우선순위
-Priority Score 수치와 등급을 밝히고, 점수 구성요소(mentions/goldstein/tone/geo) 중
-무엇이 이 점수를 높였는지 context 값을 근거로 구체적으로 설명.
+Priority Score 수치와 등급을 밝히고, 위의 '구성요소 분해' 값을 근거로
+기여도가 큰 순서대로 무엇이 점수를 높였는지 구체적으로 설명할 것.
+(예: "위치가 0.XX로 가장 크게 기여했고, 기사량이 0.XX로 그 다음") 
+"파악하기 어렵다"고 하지 말 것 — 분해 값이 위에 제공되어 있음.
 
 ## 위성 촬영 권고
 context의 '촬영 위성 정보'를 근거로 그 위성의 적합성(거리·센서·구름량)을 설명.

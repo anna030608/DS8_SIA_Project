@@ -367,6 +367,12 @@ def _event_data(row):
         'actor2': row.get('Actor2Name', ''),
         'reliability': row.get('reliability_grade', 'UNVERIFIED'),
         'reliability_reason': row.get('reliability_reason', ''),
+        # ── 점수 분해 (AI 설명용) ──
+        'score_geo':       float(row.get('score_geo', 0)),
+        'score_mentions':  float(row.get('score_mentions', 0)),
+        'score_zscore':    float(row.get('score_zscore', 0)),
+        'score_goldstein': float(row.get('score_goldstein', 0)),
+        'score_tone':      float(row.get('score_tone', 0)),
     }
 
 
