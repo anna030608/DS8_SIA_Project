@@ -72,9 +72,9 @@ def _build_context(selected_event, selected_satellite, cloud_data):
     context += "\n[Priority Score 구성요소 분해 (정규화점수 × 가중치 = 기여도)]\n"
     context += f"- 위치(geo): {sg:.3f} × 0.45 = {contrib['위치(geo)']:.3f}\n"
     context += f"- 기사량(mentions): {sm:.3f} × 0.35 = {contrib['기사량(mentions)']:.3f}\n"
-    context += f"- 급증도(zscore): {sz:.3f} × 0.10 = {contrib['급증도(zscore)']:.3f}\n"
-    context += f"- 갈등강도(goldstein): {sgo:.3f} × 0.05 = {contrib['갈등강도(goldstein)']:.3f}\n"
-    context += f"- 부정논조(tone): {st:.3f} × 0.05 = {contrib['부정논조(tone)']:.3f}\n"
+    # context += f"- 급증도(zscore): {sz:.3f} × 0.10 = {contrib['급증도(zscore)']:.3f}\n"
+    # context += f"- 갈등강도(goldstein): {sgo:.3f} × 0.05 = {contrib['갈등강도(goldstein)']:.3f}\n"
+    # context += f"- 부정논조(tone): {st:.3f} × 0.05 = {contrib['부정논조(tone)']:.3f}\n"
     context += f"- 기여도 순위: {' > '.join(name for name, _ in ranked)}\n"
 
     # ── 이 사건의 위성 통과 후보 추리기 ──────────────────
@@ -151,10 +151,6 @@ def _build_context(selected_event, selected_satellite, cloud_data):
             context += f"- {h['title']} ({h['time_note']})\n  {h['excerpt']}\n"
     except Exception as e:
         context += f"\n[CSIS 분석 조회 실패: {e}]\n"
-
-    print("=== CONTEXT ===")
-    print(context)
-    return context
 
     return context
 
