@@ -392,8 +392,7 @@ def render_ai(selected_event, selected_satellite, cloud_data, chat_history, repo
     chat_area = html.Div(
         chat_messages,
         id='chat-messages',
-        style={'maxHeight': '250px', 'overflowY': 'auto',
-               'marginBottom': '8px'} if chat_messages else {'display': 'none'}
+        style={'marginBottom': '8px'} if chat_messages else {'display': 'none'}
     )
 
     # 안내 한 줄

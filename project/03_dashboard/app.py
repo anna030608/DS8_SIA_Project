@@ -553,7 +553,7 @@ def _render_event_table(start_date, end_date, geo_levels, score_min):
 # ── 콜백: 보고서 생성 ─────────────────────────────
 @app.callback(
     Output('report-data', 'data'),
-    Input('active-panel', 'data'),
+    Input('active-panel', 'data'),            # ← 트리거: 패널 전환
     State('selected-event', 'data'),
     State('selected-satellite', 'data'),
     State('cloud-data', 'data'),
@@ -562,18 +562,15 @@ def _render_event_table(start_date, end_date, geo_levels, score_min):
 )
 def generate_ai_report(active_panel, selected_event, selected_satellite,
                        cloud_data, current_report):
-    # AI 패널이 아닐 땐 생성하지 않음
     if active_panel != 'ai':
         return dash.no_update
     if not selected_event:
         return dash.no_update
- 
-    # 같은 이벤트 보고서가 이미 있으면 재생성 안 함
+
     event_key = str(selected_event.get('date', '')) + str(selected_event.get('lat', ''))
     if current_report and current_report.get('event_key') == event_key:
         return dash.no_update
- 
-    # 보고서 생성 — 에러를 잡아서 터미널에 출력 (앱 크래시 방지)
+
     try:
         text, error, crawled = generate_report(selected_event, selected_satellite, cloud_data)
         if error:
@@ -581,20 +578,16 @@ def generate_ai_report(active_panel, selected_event, selected_satellite,
         return {'text': text, 'crawled': crawled, 'event_key': event_key}
     except Exception as e:
         import traceback
-        print("=" * 60)
-        print(">>> generate_report 에러 발생:")
-        traceback.print_exc()
-        print("=" * 60)
+        print("=" * 60); print(">>> generate_report 에러:"); traceback.print_exc(); print("=" * 60)
         return {'error': f'보고서 생성 오류: {e}', 'event_key': event_key}
 
 
-# ── 콜백: 챗봇 ────────────────────────────────────────────
+# ── 콜백: 챗봇 (추가 질문/답변) ──────────────────────────
 @app.callback(
     Output('chat-history', 'data'),
     Output('chat-input', 'value'),
     Input('btn-chat-send', 'n_clicks'),
     Input({'type': 'suggested-question', 'index': dash.ALL}, 'n_clicks'),
-    Input('btn-chat-reset', 'n_clicks'),
     State('chat-input', 'value'),
     State('chat-history', 'data'),
     State('selected-event', 'data'),
@@ -602,7 +595,7 @@ def generate_ai_report(active_panel, selected_event, selected_satellite,
     State('cloud-data', 'data'),
     prevent_initial_call=True
 )
-def handle_chat(send_clicks, suggested_clicks, reset_clicks,
+def handle_chat(send_clicks, suggested_clicks,
                 input_value, chat_history, selected_event,
                 selected_satellite, cloud_data):
     from dash import ctx
@@ -610,9 +603,6 @@ def handle_chat(send_clicks, suggested_clicks, reset_clicks,
         return dash.no_update, dash.no_update
 
     chat_history = chat_history or []
-
-    if ctx.triggered_id == 'btn-chat-reset':
-        return [], ''
 
     question = None
     if isinstance(ctx.triggered_id, dict) and ctx.triggered_id.get('type') == 'suggested-question':
@@ -638,5 +628,20 @@ def handle_chat(send_clicks, suggested_clicks, reset_clicks,
     return chat_history, ''
 
 
+# ── 콜백: 대화 초기화 (완전 초기 상태로) ─────────────────
+# 채팅·보고서·선택 이벤트를 모두 비워 "이벤트 미선택" 안내 문구 상태로 되돌림
+@app.callback(
+    Output('chat-history', 'data', allow_duplicate=True),
+    Output('report-data', 'data', allow_duplicate=True),
+    Output('selected-event', 'data', allow_duplicate=True),
+    Input('btn-chat-reset', 'n_clicks'),
+    prevent_initial_call=True
+)
+def reset_conversation(n_clicks):
+    if not n_clicks:
+        return dash.no_update, dash.no_update, dash.no_update
+    return [], None, None
+
+
 if __name__ == '__main__':
-    app.run(debug=True, port=8050, dev_tools_ui=False)
+    app.run(debug=True, use_reloader=False, port=8050, dev_tools_ui=False)
